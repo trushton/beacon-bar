@@ -39,7 +39,7 @@ function checkIfRegistered(){
     });
 }
 
-$(document).ready(function(){
+$(function () {
     checkIfRegistered();
 });
 
