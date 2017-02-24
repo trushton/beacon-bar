@@ -39,7 +39,7 @@ function checkIfRegistered(){
     });
 }
 
-$(function () {
+$(document).ready(function(){
     $("#tester").html("<h2>this is the update</h2>");
     //checkIfRegistered();
 });
