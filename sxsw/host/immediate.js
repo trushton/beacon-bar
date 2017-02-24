@@ -40,6 +40,7 @@ function checkIfRegistered(){
 }
 
 $(function () {
+    $("#tester").style("color:blue");
     checkIfRegistered();
 });
 
