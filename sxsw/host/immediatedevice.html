@@ -100,9 +100,6 @@
                       });
                   }
               });
-          }).then(function(){
-              firebase.auth().signOut();
-              FB.logout();
           });
       }
 
@@ -140,7 +137,7 @@
                   console.log(data);
                   localStorage.setItem("user_id", data.id);
                   createUser(data);
-
+                  firebase.auth().signout();
 
               });
           } else {
