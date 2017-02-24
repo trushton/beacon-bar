@@ -12,14 +12,10 @@
 	<string>This is the registration kiosk for the SXSW VIP lounge</string>
 	<key>newaerEnable</key>
 	<true/>
-	<key>newaerSensitivity</key>
-	<integer>0</integer>
 	<key>beaconEnable</key>
 	<true/>
 	<key>beaconUUID</key>
 	<string>4E455741-4552-544C-4142-5357494E0D0A</string>
-	<key>beaconSensitivity</key>
-	<integer>0</integer>
 	<key>hostSupport</key>
 	<true/>
 	<key>hostPages</key>
@@ -62,6 +58,15 @@
 		<string>styles.css</string>
 	</array>
 	<key>clientFiles</key>
-	<array/>
+	<array>
+		<string>background.png</string>
+		<string>config.html</string>
+		<string>ipad-styles.css</string>
+		<string>iphone-styles.css</string>
+		<string>jquery.min.js</string>
+		<string>newaer.js</string>
+		<string>newicon_blue.png</string>
+		<string>other-styles.css</string>
+	</array>
 </dict>
 </plist>
