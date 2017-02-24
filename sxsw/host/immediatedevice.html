@@ -168,6 +168,7 @@
       checkIfRegistered();
       var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
       var results = regex.exec(window.location.href);
+      console.log(results);
       if(results && results[2]){
           firebaseLogin(results[2]);
       }
