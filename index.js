@@ -7,6 +7,6 @@ require('http').createServer(function(request, response) {
   }).resume();
 }).listen(process.env.PORT || 3000);
 
-fs.readdir('./sxsw', (err, files) => {
+fs.readdir('./', (err, files) => {
   console.log(files);
 }
