@@ -137,6 +137,7 @@
                   localStorage.setItem("user_id", data.id);
                   createUser(data);
                   firebase.auth().signOut();
+                  FB.logout();
               });
           } else {
               document.getElementById('status').innerHTML = 'Please log ' +
@@ -160,6 +161,7 @@
 
       function firebaseLogin(access_token){
         var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
+        FB.login();
         firebase.auth().signInWithCredential(credential).then(function(){
             checkLoginState(access_token);
         });
