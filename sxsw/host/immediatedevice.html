@@ -66,7 +66,7 @@
               if(!snapshot.hasChild('1671933982822109')){
                   $("#device").html("<h1>Welcome to the Capital Factory VIP Lounge</h1>" +
                       "<h2>Please register your badge with your Facebook account</h2>" +
-                      '<button onclick="login()">"Register your badge with Facebook"</button>');
+                      '<button onclick="login()">Register your badge with Facebook</button>');
               }
               else{
                   var user = snapshot.child('1671933982822109');
@@ -147,9 +147,9 @@
       function login() {
           var provider = new firebase.auth.FacebookAuthProvider();
           provider.addScope('user_birthday, user_location, user_friends');
-          firebase.auth().signInWithRedirect(provider);
-          firebase.auth().getRedirectResult().then(function(result){
+          firebase.auth().signInWithPopup(provider).then(function(result){
               var token = result.credential.accessToken;
+              var user = result.user;
               checkLoginState(token);
           });
       }
