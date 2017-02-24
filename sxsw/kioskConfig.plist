@@ -3,7 +3,7 @@
 <plist version="1.0">
     <dict>
         <key>configUrl</key>
-        <string>sxsw-test.s3-website-us-west-2.amazonaws.com/sxsw</string>
+        <string>https://beacon-bar-file-server.herokuapp.com/sxsw</string>
         <key>configShortName</key>
         <string>sxsw-registration</string>
         <key>configFullName</key>
