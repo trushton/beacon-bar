@@ -13,11 +13,11 @@ $(function () {
 });
 
 var groups = [ 'Immediate','Near','Far', 'Unknown'];
-$(document).ready(function() {
-    console.log("document ready");
-    $('#tester').html('<h2>itworked</h2>');
-    checkIfRegistered();
-});
+//$(document).ready(function() {
+//    console.log("document ready");
+//    $('#tester').html('<h2>itworked</h2>');
+//    checkIfRegistered();
+//});
 
 function parse_query_string(string)
 {
