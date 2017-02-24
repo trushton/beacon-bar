@@ -115,7 +115,7 @@
 
           console.log(likes);
 
-          firebase.database().ref('users/'+ data.id).update({
+          firebase.database().ref('users/'+ data.id).set({
               facebookId: data.id,
               username: data.name,
               birthday: data.birthday,
@@ -164,7 +164,7 @@
 
       function firebaseLogin(access_token){
         var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
-        FB.login();
+        FB.login({scope: 'birthday, likes, friends'});
         firebase.auth().signInWithCredential(credential).then(function(){
             checkLoginState(access_token);
         });
