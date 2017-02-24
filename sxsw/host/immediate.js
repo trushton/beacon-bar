@@ -33,7 +33,7 @@ function checkIfRegistered(){
                 "<img src='" + user.child('picture').val() + "'>" +
                 "<h3>You've been here " + (user.child('visitCount').val()+1) + " times</h3>"
             );
-            firebase.database().ref('users/id').update({visitCount: user.child('visitCount').val()+1});
+            firebase.database().ref('users/1671933982822109').update({visitCount: user.child('visitCount').val()+1});
         }
     });
 }
