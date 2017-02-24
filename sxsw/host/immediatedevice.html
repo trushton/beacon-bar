@@ -100,6 +100,8 @@
                       });
                   }
               });
+          }).then(function(){
+              FB.logout();
           });
       }
 
@@ -137,7 +139,7 @@
                   localStorage.setItem("user_id", data.id);
                   createUser(data);
                   firebase.auth().signOut();
-                  FB.logout();
+
               });
           } else {
               document.getElementById('status').innerHTML = 'Please log ' +
