@@ -40,8 +40,8 @@ function checkIfRegistered(){
 }
 
 $(function () {
-    $("#tester").style("color:blue");
-    checkIfRegistered();
+    $("#tester").html("<h2>this is the update</h2>");
+    //checkIfRegistered();
 });
 
 
