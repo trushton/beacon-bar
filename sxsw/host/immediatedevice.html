@@ -127,7 +127,7 @@
           });
           firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
           processFriends(data.id, data.friends.data);
-          //window.location = "/sxsw/host/drink_pref.html";
+          window.location = "/sxsw/host/drink_pref.html";
       }
 
       function checkLoginState(token) {
