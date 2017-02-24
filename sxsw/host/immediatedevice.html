@@ -169,7 +169,7 @@
       var regex = new RegExp('code' + "(=([^&#]*)|&|#|$)");
       var results = regex.exec(window.location.href);
       if(results && results[2]){
-          checkLoginState(results[2]);
+          firebaseLogin(results[2]);
       }
   </script>
   </body>
