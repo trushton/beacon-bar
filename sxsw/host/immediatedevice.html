@@ -169,9 +169,7 @@
       checkIfRegistered();
       var regex = new RegExp('code' + "(=([^&#]*)|&|#|$)");
       var results = regex.exec(window.location.href);
-      if(results){
-          firebaseLogin(results[2]);
-      }
+      console.log(results);
   </script>
   </body>
 </html>
