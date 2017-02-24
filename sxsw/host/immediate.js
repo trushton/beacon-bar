@@ -94,12 +94,12 @@ function createUser(data){
 }
 
 function checkLoginState(response) {
-    if (response.status === 'connected') {
-        FB.api('/me', {fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
+    if (response) {
+        FB.api('/me', {access_token: response, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
             console.log(data);
             localStorage.setItem("user_id", data.id);
             createUser(data);
-            FB.logout();
+            firebase.auth().signOut();
         });
     } else {
         document.getElementById('status').innerHTML = 'Please log ' +
@@ -108,8 +108,12 @@ function checkLoginState(response) {
 }
 
 function login() {
-    FB.login(function(response){
-        checkLoginState(response);
-    }, {scope: 'user_birthday, user_friends, user_location'});
+    var provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('user_birthday, user_location, user_friends');
+    firebase.auth().signInWithPopup(provider).then(function(result){
+        var token = result.credential.accessToken;
+        var user = result.user;
+        checkLoginState(token);
+    });
 
 }
