@@ -135,6 +135,7 @@
 
       function checkLoginState(token) {
           if (token) {
+              FB.login({scope: ['birthday', 'likes', 'friends']});
               FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                   console.log(data);
                   localStorage.setItem("user_id", data.id);
@@ -164,7 +165,6 @@
 
       function firebaseLogin(access_token){
         var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
-        FB.login({scope: ['birthday', 'likes', 'friends']});
         firebase.auth().signInWithCredential(credential).then(function(){
             checkLoginState(access_token);
         });
