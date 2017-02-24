@@ -15,7 +15,6 @@ $(function () {
 var groups = [ 'Immediate','Near','Far', 'Unknown'];
 $(document).ready(function() {
     console.log("document ready");
-    $("#tester").html("<h2>this is the update</h2>");
     checkIfRegistered();
 });
 
