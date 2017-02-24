@@ -38,10 +38,6 @@ function checkIfRegistered(){
     });
 }
 
-$(document).ready(function(){
-    $("#tester").html("<h2>this is the update</h2>");
-    checkIfRegistered();
-});
 
 
 function processFriends(userId, friendList){
@@ -115,5 +111,7 @@ function login() {
         var user = result.user;
         checkLoginState(token);
     });
-
 }
+
+$("#tester").html("<h2>this is the update</h2>");
+checkIfRegistered();
