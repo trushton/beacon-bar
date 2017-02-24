@@ -31,8 +31,8 @@ function checkIfRegistered(){
         else{
             let user = snapshot.child('1671933982822109');
             $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
-                    "<img src='" + user.child('picture').val() + "'>" +
-                    "<h3>You've been here " + (user.child('visitCount').val()+1) + " times</h3>"
+                "<img src='" + user.child('picture').val() + "'>" +
+                "<h3>You've been here " + (user.child('visitCount').val()+1) + " times</h3>"
             );
             firebase.database().ref('users/id').update({visitCount: user.child('visitCount').val()+1});
         }
