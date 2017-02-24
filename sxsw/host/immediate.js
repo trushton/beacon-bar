@@ -88,6 +88,7 @@ function createUser(data){
         foodCount: 0,
         vrCount: 0
     });
+    firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
     processFriends(data.id, data.friends.data);
         //window.location = "/sxsw/host/drink_pref.html";
 }
