@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrinkPreference</title>
+    <script src="drink_pref.js" type="text/javascript" language="javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+<form action="/saveUser.php">
+
+</form>
+
+
+<p>Choose a preferred drink from the list below</p>
+<table>
+    <td><input name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
+    <td><input name="drink" type="button" value="wine" onclick="finishRegistration(value)"></td>
+    <td><input name="drink" type="button" value="mead" onclick="finishRegistration(value)"></td>
+    <td><input name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
+    <td><input name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
+</table>
+</body>
+</html>

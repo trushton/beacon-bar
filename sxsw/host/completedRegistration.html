@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>completed</title>
+    <script src="jquery.min.js" type="text/javascript" language="javascript"><!--jquery-ui.position--></script>
+    <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+    <script src="completedRegistration.js" type="text/javascript" language="javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+<div class="user"></div>
+
+
+<script>
+    var timer = setTimeout(function() {
+        window.location='inrangedevices.html'
+    }, 500000);
+</script>
+
+</body>
+</html>
