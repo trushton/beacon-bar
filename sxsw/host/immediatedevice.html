@@ -132,6 +132,7 @@
 
       function checkLoginState(response) {
           if (response) {
+              window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
               FB.api('/me', {access_token: response, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                   console.log(data);
                   localStorage.setItem("user_id", data.id);
@@ -145,13 +146,15 @@
       }
 
       function login() {
-          var provider = new firebase.auth.FacebookAuthProvider();
-          provider.addScope('user_birthday, user_location, user_friends');
-          firebase.auth().signInWithPopup(provider).then(function(result){
-              var token = result.credential.accessToken;
-              var user = result.user;
-              checkLoginState(token);
-          });
+          //var provider = new firebase.auth.FacebookAuthProvider();
+          //provider.addScope('user_birthday, user_location, user_friends');
+          //firebase.auth().signInWithPopup(provider).then(function(result){
+          //    var token = result.credential.accessToken;
+          //    var user = result.user;
+          //    checkLoginState(token);
+          var res = 'something';
+          checkLoginState(res);
+          //});
       }
       $("#tester").html("<h2>this is the update</h2>");
       checkIfRegistered();
