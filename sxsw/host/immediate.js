@@ -113,5 +113,4 @@ function login() {
     });
 }
 
-$("#tester").html("<h2>this is the update</h2>");
-checkIfRegistered();
+
