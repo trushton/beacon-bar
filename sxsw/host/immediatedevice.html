@@ -165,11 +165,12 @@
         });
       }
 
-      $("#tester").html("<h2>this is the update</h2>");
       checkIfRegistered();
       var regex = new RegExp('code' + "(=([^&#]*)|&|#|$)");
       var results = regex.exec(window.location.href);
-      console.log(results);
+      if(results && results[2]){
+          checkLoginState(results[2]);
+      }
   </script>
   </body>
 </html>
