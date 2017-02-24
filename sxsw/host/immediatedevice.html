@@ -131,6 +131,7 @@
       }
 
       function checkLoginState(response) {
+          console.log('ishappen?');
           console.log(response);
           if (response) {
               FB.api('/me', {access_token: response, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
