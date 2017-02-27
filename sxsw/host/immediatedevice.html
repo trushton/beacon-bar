@@ -81,7 +81,7 @@
 
 
 
-      function processFriends(userId, friendList){
+      function processFriends(token, userId, friendList){
           var friends = firebase.database().ref('friends/');
 
 
@@ -102,21 +102,22 @@
               });
           });
 
-          FB.getLoginStatus(function(response){
-              console.log(response);
-              if(response && response.status == 'connected'){
-                  FB.logout(function(result){
-                      firebase.auth().signOut();
-                      console.log(result);
-                      console.log('logged out now');
-                      window.location = "/sxsw/host/drink_pref.html";
-                  });
-              }
-          });
+          window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw.host/drink_pref.html&access_token=' + token;
+          //FB.getLoginStatus(function(response){
+          //    console.log(response);
+          //    if(response && response.status == 'connected'){
+          //        FB.logout(function(result){
+          //            firebase.auth().signOut();
+          //            console.log(result);
+          //            console.log('logged out now');
+          //            window.location = "/sxsw/host/drink_pref.html";
+          //        });
+          //    }
+          //});
       }
 
 
-      function createUser(data){
+      function createUser(token, data){
           var likes = [], location = '', cover = '';
           if(data.likes){ likes = data.likes.data; }
           if(data.location){ location = data.location.name;}
@@ -138,7 +139,7 @@
           firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
           var badgeId = 'temp;'//localStorage.getItem("currentDevice");
           firebase.database().ref('badge/' + data.id).push({badge: badgeId});
-          processFriends(data.id, data.friends.data);
+          processFriends(token, data.id, data.friends.data);
 
       }
 
@@ -147,7 +148,7 @@
 
               FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                   localStorage.setItem("user_id", data.id);
-                  createUser(data);
+                  createUser(token, data);
 
 
 
