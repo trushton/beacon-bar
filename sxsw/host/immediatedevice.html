@@ -129,10 +129,10 @@
           processFriends(data.id, data.friends.data);
           FB.getLoginStatus(function(response){
               if(response && response.status === 'connected'){
-                  FB.logout();
+                  FB.logout(function(result){
+                      window.location = "/sxsw/host/drink_pref.html";
+                  });
               }
-              console.log(response);
-              window.location = "/sxsw/host/drink_pref.html";
           });
       }
 
