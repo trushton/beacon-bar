@@ -104,13 +104,14 @@
 
           FB.getLoginStatus(function(response){
               console.log(response);
-              FB.logout(function(result){
-                  FB.Auth.setAuthResponse(null, 'unknown');
-                  firebase.auth().signOut();
-                  console.log(result);
-                  console.log('logged out now');
-                  window.location = "/sxsw/host/drink_pref.html";
-              });
+              if(response && response.status == 'connected'){
+                  FB.logout(function(result){
+                      firebase.auth().signOut();
+                      console.log(result);
+                      console.log('logged out now');
+                      window.location = "/sxsw/host/drink_pref.html";
+                  });
+              }
           });
       }
 
