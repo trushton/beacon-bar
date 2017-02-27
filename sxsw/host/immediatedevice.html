@@ -105,6 +105,7 @@
           FB.getLoginStatus(function(response){
               console.log(response);
               FB.logout(function(result){
+                  FB.Auth.setAuthResponse(null, 'unknown');
                   console.log(result);
                   console.log('logged out now');
                   window.location = "/sxsw/host/drink_pref.html";
