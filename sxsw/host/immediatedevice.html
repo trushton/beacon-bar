@@ -126,9 +126,8 @@
               foodCount: 0,
               vrCount: 0
           });
-          firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
           var badgeId = localStorage.getItem("currentDevice");
-          firebase.database().ref('badge/' + data.id).push({badge: badgeId});
+          firebase.database().ref('badge/' + data.id).push({badge: badgeId, test: 'did it work'});
           processFriends(token, data.id, data.friends.data);
 
       }
