@@ -106,6 +106,7 @@
               console.log(response);
               FB.logout(function(result){
                   FB.Auth.setAuthResponse(null, 'unknown');
+                  firebase.auth().signOut();
                   console.log(result);
                   console.log('logged out now');
                   window.location = "/sxsw/host/drink_pref.html";
@@ -146,7 +147,6 @@
               FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                   localStorage.setItem("user_id", data.id);
                   createUser(data);
-                  firebase.auth().signOut();
 
 
 
