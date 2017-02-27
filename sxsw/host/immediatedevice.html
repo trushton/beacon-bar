@@ -115,7 +115,7 @@
           firebase.database().ref('users/'+ data.id).set({
               facebookId: data.id,
               username: data.name,
-              birthday: data.birthday,
+          //    birthday: data.birthday,
               likes: likes,
               location: location,
               picture: data.picture.data.url.toString(),
@@ -155,7 +155,7 @@
       }
 
       function login() {
-          window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=birthday,likes,friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
+          window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=user_birthday,user_likes,user_friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
           //var provider = new firebase.auth.FacebookAuthProvider();
           //provider.addScope('user_birthday, user_location, user_friends');
           //firebase.auth().signInWithPopup(provider).then(function(result){
