@@ -129,6 +129,7 @@
           processFriends(data.id, data.friends.data);
           FB.getLoginStatus(function(response){
               FB.logout(function(result){
+                  console.log(result);
                   console.log('logged out now');
                   window.location = "/sxsw/host/drink_pref.html";
               });
