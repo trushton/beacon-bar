@@ -110,8 +110,6 @@
           if(data.location){ location = data.location.name;}
           if(data.cover){ cover = data.cover.source.toString(); }
 
-          console.log(likes);
-
           firebase.database().ref('users/'+ data.id).set({
               facebookId: data.id,
               username: data.name,
@@ -140,7 +138,6 @@
           if (token) {
 
               FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
-                  console.log(data);
                   localStorage.setItem("user_id", data.id);
                   createUser(data);
                   firebase.auth().signOut();
