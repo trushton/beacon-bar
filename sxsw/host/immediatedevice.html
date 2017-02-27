@@ -30,6 +30,9 @@
 
     <div id="background">
         <!-  img src="immediate.jpg"  ->
+        <dl>
+            <dd id="locator"></dd>
+        </dl>
     </div>
 
     <div id="device" style="width:100%;color:black;text-align:center">
@@ -66,7 +69,11 @@
               if(!snapshot.hasChild('1671933982822109')){
                   $("#device").html("<h1>Welcome to the Capital Factory VIP Lounge</h1>" +
                       "<h2>Please register your badge with your Facebook account</h2>" +
-                      '<button onclick="login()">Register your badge with Facebook</button>');
+                      '<button onclick="login()">Register your badge with Facebook</button>'+
+                      '<dl> <dd id="locator"></dd> </dl>'
+                  );
+
+
               }
               else{
                   var user = snapshot.child('1671933982822109');
