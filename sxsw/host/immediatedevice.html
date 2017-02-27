@@ -130,6 +130,7 @@
           FB.getLoginStatus(function(response){
               if(response && response.status === 'connected'){
                   FB.logout(function(result){
+                      console.log('logged out now');
                       window.location = "/sxsw/host/drink_pref.html";
                   });
               }
