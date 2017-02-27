@@ -12,6 +12,10 @@ $(function () {
     }
 });
 
+$(document).ready(function() {
+    console.log("document ready");
+});
+
 var groups = [ 'Immediate','Near','Far', 'Unknown'];
 
 function parse_query_string(string)
@@ -39,6 +43,7 @@ var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
+    console.log('does this get called?');
     console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
 
