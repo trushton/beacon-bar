@@ -126,6 +126,7 @@
           firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
           processFriends(data.id, data.friends.data);
           FB.getLoginStatus(function(response){
+              console.log(response);
               FB.logout(function(result){
                   console.log(result);
                   console.log('logged out now');
