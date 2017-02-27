@@ -128,12 +128,10 @@
           firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
           processFriends(data.id, data.friends.data);
           FB.getLoginStatus(function(response){
-              if(response && response.status === 'connected'){
-                  FB.logout(function(result){
-                      console.log('logged out now');
-                      window.location = "/sxsw/host/drink_pref.html";
-                  });
-              }
+              FB.logout(function(result){
+                  console.log('logged out now');
+                  window.location = "/sxsw/host/drink_pref.html";
+              });
           });
       }
 
