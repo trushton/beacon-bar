@@ -137,7 +137,11 @@
                   console.log(data);
                   localStorage.setItem("user_id", data.id);
                   createUser(data);
-                  firebase.auth().signout();
+                  firebase.auth().signOut();
+                  FB.getLoginStatus(function(response){
+                      console.log(response);
+                  });
+
 
               });
           } else {
