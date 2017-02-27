@@ -64,7 +64,7 @@
           console.log(devices);
           var ref = firebase.database().ref('users/');
           var highRssi = -100;
-          var highDeviceId = null;
+          var highDeviceId = '';
           for (var key in devices) {
               if(devices[key].rssi > highRssi) {
                   highRssi = devices[key].rssi;
