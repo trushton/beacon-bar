@@ -53,7 +53,8 @@ var drinks = {
 };
 
 (function(){
-    var ref = firebase.database().ref('users/');
+    var database = firebase.database();
+    var ref = database.ref('users/');
     var badgeId = processId('badge_locator'); /////////////Fill this in///////////////////
 
 
@@ -67,6 +68,14 @@ var drinks = {
 
             $('#suggestion').html("<h3>Hi there " + name + ", I'd recommend the " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>" +
                                     "<h4>Fun fact: " + recommendation.fact + ".</h4>");
+
+            database.ref(badgeId).update({
+                barCount: (user.child('barCount')+1),
+                prevRecommendation: recommendation.name
+            })
+        }
+        else{
+            $('#notFound').html("<h3>I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?</h3>");
         }
     });
 })();
