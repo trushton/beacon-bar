@@ -24,6 +24,7 @@ function checkIfRegistered(){
     var ref = firebase.database().ref('users/');
     var userBadge = localStorage.getItem("currentDevice");
 
+    var vrExperience;
 
     ref.once('value').then(function(snapshot){
         if(!snapshot.hasChild('userBadge')){
@@ -34,9 +35,15 @@ function checkIfRegistered(){
         }
         else{
             var user = snapshot.child(userBadge);
+
+            if(user.child('vrAttended')){
+                vrExperience = "<p>alternate text</p>";
+            } else {
+                vrExperience = "<p>You should check out the VR experience!</p>";
+            }
             $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
                 "<img src='" + user.child('picture').val() + "'>" +
-                "<h3>You've been here " + (user.child('visitCount').val()+1) + " times</h3>"
+                "<h3>So far you've been here " + (user.child('visitCount').val()+1) + " times</h3>" + vrExperience
             );
             firebase.database().ref('users/' + userBadge).update({visitCount: user.child('visitCount').val()+1});
         }
@@ -66,7 +73,7 @@ function processFriends(token, userId, friendList){
         });
     });
 
-    window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+
 }
 
 function getBadgeId(facebookId){
@@ -94,11 +101,23 @@ function createUser(token, data){
         visitCount: 1,
         barCount: 0,
         foodCount: 0,
-        vrCount: 0
+        vrAttended: 0
     });
     firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
-    processFriends(token, badgeId, data.friends.data);
+    processFriends(token, badgeId, data.friends.data).then(function(){
+        if(calculateAge(data.birthday > 20)){
+            window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+        } else {
+            window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
+        }
+    });
 
+}
+
+function calculateAge(birthday){
+    var ageDifMs = Date.now() - new Date(birthday);
+    var ageDate = new Date(ageDifMs);
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
 }
 
 function checkLoginState(token) {
