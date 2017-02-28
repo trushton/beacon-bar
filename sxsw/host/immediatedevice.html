@@ -63,7 +63,7 @@
       function checkIfRegistered(){
           var ref = firebase.database().ref('users/');
 
-          var newDevs = Object.assign(devices);
+          var newDevs = Object.assign({}, devices);
 
           ref.once('value').then(function(snapshot){
               if(!snapshot.hasChild('1671933982822109')){
