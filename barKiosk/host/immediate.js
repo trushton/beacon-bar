@@ -64,7 +64,7 @@ var drinks = {
             var user = snapshot.child(badgeId);
             var name = user.child('username').val();
             var drink_pref = user.child('drink_pref').val();
-            var recommendation = reccomendDrink(drink_pref);
+            var recommendation = recommendDrink(drink_pref);
 
             $('#suggestion').html("<h3>Hi there " + name + ", I'd recommend the " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>" +
                                     "<h4>Fun fact: " + recommendation.fact + ".</h4>");
