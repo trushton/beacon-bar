@@ -71,7 +71,6 @@ function NAUpdate(devicesPresent)
             highRssi = devices[key].rssi;
             highRssi = highRssi;
             highDeviceId = key;
-            localStorage.set("currentDevice", highDeviceId);
         }
     }
 
