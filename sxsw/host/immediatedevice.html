@@ -93,19 +93,19 @@
 
             friendList.forEach(function(friend){
                 friends.child(userId).once('value').then(function(snapshot) {
-                    var friendBadge = getBadgeId(friend.id);
-                    if(!snapshot.val()){
-                        friends.child(userId).push(friendBadge);
-                        friends.child(friendBadge).push(userId);
-                    }
-                    else{
-                        snapshot.forEach(function(id){
-                            if(getBadgeId(id.val()) !== friendBadge){
-                                friends.child(userId).push(friendBadge);
-                                friends.child(friendBadge).push(userId);
-                            }
-                        });
-                    }
+                   // var friendBadge = getBadgeId(friend.id);
+                   // if(!snapshot.val()){
+                   //     friends.child(userId).push(friendBadge);
+                   //     friends.child(friendBadge).push(userId);
+                   // }
+                   // else{
+                   //     snapshot.forEach(function(id){
+                   //         if(getBadgeId(id.val()) !== friendBadge){
+                   //             friends.child(userId).push(friendBadge);
+                   //             friends.child(friendBadge).push(userId);
+                   //         }
+                   //     });
+                   // }
                 });
             });
 
@@ -113,8 +113,10 @@
         }
 
         function getBadgeId(facebookId){
-            firebase.database().ref('badges/').once('value').then(function(snapshot){
-                return snapshot.child(facebookId).child('badge').val();
+            firebase.database().ref('badges/'+facebookId).once('value').then(function(snapshot){
+                if(snapshot.child('badge')){
+                    return snapshot.child('badge').val();
+                }
             });
         }
 
