@@ -22,22 +22,23 @@ window.fbAsyncInit = function() {
 
 function checkIfRegistered(){
     var ref = firebase.database().ref('users/');
+    var userBadge = localStorage.getItem("currentDevice");
 
 
     ref.once('value').then(function(snapshot){
-        if(!snapshot.hasChild('1671933982822109')){
+        if(!snapshot.hasChild('userBadge')){
             $("#device").html("<h1>Welcome to the Capital Factory VIP Lounge</h1>" +
                 "<h2>Please register your badge with your Facebook account</h2>" +
                 '<button onclick="login()">Register your badge with Facebook</button>');
 
         }
         else{
-            var user = snapshot.child('1671933982822109');
+            var user = snapshot.child(userBadge);
             $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
                 "<img src='" + user.child('picture').val() + "'>" +
                 "<h3>You've been here " + (user.child('visitCount').val()+1) + " times</h3>"
             );
-            firebase.database().ref('users/1671933982822109').update({visitCount: user.child('visitCount').val()+1});
+            firebase.database().ref('users/' + userBadge).update({visitCount: user.child('visitCount').val()+1});
         }
     });
 }
