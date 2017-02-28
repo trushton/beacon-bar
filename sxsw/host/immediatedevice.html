@@ -257,7 +257,7 @@
 
           if(highDeviceId != "") {
               $('#deviceName').text(devices[highDeviceId].data.name);
-              $('#locator').html('<p>devices[highDeviceId].data.recordLocator</p>')
+              $('#locator').html('<p>devices</p>');
 
               if(highDeviceId.substr(0,2) == "NA") { // Can only send message to NewAer devices
                   $('.newAerButton').prop('disabled',false);

@@ -43,7 +43,6 @@ var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
-    console.log('does this get called?');
     console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
 
