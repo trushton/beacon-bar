@@ -108,7 +108,6 @@
                 //});
             });
 
-            window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
         }
 
         function getBadgeId(facebookId){
@@ -138,11 +137,24 @@
                 visitCount: 1,
                 barCount: 0,
                 foodCount: 0,
-                vrCount: 0
+                vrCount: 0,
+                lastSeen: Date.now()
             });
             firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
-            processFriends(token, badgeId, data.friends.data);
+            processFriends(token, badgeId, data.friends.data).then(function(){
+                if(calculateAge(data.birthday) > 20){
+                    window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+                } else {
+                    window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
+                }
+            });
 
+        }
+
+        function calculateAge(birthday){
+            var ageDifMs = Date.now() - new Date(birthday);
+            var ageDate = new Date(ageDifMs);
+            return Math.abs(ageDate.getUTCFullYear() - 1970);
         }
 
         function checkLoginState(token) {
