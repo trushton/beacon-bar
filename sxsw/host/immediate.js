@@ -108,7 +108,6 @@ function login() {
     provider.addScope('user_birthday, user_location, user_friends');
     firebase.auth().signInWithPopup(provider).then(function(result){
         var token = result.credential.accessToken;
-        var user = result.user;
         checkLoginState(token);
     });
 }
