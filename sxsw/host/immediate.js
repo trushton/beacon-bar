@@ -1,3 +1,4 @@
+
 window.fbAsyncInit = function() {
     FB.init({
         appId      : '988112061288748',
@@ -21,11 +22,14 @@ window.fbAsyncInit = function() {
 
 function checkIfRegistered(){
     var ref = firebase.database().ref('users/');
+
+
     ref.once('value').then(function(snapshot){
         if(!snapshot.hasChild('1671933982822109')){
             $("#device").html("<h1>Welcome to the Capital Factory VIP Lounge</h1>" +
                 "<h2>Please register your badge with your Facebook account</h2>" +
-                '<input type="button" class="newAerButton" id="messageButton1" onclick="login()" value="Register your badge with Facebook"/><br/>');
+                '<button onclick="login()">Register your badge with Facebook</button>');
+
         }
         else{
             var user = snapshot.child('1671933982822109');
@@ -40,7 +44,7 @@ function checkIfRegistered(){
 
 
 
-function processFriends(userId, friendList){
+function processFriends(token, userId, friendList){
     var friends = firebase.database().ref('friends/');
 
 
@@ -60,21 +64,23 @@ function processFriends(userId, friendList){
             }
         });
     });
+
+    window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+
 }
 
 
-function createUser(data){
+function createUser(token, data){
     var likes = [], location = '', cover = '';
     if(data.likes){ likes = data.likes.data; }
     if(data.location){ location = data.location.name;}
     if(data.cover){ cover = data.cover.source.toString(); }
 
-    console.log(likes);
-
-    firebase.database().ref('users/'+ data.id).update({
+    var badgeId = localStorage.getItem("currentDevice");
+    firebase.database().ref('users/'+ badgeId).set({
         facebookId: data.id,
         username: data.name,
-        birthday: data.birthday,
+        //    birthday: data.birthday,
         likes: likes,
         location: location,
         picture: data.picture.data.url.toString(),
@@ -84,18 +90,20 @@ function createUser(data){
         foodCount: 0,
         vrCount: 0
     });
-    firebase.database().ref('friendGraph/' + data.id).push({badge: 'tset'});
-    processFriends(data.id, data.friends.data);
-        //window.location = "/sxsw/host/drink_pref.html";
+    firebase.database().ref('badge/' + data.id).push({badge: badgeId, test: 'did it work'});
+    processFriends(token, data.id, data.friends.data);
+
 }
 
-function checkLoginState(response) {
-    if (response) {
-        FB.api('/me', {access_token: response, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
-            console.log(data);
+function checkLoginState(token) {
+    if (token) {
+
+        FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
             localStorage.setItem("user_id", data.id);
-            createUser(data);
-            firebase.auth().signOut();
+            createUser(token, data);
+
+
+
         });
     } else {
         document.getElementById('status').innerHTML = 'Please log ' +
@@ -104,12 +112,21 @@ function checkLoginState(response) {
 }
 
 function login() {
-    var provider = new firebase.auth.FacebookAuthProvider();
-    provider.addScope('user_birthday, user_location, user_friends');
-    firebase.auth().signInWithPopup(provider).then(function(result){
-        var token = result.credential.accessToken;
-        checkLoginState(token);
-    });
+    window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=user_birthday,user_likes,user_friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
 }
 
 
+function firebaseLogin(access_token){
+    var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
+    firebase.auth().signInWithCredential(credential).then(function(){
+        checkLoginState(access_token);
+    });
+}
+
+checkIfRegistered();
+var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
+var results = regex.exec(window.location.href);
+console.log(results);
+if(results && results[2]){
+    firebaseLogin(results[2]);
+}
