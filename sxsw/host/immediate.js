@@ -123,10 +123,12 @@ function firebaseLogin(access_token){
     });
 }
 
-checkIfRegistered();
-var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
-var results = regex.exec(window.location.href);
-console.log(results);
-if(results && results[2]){
-    firebaseLogin(results[2]);
-}
+$(document).ready(function(){
+    checkIfRegistered();
+    var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
+    var results = regex.exec(window.location.href);
+    console.log(results);
+    if(results && results[2]) {
+        firebaseLogin(results[2]);
+    }
+});
