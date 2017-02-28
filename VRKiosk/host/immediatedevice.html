@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>Facebook Login JavaScript Example</title>
+    <meta charset="UTF-8">
+    <script src="jquery.min.js" type="text/javascript" language="javascript"><!--jquery-ui.position--></script>
+    <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
+
+    <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
+
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+    </script>
+
+</head>
+  <body id="immediateDevice">
+
+    <div id="background">
+        <!-  img src="immediate.jpg"  ->
+    </div>
+
+    <div id="device" style="width:100%;color:black;text-align:center">
+    </div>
+    <div style="width:100%;color:black;text-align:center"><dl><dt>locator</dt><dd id="locator"></dd></dl></div>
+
+    <script src="newaer-immediate.js" type="text/javascript" language="javascript"></script>
+    <script src="immediate.js" type="text/javascript" language="javascript"></script>
+  </body>
+</html>
