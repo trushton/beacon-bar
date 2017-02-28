@@ -63,13 +63,14 @@
       function checkIfRegistered(){
           var ref = firebase.database().ref('users/');
 
+          var newDevs = Object.assign(devices);
 
           ref.once('value').then(function(snapshot){
               if(!snapshot.hasChild('1671933982822109')){
                   $("#device").html("<h1>Welcome to the Capital Factory VIP Lounge</h1>" +
                       "<h2>Please register your badge with your Facebook account</h2>" +
                       '<button onclick="login()">Register your badge with Facebook</button>' +
-                      '<p>' + devices + '</p>');
+                      '<p>' + newDevs + '</p>');
               }
               else{
                   var user = snapshot.child('1671933982822109');
