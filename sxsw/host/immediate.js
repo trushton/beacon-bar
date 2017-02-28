@@ -47,18 +47,18 @@ function checkIfRegistered(){
 function processFriends(token, userId, friendList){
     var friends = firebase.database().ref('friends/');
 
-
     friendList.forEach(function(friend){
         friends.child(userId).once('value').then(function(snapshot) {
+            var friendBadge = getBadgeId(friend.id);
             if(!snapshot.val()){
-                friends.child(userId).push(friend.id);
-                friends.child(friend.id).push(userId);
+                friends.child(userId).push(friendBadge);
+                friends.child(friendBadge).push(userId);
             }
             else{
                 snapshot.forEach(function(id){
-                    if(id.val() !== friend.id){
-                        friends.child(userId).push(friend.id);
-                        friends.child(friend.id).push(userId);
+                    if(getBadgeId(id.val()) !== friendBadge){
+                        friends.child(userId).push(friendBadge);
+                        friends.child(friendBadge).push(userId);
                     }
                 });
             }
@@ -66,7 +66,12 @@ function processFriends(token, userId, friendList){
     });
 
     window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+}
 
+function getBadgeId(facebookId){
+    firebase.database().ref('badges/').once('value').then(function(snapshot){
+       return snapshot.child(facebookId).child('badge').val();
+    });
 }
 
 
@@ -80,7 +85,7 @@ function createUser(token, data){
     firebase.database().ref('users/'+ badgeId).set({
         facebookId: data.id,
         username: data.name,
-        //    birthday: data.birthday,
+        birthday: data.birthday,
         likes: likes,
         location: location,
         picture: data.picture.data.url.toString(),
@@ -90,8 +95,8 @@ function createUser(token, data){
         foodCount: 0,
         vrCount: 0
     });
-    firebase.database().ref('badge/' + data.id).push({badge: badgeId, test: 'did it work'});
-    processFriends(token, data.id, data.friends.data);
+    firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
+    processFriends(token, badgeId, data.friends.data);
 
 }
 
