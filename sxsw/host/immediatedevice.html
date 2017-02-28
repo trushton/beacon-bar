@@ -116,7 +116,8 @@
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
-            firebase.database().ref('users/'+ data.id).set({
+            var bad = localStorage.getItem("currentDevice");
+            firebase.database().ref('users/'+ bad).set({
                 facebookId: data.id,
                 username: data.name,
                 //    birthday: data.birthday,
