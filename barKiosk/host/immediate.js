@@ -5,22 +5,21 @@ var drinks = {
             "fact": "Tito's Vodka is made close by in Austin, TX"
         },
         "Moscow Mule": {
-            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"],
+            "ingredients": ["Vodka", "Gingerbeer", "Lime"],
             "fact": "Tito's Vodka is made close by in Austin, TX"
         },
         "Texas Sipper": {
-            "alcohol": "Vodka",
-            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"],
+            "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"],
             "fact": "Tito's Vodka is made close by in Austin, TX"
         }
     },
     "Whiskey": {
         "Walmart Yellow": {
-            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"],
+            "ingredients": ["Whiskey", "Sweet N Sour"],
             "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
         },
         "Texas Tea": {
-            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"],
+            "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"],
             "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
         }
     },
@@ -80,4 +79,7 @@ var drinks = {
     });
 })();
 
-
+function recommendDrink(preference){
+    var keys = Object.keys(drinks[preference]);
+    return drinks[preference[keys[keys.length * Math.random() <<0]]];
+}
