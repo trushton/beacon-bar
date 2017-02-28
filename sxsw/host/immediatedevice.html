@@ -61,8 +61,26 @@
 
 
       function checkIfRegistered(){
-          console.log(devices);
           var ref = firebase.database().ref('users/');
+
+          ////////////////////////////////////////////////
+          for (var key in devices) {
+              if(devicesPresent.hasOwnProperty(key)) {
+                  // Update device
+                  updateDevice(devicesPresent[key]);
+              } else {
+                  // Remove device
+                  removeDevice(devices[key]);
+              }
+          }
+
+          // Add
+          for (var key in devicesPresent) {
+              if (devices == null || devices.hasOwnProperty(key) == false) {
+                  addDevice(devicesPresent[key]);
+              }
+          }
+
           var highRssi = -100;
           var highDeviceId = '';
           for (var key in devices) {
@@ -71,6 +89,10 @@
                   highDeviceId = key;
               }
           }
+          /////////////////////////////////////////////////
+
+
+
           ref.once('value').then(function(snapshot){
               if(!snapshot.hasChild('1671933982822109')){
                   $("#device").html("<h1>Welcome to the Capital Factory VIP Lounge</h1>" +
