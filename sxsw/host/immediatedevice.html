@@ -91,9 +91,7 @@
             firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             friends.once('value', function(snapshot){
-                console.log(userId);
                 if(!snapshot.hasChild(userId)) {
-                    var userId = userId;
                     data.friends.data.forEach(function(friend) {
                         getBadgeId(friend.id).then(function(friendBadge){
                             console.log("pushing snapshot was null " + userId + " " + friendBadge);
