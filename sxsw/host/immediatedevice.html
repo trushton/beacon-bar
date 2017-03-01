@@ -50,7 +50,7 @@
 
         function checkIfRegistered(){
             var ref = firebase.database().ref('users/');
-            badge = window.localStorage.getItem("currentDevice");
+            var userBadge = badge = window.localStorage.getItem("currentDevice");
             $('#locator').text(window.localStorage.getItem("currentDevice"));
             if(userBadge === null){userBadge = '';}
 
