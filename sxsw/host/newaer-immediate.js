@@ -69,7 +69,6 @@ function NAUpdate(devicesPresent)
     for (var key in devices) {
         if(devices[key].rssi > highRssi) {
             highRssi = devices[key].rssi;
-            highRssi = highRssi;
             highDeviceId = key;
         }
     }
