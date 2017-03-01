@@ -95,7 +95,7 @@
                 friends.child(userId).once('value').then(function(snapshot) {
                   if(!snapshot.val()){
                       var friendBadge = getBadgeId(friend.id);
-                      console.log("pushing snapshot null" + userId + " " + friendBadge);
+                      console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
                       friends.child(userId).push(friendBadge);
                       friends.child(friendBadge).push(userId);
                   }
