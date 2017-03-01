@@ -184,11 +184,6 @@
             });
         }
 
-        function storeDevice(device){
-            $('#locator').text(devices[highDeviceId].data.recordLocator);
-            localStorage.setItem("test", devices[highDeviceId].data.recordLocator);
-        }
-
         checkIfRegistered();
         var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
         var results = regex.exec(window.location.href);
