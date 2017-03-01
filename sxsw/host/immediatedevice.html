@@ -90,13 +90,12 @@
             var friends = firebase.database().ref('friends/');
 
             friends.once('value', function(snapshot){
-                var instance = this;
-                console.log(instance.userId);
+                console.log(userId);
                 if(!snapshot.hasChild(userId)) {
                     data.friends.data.forEach(function(friend) {
-                        console.log("pushing snapshot was null " + instance.userId + " " + getBadgeId(friend.id));
-                        firebase.database().ref('friends/'+instance.userId).push(getBadgeId(friend.id));
-                        firebase.database().ref('friends/'+getBadgeId(friend.id)).push(instance.userId);
+                        console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
+                        firebase.database().ref('friends/'+userId).push(getBadgeId(friend.id));
+                        firebase.database().ref('friends/'+getBadgeId(friend.id)).push(userId);
                     });
                 }
                // } else {
