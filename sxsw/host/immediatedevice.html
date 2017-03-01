@@ -185,7 +185,7 @@
         var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
         var deviceIdRegex = new RegExp('#deviceId' + "(=([^&#]*)|&|#|$)");
         var tokenResults = tokenRegex.exec(window.location.href);
-        var deviceId = deviceRegex.exec(window.location.href);
+        var deviceId = deviceIdRegex.exec(window.location.href);
         console.log(tokenResults);
         console.log(deviceId);
         if(tokenResults && tokenResults[2] && deviceId) {
