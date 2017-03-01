@@ -90,6 +90,7 @@
             var friends = firebase.database().ref('friends/');
             firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
+            console.log(userId);
             friends.once('value', function(snapshot){
                 console.log(userId);
                 if(!snapshot.hasChild(userId)) {
