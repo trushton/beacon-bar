@@ -90,21 +90,21 @@
             var friends = firebase.database().ref('friends/');
 
             data.friends.data.forEach(function(friend){
-                //friends.child(userId).once('value').then(function(snapshot) {
-                // var friendBadge = getBadgeId(friend.id);
-                // if(!snapshot.val()){
-                //     friends.child(userId).push(friendBadge);
-                //     friends.child(friendBadge).push(userId);
-                // }
-                // else{
-                //     snapshot.forEach(function(id){
-                //         if(getBadgeId(id.val()) !== friendBadge){
-                //             friends.child(userId).push(friendBadge);
-                //             friends.child(friendBadge).push(userId);
-                //         }
-                //     });
-                // }
-                //});
+                friends.child(userId).once('value').then(function(snapshot) {
+                 var friendBadge = getBadgeId(friend.id);
+                 if(!snapshot.val()){
+                     friends.child(userId).push(friendBadge);
+                     friends.child(friendBadge).push(userId);
+                 }
+                 else{
+                     snapshot.forEach(function(id){
+                         if(getBadgeId(id.val()) !== friendBadge){
+                             friends.child(userId).push(friendBadge);
+                             friends.child(friendBadge).push(userId);
+                         }
+                     });
+                 }
+                });
             });
 
             if(calculateAge(data.birthday) > 20){
