@@ -66,9 +66,9 @@
 
         function checkIfRegistered(){
             var ref = firebase.database().ref('users/');
-            var userBadge = window.localStorage.getItem("currentDevice");
+            var userBadge = localStorage.getItem("currentDevice");
             if(userBadge === null){userBadge = '';}
-            $("#storage").text(localStorage.key(0), localStorage.key(1), localStorage.key(2), localStorage.key(3) + '\n this is local storage');
+            $("#storage").text(userBadge);
 
             ref.once('value').then(function(snapshot){
                 if(!snapshot.hasChild('userBadge')){
