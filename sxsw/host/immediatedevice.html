@@ -93,10 +93,13 @@
             friends.once('value', function(snapshot){
                 console.log(userId);
                 if(!snapshot.hasChild(userId)) {
+                    var userId = userId;
                     data.friends.data.forEach(function(friend) {
-                        console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
-                        firebase.database().ref('friends/'+userId).push(getBadgeId(friend.id));
-                        firebase.database().ref('friends/'+getBadgeId(friend.id)).push(userId);
+                        getBadgeId(friend.id).then(function(friendBadge){
+                            console.log("pushing snapshot was null " + userId + " " + friendBadge);
+                            firebase.database().ref('friends/'+userId).push(friendBadge);
+                            firebase.database().ref('friends/'+friendBadge).push(userId);
+                        })
                     });
                 }
                // } else {
@@ -123,13 +126,12 @@
         }
 
         function getBadgeId(facebookId){
-            var val = firebase.database().ref('badges/').once('value', function(snapshot){
+            firebase.database().ref('badges/').once('value', function(snapshot){
                 if(snapshot.hasChild(facebookId)) {
                     console.log(snapshot.child(facebookId).child('badge').val());
                     return snapshot.child(facebookId).child('badge').val();
                 }
             });
-            return val;
         }
 
 
