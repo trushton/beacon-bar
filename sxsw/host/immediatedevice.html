@@ -144,7 +144,6 @@
 
         function checkLoginState(token) {
             if (token) {
-                $('#locator').text('test');
 
                 FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                     localStorage.setItem("user_id", data.id);
