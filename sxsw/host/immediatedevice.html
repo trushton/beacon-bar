@@ -138,7 +138,7 @@
                 vrCount: 0,
                 lastSeen: Date.now()
             });
-            firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
+            firebase.database().ref('badges/' + data.id).push({badge: badgeId, test: 'did it work'});
             // processFriends(token, badgeId, data.friends.data).then(function(){
             //     if(calculateAge(data.birthday) > 20){
             window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
@@ -177,17 +177,20 @@
                 checkLoginState(access_token, deviceId);
             });
         }
-        var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
-        var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
-        var tokenResults = tokenRegex.exec(window.location.href);
-        var deviceId = deviceIdRegex.exec(window.location.href);
-        console.log(tokenResults);
-        console.log(deviceId);
 
-        checkIfRegistered(deviceId);
-        if(tokenResults && tokenResults[2] && deviceId) {
-            firebaseLogin(tokenResults[2], deviceId[2]);
-        }
+        (function(){
+            var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
+            var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
+            var tokenResults = tokenRegex.exec(window.location.href);
+            var deviceId = deviceIdRegex.exec(window.location.href);
+            console.log(tokenResults);
+            console.log(deviceId);
+
+            checkIfRegistered(deviceId);
+            if(tokenResults && tokenResults[2] && deviceId) {
+                firebaseLogin(tokenResults[2], deviceId[2]);
+            }
+        })();
     </script>
 
 
