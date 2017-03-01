@@ -167,8 +167,6 @@
                 checkLoginState(access_token);
             });
         }
-        localStorage.setItem("text", 'test');
-        $('#locator').text(localStorage.getItem("text"));
         checkIfRegistered();
         var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
         var results = regex.exec(window.location.href);
