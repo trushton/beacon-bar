@@ -89,11 +89,12 @@
         function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
             console.log(data.friends.data);
+            firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             data.friends.data.forEach(function(friend){
                 friends.child(userId).once('value').then(function(snapshot) {
-                  var friendBadge = getBadgeId(friend.id);
                   if(!snapshot.val()){
+                      var friendBadge = getBadgeId(friend.id);
                       console.log("pushing snapshot null" + userId + " " + friendBadge);
                       friends.child(userId).push(friendBadge);
                       friends.child(friendBadge).push(userId);
