@@ -92,8 +92,8 @@
 
             friends.once('value', function(snapshot){
                 if(!snapshot.hasChild(userId)) {
-                    data.friends.data.forEach(function(friend) {
-                        getBadgeId(friend.id).then(function(result){
+                    Promise.all(data.friends.data, function(friend) {
+                        return getBadgeId(friend.id).then(function(result){
                             firebase.database().ref('friends/'+userId).push(result);
                             firebase.database().ref('friends/'+result).push(userId);
                         });
