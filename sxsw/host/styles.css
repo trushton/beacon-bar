@@ -178,3 +178,11 @@ h2 {
     letter-spacing: 3px;
     color: #FFFFFF;
 }
+
+#page1Logo{
+    width: 92px;
+    height: 103px;
+    display: block;
+    margin: auto;
+}
+
