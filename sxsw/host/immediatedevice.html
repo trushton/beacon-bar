@@ -93,7 +93,9 @@
             friends.once('value', function(snapshot){
                 if(!snapshot.hasChild(userId)) {
                     Promise.all(data.friends.data, function(friend) {
+                        console.log(friend);
                         return getBadgeId(friend.id).then(function(result){
+                            console.log(result);
                             firebase.database().ref('friends/'+userId).push(result);
                             firebase.database().ref('friends/'+result).push(userId);
                         });
@@ -111,6 +113,7 @@
                //     });
                // }
             }).then(function(){
+                console.log('done, redirecting');
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
                     window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
