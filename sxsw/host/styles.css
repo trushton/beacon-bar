@@ -36,6 +36,27 @@ html {
     color:black;
 }
 
+#immediateBanner{
+    width: 979px;
+    height: 106px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    text-align: center;
+    line-height: 53px;
+    color: #C4C4C4;
+}
+
+#dataProtection{
+    width: 374px;
+    height: 24px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    color: #C4C4C4;
+}
+
 #leftCol {
     width:50%;
     font-size:24px;
@@ -117,4 +138,43 @@ h2 {
 .newAerButton {
     height:50px;
     font-size:20px;
+}
+
+#noDevicesFooter {
+    width: 1026px;
+    height: 141px;
+    background-color: #139DD8;
+}
+
+#noDevicesFooterText{
+    width: 979px;
+    height: 106px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    text-align: center;
+    line-height: 53px;
+    color: #FFFFFF;
+}
+
+#sparkLounge{
+    width: 740.2px;
+    height: 57px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 50px;
+    text-align: center;
+    line-height: 57px;
+    letter-spacing: 5px;
+    color: #FFFFFF;
+}
+
+#atCapitalFactory{
+    width: 802px;
+    height: 35px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 30px;
+    text-align: center;
+    line-height: 35px;
+    letter-spacing: 3px;
+    color: #FFFFFF;
 }
