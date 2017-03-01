@@ -91,26 +91,27 @@
             console.log(data.friends.data);
             firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
-            data.friends.data.forEach(function(friend){
-                friends.child(userId).once('value').then(function(snapshot) {
-                  if(!snapshot.val()){
-                      var friendBadge = getBadgeId(friend.id);
-                      console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
-                      friends.child(userId).push(getBadgeId(friend.id));
-                      friends.child(getBadgeId(friend.id)).push(userId);
-                  }
-                  else{
-                      snapshot.forEach(function(id){
-                          console.log("for each current friend");
-                          if(getBadgeId(id.val()) !== friendBadge){
-                              console.log("not friends yet, adding" + userId + " " + friendBadge);
-                              friends.child(userId).push(friendBadge);
-                              friends.child(friendBadge).push(userId);
-                          }
-                      });
-                  }
-                 });
+            friends.once('value', function(snapshot){
+                if(!snapshot.hasChild(userId)) {
+                    data.friends.data.forEach(function (friend) {
+                        console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
+                        friends.child(userId).push(getBadgeId(friend.id));
+                        friends.child(getBadgeId(friend.id)).push(userId);
+                    });
+                }
+               // } else {
+               //         snapshot.child(userId).forEach(function(id){
+               //             console.log("for each current friend");
+               //             if(getBadgeId(id.val()) !== friendBadge){
+               //                 console.log("not friends yet, adding" + userId + " " + friendBadge);
+               //                 friends.child(userId).push(friendBadge);
+               //                 friends.child(friendBadge).push(userId);
+               //             }
+               //         });
+               //     });
+               // }
             });
+
 
             firebase.auth().signOut();
             if(data.age_range.min === 21){
