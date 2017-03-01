@@ -88,7 +88,7 @@
 
         function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
-            firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+            //firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             console.log(data);
             friends.once('value', function(snapshot){
@@ -123,7 +123,7 @@
         }
 
         function getBadgeId(facebookId){
-            firebase.database().ref('badges/'+facebookId).once('value').then(function(snapshot){
+            firebase.database().ref('badges/'+facebookId).once('value', function(snapshot){
                 if(snapshot.child('badge')){
                     console.log('returning the val ' + snapshot.child('badge').val());
                     snapshot.child('badge').val();
