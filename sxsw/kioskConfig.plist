@@ -38,7 +38,7 @@
 	</dict>
 	<key>hostFiles</key>
 	<array>
-		<string>Background.png</string>
+		<string>mainBackground.png</string>
 		<string>completedRegistration.html</string>
 		<string>completedRegistration.js</string>
 		<string>drink_pref.html</string>
