@@ -123,12 +123,13 @@
         }
 
         function getBadgeId(facebookId){
-            firebase.database().ref('badges/').once('value', function(snapshot){
+            var val = firebase.database().ref('badges/').once('value', function(snapshot){
                 if(snapshot.hasChild(facebookId)) {
                     console.log(snapshot.child(facebookId).child('badge').val());
                     return snapshot.child(facebookId).child('badge').val();
                 }
             });
+            return val;
         }
 
 
