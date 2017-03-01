@@ -21,7 +21,7 @@ $(document).ready(function() {
     datatable = $('#devices').dataTable( {
         "data": devices,
         "order": [[ 0, 'asc' ]],
-        "autoWidth":false,
+        "autoWidth":true,
         "columnDefs": [
             { "visible": false, "targets": 0 }
         ],
@@ -36,6 +36,7 @@ $(document).ready(function() {
         "drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();
+            localStorage.setItem("rows", rows.toString());
             var last=null;
 
             api.column(0, {page:'current'} ).data().each( function ( group, i ) {

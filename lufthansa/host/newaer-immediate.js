@@ -15,6 +15,7 @@ $(function () {
 var groups = [ 'Immediate','Near','Far', 'Unknown'];
 $(document).ready(function() {
     console.log("document ready");
+    $('#nodes').text(localStorage.getItem("rows"));
 });
 
 function parse_query_string(string)
