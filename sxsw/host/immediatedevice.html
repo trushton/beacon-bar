@@ -88,6 +88,7 @@
 
         function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
+            firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             data.friends.data.forEach(function(friend){
                 friends.child(userId).once('value').then(function(snapshot) {
