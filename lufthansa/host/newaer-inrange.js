@@ -103,11 +103,6 @@ function NAUpdate(devicesPresent)
 {
 //    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
-    var devs = [];
-    devicesPresent.forEach(function(device){
-      devs.push(device.data.name);
-    });
-    localStorage.setItem("rows", devs.toString());
     // Update
     for (var key in devices) {
         if(devicesPresent.hasOwnProperty(key)) {
@@ -118,6 +113,8 @@ function NAUpdate(devicesPresent)
             removeDevice(devices[key]);
         }
     }
+    localStorage.setItem("rows", JSON.stringify(devicesPresent));
+
 
     // Add
     for (var key in devicesPresent) {
@@ -144,6 +141,7 @@ function updateDevice(device)
             }
         }
     }
+
     row = datatable.api().row('#'+device.deviceId);
     row.data(device).draw();
 }
