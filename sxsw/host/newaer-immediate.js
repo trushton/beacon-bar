@@ -77,7 +77,7 @@ function NAUpdate(devicesPresent)
     if(highDeviceId != "") {
         $('#deviceName').text(devices[highDeviceId].data.name);
 
-        localStorage.setItem("currentDevice", '1:69');
+        localStorage.setItem("currentDevice",devices[highDeviceId].data.recordLocator );
 
 
     }
@@ -164,7 +164,7 @@ window.fbAsyncInit = function() {
 
 function checkIfRegistered(){
     var ref = firebase.database().ref('users/');
-    var userBadge = localStorage.getItem("currentDevice");
+    var userBadge = highDeviceId;//localStorage.getItem("currentDevice");
     if(userBadge === null){userBadge = '';}
 
     ref.once('value').then(function(snapshot){
@@ -224,7 +224,7 @@ function createUser(token, data){
     if(data.location){ location = data.location.name;}
     if(data.cover){ cover = data.cover.source.toString(); }
 
-    var badgeId = localStorage.getItem("currentDevice");
+    var badgeId = highDeviceId;//localStorage.getItem("currentDevice");
     if(badgeId === null || badgeId === undefined){badgeId = '';}
     firebase.database().ref('users/'+ badgeId).set({
         facebookId: data.id,
@@ -259,7 +259,7 @@ function calculateAge(birthday){
 
 function checkLoginState(token) {
     if (token) {
-        $('#locator').text(highDeviceId);
+        $('#locator').text(devices[highDeviceId]);
 
         FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
             localStorage.setItem("user_id", data.id);
