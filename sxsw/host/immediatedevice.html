@@ -168,7 +168,7 @@
             });
         }
         localStorage.setItem("text", 'test');
-        $('#storage').text(localStorage);
+        $('#locator').text(localStorage.getItem("text"));
         checkIfRegistered();
         var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
         var results = regex.exec(window.location.href);
