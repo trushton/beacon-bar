@@ -20,7 +20,7 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="immediatedevice.html" pinned="false" current-in-tab="true">
+          <file leaf-file-name="immediatedevice.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/host/immediatedevice.html">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="465">
@@ -33,10 +33,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="newaer-immediate.js" pinned="false" current-in-tab="false">
+          <file leaf-file-name="newaer-immediate.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/host/newaer-immediate.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
+                <state relative-caret-position="480">
                   <caret line="78" column="8" lean-forward="false" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
                   <folding />
                 </state>
@@ -90,8 +90,8 @@
         <option value="$PROJECT_DIR$/host/nodevices.html" />
         <option value="$PROJECT_DIR$/host/styles.css" />
         <option value="$PROJECT_DIR$/host/inrangedevices.html" />
-        <option value="$PROJECT_DIR$/host/newaer-immediate.js" />
         <option value="$PROJECT_DIR$/host/immediatedevice.html" />
+        <option value="$PROJECT_DIR$/host/newaer-immediate.js" />
       </list>
     </option>
   </component>
@@ -283,12 +283,12 @@
       <workItem from="1487947408431" duration="19097000" />
       <workItem from="1488227026895" duration="13683000" />
       <workItem from="1488304116634" duration="634000" />
-      <workItem from="1488304963958" duration="18497000" />
+      <workItem from="1488304963958" duration="18550000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51911000" />
+    <option name="totallyTimeSpent" value="51964000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1053" extended-state="6" />
@@ -580,14 +580,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/host/newaer-immediate.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="78" column="8" lean-forward="false" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/host/immediatedevice.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -596,6 +588,14 @@
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/host/newaer-immediate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="78" column="8" lean-forward="false" selection-start-line="78" selection-start-column="8" selection-end-line="78" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
