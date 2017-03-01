@@ -100,6 +100,8 @@
                             firebase.database().ref('friends/'+result).push(userId);
                         });
                     });
+                } else {
+                    console.log('wait what?');
                 }
                // } else {
                //         snapshot.child(userId).forEach(function(id){
