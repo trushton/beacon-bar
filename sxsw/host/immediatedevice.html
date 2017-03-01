@@ -91,6 +91,7 @@
 
             friends.once('value', function(snapshot){
                 var instance = this;
+                console.log(instance.userId);
                 if(!snapshot.hasChild(userId)) {
                     data.friends.data.forEach(function(friend) {
                         console.log("pushing snapshot was null " + instance.userId + " " + getBadgeId(friend.id));
