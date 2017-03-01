@@ -148,7 +148,7 @@
                 vrCount: 0,
                 lastSeen: Date.now()
             });
-            firebase.database().ref('badges/' + data.id).push({badge: badgeId});
+            firebase.database().ref('badges/' + data.id).set({badge: badgeId});
             processFriends(token, badgeId, data);
         }
 
