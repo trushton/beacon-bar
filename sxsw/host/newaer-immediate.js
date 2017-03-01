@@ -78,7 +78,7 @@ function NAUpdate(devicesPresent)
         $('#deviceName').text(devices[highDeviceId].data.name);
         $('#locator').text(devices[highDeviceId].data.recordLocator);
 
-        localStorage.set("currentDevice", parseId(devices[highDeviceId].data));
+        localStorage.set("currentDevice", devices[highDeviceId].data.recordLocator);
 
         if(highDeviceId.substr(0,2) == "NA") { // Can only send message to NewAer devices
             $('.newAerButton').prop('disabled',false);
