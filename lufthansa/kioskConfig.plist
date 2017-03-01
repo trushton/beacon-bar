@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>configUrl</key>
-	<string>https://staging.newaer.com/kiosk/lufthansa</string>
+	<string>https://beacon-bar-file-server.herokuapp.com/lufthansa</string>
 	<key>configShortName</key>
 	<string>lufthansa</string>
 	<key>configFullName</key>
@@ -17,9 +17,9 @@
 	<key>beaconUUID</key>
 	<string>4E455741-4552-544C-4142-5357494E0D0A</string>
 	<key>hostSupport</key>
-    <true/>
-    <key>tvhostSupport</key>
-    <true/>
+	<true/>
+	<key>tvhostSupport</key>
+	<true/>
 	<key>tvhostPages</key>
 	<dict>
 		<key>main</key>
@@ -66,10 +66,10 @@
 		<string>background.png</string>
 		<string>config.html</string>
 		<string>newaer.js</string>
-        <string>jquery.min.js</string>
-        <string>ipad-styles.css</string>
-        <string>iphone-styles.css</string>
-        <string>other-styles.css</string>
+		<string>jquery.min.js</string>
+		<string>ipad-styles.css</string>
+		<string>iphone-styles.css</string>
+		<string>other-styles.css</string>
 	</array>
 </dict>
 </plist>
