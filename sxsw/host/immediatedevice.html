@@ -90,22 +90,21 @@
             var friends = firebase.database().ref('friends/');
 
             data.friends.data.forEach(function(friend){
-                console.log('hello?');
                 friends.child(userId).once('value').then(function(snapshot) {
-                 var friendBadge = getBadgeId(friend.id);
-                 if(!snapshot.val()){
-                     friends.child(userId).push(friendBadge);
-                     friends.child(friendBadge).push(userId);
-                 }
-                 else{
-                     snapshot.forEach(function(id){
-                         if(getBadgeId(id.val()) !== friendBadge){
-                             friends.child(userId).push(friendBadge);
-                             friends.child(friendBadge).push(userId);
-                         }
-                     });
-                 }
-                });
+                  var friendBadge = getBadgeId(friend.id);
+                  if(!snapshot.val()){
+                      friends.child(userId).push(friendBadge);
+                      friends.child(friendBadge).push(userId);
+                  }
+                  else{
+                      snapshot.forEach(function(id){
+                          if(getBadgeId(id.val()) !== friendBadge){
+                              friends.child(userId).push(friendBadge);
+                              friends.child(friendBadge).push(userId);
+                          }
+                      });
+                  }
+                 });
             });
 
             if(calculateAge(data.birthday) > 20){
@@ -118,6 +117,8 @@
 
         function getBadgeId(facebookId){
             firebase.database().ref('badges/'+facebookId).once('value').then(function(snapshot){
+                console.log(snapshot);
+                console.log('gettingBadge');
                 if(snapshot.child('badge')){
                     return snapshot.child('badge').val();
                 }
