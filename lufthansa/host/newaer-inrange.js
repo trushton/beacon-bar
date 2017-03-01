@@ -103,7 +103,11 @@ function NAUpdate(devicesPresent)
 {
 //    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
-
+    var devs = [];
+    devicesPresent.forEach(function(device){
+      devs.push(device.data.name);
+    });
+    localStorage.setItem("rows", devs);
     // Update
     for (var key in devices) {
         if(devicesPresent.hasOwnProperty(key)) {
@@ -141,7 +145,6 @@ function updateDevice(device)
         }
     }
     row = datatable.api().row('#'+device.deviceId);
-    localStorage.setItem("rows", row.toString());
     row.data(device).draw();
 }
 
