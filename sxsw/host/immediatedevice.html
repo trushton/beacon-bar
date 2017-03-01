@@ -63,9 +63,8 @@
         }(document, 'script', 'facebook-jssdk'));
 
 
-        function checkIfRegistered(){
+        function checkIfRegistered(userBadge){
             var ref = firebase.database().ref('users/');
-            var userBadge = localStorage.getItem("currentDevice");
             if(userBadge === null){userBadge = '';}
 
             ref.once('value').then(function(snapshot){
@@ -125,7 +124,6 @@
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
-            console.log(badgeId);
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
@@ -157,9 +155,8 @@
             return Math.abs(ageDate.getUTCFullYear() - 1970);
         }
 
-        function checkLoginState(token) {
+        function checkLoginState(token, deviceId) {
             if (token) {
-                var deviceId = localStorage.getItem("currentDevice");
                 FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                     localStorage.setItem("user_id", data.id);
                     createUser(token, data, deviceId);
@@ -175,19 +172,18 @@
         }
 
         function firebaseLogin(access_token, deviceId){
-            console.log(localStorage);
             var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
             firebase.auth().signInWithCredential(credential).then(function(){
-                checkLoginState(access_token);
+                checkLoginState(access_token, deviceId);
             });
         }
-        checkIfRegistered();
         var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
         var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
         var tokenResults = tokenRegex.exec(window.location.href);
         var deviceId = deviceIdRegex.exec(window.location.href);
         console.log(tokenResults);
         console.log(deviceId);
+        checkIfRegistered(deviceId);
         if(tokenResults && tokenResults[2] && deviceId) {
             firebaseLogin(tokenResults[2], deviceId);
         }
