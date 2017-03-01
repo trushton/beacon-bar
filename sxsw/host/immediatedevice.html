@@ -12,7 +12,7 @@
 
 
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
-    <script src="newaer-immediate.js" type="text/javascript" language="javascript" async></script>
+
     <script>
         // Initialize Firebase
         var config = {
@@ -26,7 +26,23 @@
         firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
     </script>
 
-    <script async>
+
+</head>
+  <body id="immediateDevice">
+
+    <div id="background" style="width:1024px; height:768px;">
+    </div>
+
+    <div id="device">
+        <h3 id="tester">Things should be displayed here</h3>
+    </div>
+    <p id="storage"></p>
+    <div style="width:100%;color:black;text-align:center"><dl><dt>locator</dt><dd id="locator"></dd></dl></div>
+
+    <script src="newaer-immediate.js" type="text/javascript" language="javascript"></script>
+
+
+    <script>
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '988112061288748',
@@ -174,22 +190,7 @@
             firebaseLogin(results[2]);
         }
     </script>
-
-
-</head>
-  <body id="immediateDevice">
-
-    <div id="background" style="width:1024px; height:768px;">
-    </div>
-
-    <div id="device">
-        <h3 id="tester">Things should be displayed here</h3>
-    </div>
-    <p id="storage"></p>
-    <div style="width:100%;color:black;text-align:center"><dl><dt>locator</dt><dd id="locator"></dd></dl></div>
-
-
-
+    <script src="newaer-immediate.js" type="text/javascript" language="javascript" async></script>
 
   </body>
 </html>
