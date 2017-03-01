@@ -190,7 +190,7 @@
             if(deviceId && deviceId[2]){
                 checkIfRegistered(deviceId[2]);
             } else {
-                checkIfRegistered('')
+                checkIfRegistered(localStorage.getItem("currentDevice"));
             }
             if(tokenResults && tokenResults[2] && deviceId) {
                 firebaseLogin(tokenResults[2], deviceId[2]);
