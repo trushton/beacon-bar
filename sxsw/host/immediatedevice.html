@@ -167,7 +167,7 @@
                 checkLoginState(access_token);
             });
         }
-
+        $('#storage').text(localStorage);
         checkIfRegistered();
         var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
         var results = regex.exec(window.location.href);
@@ -188,6 +188,7 @@
     <div id="device">
         <h3 id="tester">Things should be displayed here</h3>
     </div>
+    <p id="storage"></p>
     <div style="width:100%;color:black;text-align:center"><dl><dt>locator</dt><dd id="locator"></dd></dl></div>
 
 
