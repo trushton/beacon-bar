@@ -103,6 +103,7 @@ function NAUpdate(devicesPresent)
 {
 //    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
+
     // Update
     for (var key in devices) {
         if(devicesPresent.hasOwnProperty(key)) {
@@ -113,8 +114,6 @@ function NAUpdate(devicesPresent)
             removeDevice(devices[key]);
         }
     }
-    //localStorage.setItem("rows", JSON.stringify(devicesPresent));
-
 
     // Add
     for (var key in devicesPresent) {
@@ -141,8 +140,8 @@ function updateDevice(device)
             }
         }
     }
-
     row = datatable.api().row('#'+device.deviceId);
+    localStorage.setItem("rows", "testTESTTESTTEST");
     row.data(device).draw();
 }
 
