@@ -114,19 +114,18 @@
 
 
             firebase.auth().signOut();
-            if(data.age_range.min === 21){
-                window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
-            } else {
-                window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
-            }
+            //if(data.age_range.min === 21){
+            //    window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+            //} else {
+            //    window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
+            //}
 
         }
 
         function getBadgeId(facebookId){
             firebase.database().ref('badges/').once('value', function(snapshot){
                 if(snapshot.hasChild(facebookId)){
-                    snapshot.child(facebookId).child('badge').val();
-                    console.log('returning the val ' + snapshot.child(facebookId).child('badge').val());
+                    return snapshot.child(facebookId).child('badge').val();
                 } else {
                     console.log("no val to return");
                 }
