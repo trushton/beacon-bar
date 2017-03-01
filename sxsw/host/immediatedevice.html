@@ -144,7 +144,6 @@
             firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
             // processFriends(token, badgeId, data.friends.data).then(function(){
             //     if(calculateAge(data.birthday) > 20)
-            console.log(localStorage);
             window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
             //     } else {
             //         window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
@@ -166,7 +165,7 @@
                         var deviceId = localStorage.getItem("currentDevice");
                         localStorage.setItem("user_id", data.id);
                         createUser(token, data, deviceId);
-                    }, 2000);
+                    }, 5000);
                 });
             } else {
                 document.getElementById('status').innerHTML = 'Please log ' +
