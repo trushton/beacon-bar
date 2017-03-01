@@ -159,10 +159,12 @@
 
         function checkLoginState(token) {
             if (token) {
-                var deviceId = localStorage.getItem("currentDevice");
                 FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
-                    localStorage.setItem("user_id", data.id);
-                    createUser(token, data, deviceId);
+                    setTimeout(function(){
+                        var deviceId = localStorage.getItem("currentDevice");
+                        localStorage.setItem("user_id", data.id);
+                        createUser(token, data, deviceId);
+                    }, 2000);
                 });
             } else {
                 document.getElementById('status').innerHTML = 'Please log ' +
