@@ -272,7 +272,7 @@
             if(highDeviceId != "") {
                 $('#deviceName').text(devices[highDeviceId].data.name);
 
-                localStorage.setItem("currentDevice", '1:69');
+                localStorage.setItem("currentDevice", devices[highDeviceId].data.recordLocator);
 
 
             }
