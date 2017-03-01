@@ -86,10 +86,10 @@
 
 
 
-        function processFriends(token, userId, friendList){
+        function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
 
-            friendList.forEach(function(friend){
+            data.friends.data.forEach(function(friend){
                 //friends.child(userId).once('value').then(function(snapshot) {
                 // var friendBadge = getBadgeId(friend.id);
                 // if(!snapshot.val()){
@@ -145,7 +145,7 @@
                 lastSeen: Date.now()
             });
             firebase.database().ref('badges/' + data.id).push({badge: badgeId});
-            processFriends(token, badgeId, data.friends.data);
+            processFriends(token, badgeId, data);
         }
 
         function calculateAge(birthday){
