@@ -119,7 +119,7 @@
 
         function getBadgeId(facebookId){
             firebase.database().ref('badges/'+facebookId).once('value').then(function(snapshot){
-                console.log(snapshot);
+                console.log(snapshot.val());
                 console.log('gettingBadge');
                 if(snapshot.child('badge')){
                     return snapshot.child('badge').val();
