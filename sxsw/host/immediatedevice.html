@@ -126,6 +126,7 @@
             if(data.cover){ cover = data.cover.source.toString(); }
 
             console.log(badgeId);
+            console.log(localStorage);
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
