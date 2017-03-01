@@ -95,8 +95,8 @@
                 if(!snapshot.hasChild(userId)) {
                     data.friends.data.forEach(function (friend) {
                         console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
-                        friends.child(userId).push(getBadgeId(friend.id));
-                        friends.child(getBadgeId(friend.id)).push(userId);
+                        firebase.database().ref('friends/'+userId).push(getBadgeId(friend.id));
+                        firebase.database().ref('friends/'+getBadgeId(friend.id)).push(userId);
                     });
                 }
                // } else {
