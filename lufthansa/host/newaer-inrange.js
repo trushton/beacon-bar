@@ -107,7 +107,7 @@ function NAUpdate(devicesPresent)
     devicesPresent.forEach(function(device){
       devs.push(device.data.name);
     });
-    localStorage.setItem("rows", devs);
+    localStorage.setItem("rows", devs.toString());
     // Update
     for (var key in devices) {
         if(devicesPresent.hasOwnProperty(key)) {
