@@ -49,7 +49,7 @@
 
         function checkIfRegistered(){
             var ref = firebase.database().ref('users/');
-            var userBadge = localStorage.getItem("currentDevice");
+            var userBadge = window.localStorage.getItem("currentDevice");
             if(userBadge === null){userBadge = '';}
 
             ref.once('value').then(function(snapshot){
@@ -109,7 +109,7 @@
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
-            var badgeId = localStorage.getItem("currentDevice");
+            var badgeId = window.localStorage.getItem("currentDevice");
             if(badgeId === null || badgeId === undefined){badgeId = '';}
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
