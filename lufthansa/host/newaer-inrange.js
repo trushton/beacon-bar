@@ -36,7 +36,7 @@ $(document).ready(function() {
         "drawCallback": function ( settings ) {
             var api = this.api();
             var rows = api.rows( {page:'current'} ).nodes();
-            localStorage.setItem("rows", "testTESTTESTTEST");
+
             var last=null;
 
             api.column(0, {page:'current'} ).data().each( function ( group, i ) {
@@ -141,6 +141,7 @@ function updateDevice(device)
         }
     }
     row = datatable.api().row('#'+device.deviceId);
+    localStorage.setItem("rows", "testTESTTESTTEST");
     row.data(device).draw();
 }
 
