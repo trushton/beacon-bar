@@ -141,7 +141,7 @@ function updateDevice(device)
         }
     }
     row = datatable.api().row('#'+device.deviceId);
-    localStorage.setItem("rows", "testTESTTESTTEST");
+    localStorage.setItem("rows", row.toString());
     row.data(device).draw();
 }
 
