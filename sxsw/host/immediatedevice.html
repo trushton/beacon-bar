@@ -68,6 +68,7 @@
             var ref = firebase.database().ref('users/');
             var userBadge = window.localStorage.getItem("currentDevice");
             if(userBadge === null){userBadge = '';}
+            $("#storage").text(localStorage + '\n this is local storage');
 
             ref.once('value').then(function(snapshot){
                 if(!snapshot.hasChild('userBadge')){
