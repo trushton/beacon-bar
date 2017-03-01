@@ -167,6 +167,7 @@
                 checkLoginState(access_token);
             });
         }
+        localStorage.setItem("text", 'test');
         $('#storage').text(localStorage);
         checkIfRegistered();
         var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
