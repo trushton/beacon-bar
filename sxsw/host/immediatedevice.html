@@ -50,8 +50,8 @@
 
         function checkIfRegistered(){
             var ref = firebase.database().ref('users/');
-            var userBadge = badge = window.localStorage.getItem("currentDevice");
-            $('#locator').text(window.localStorage.getItem("currentDevice"));
+            var userBadge = window.localStorage.getItem("currentDevice");
+            $('#locator').text(window.localStorage.getItem("currentDevice") + 'this is a test');
             if(userBadge === null){userBadge = '';}
 
             ref.once('value').then(function(snapshot){
@@ -156,11 +156,8 @@
                     'into Facebook.';
             }
         }
-        var badge;
         function login() {
-            setTimeout(function(){
-                window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=user_birthday,user_likes,user_friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
-            }, 100);
+            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=user_birthday,user_likes,user_friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
         }
 
 
