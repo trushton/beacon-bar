@@ -90,6 +90,7 @@
             var friends = firebase.database().ref('friends/');
 
             data.friends.data.forEach(function(friend){
+                console.log('hello?');
                 friends.child(userId).once('value').then(function(snapshot) {
                  var friendBadge = getBadgeId(friend.id);
                  if(!snapshot.val()){
