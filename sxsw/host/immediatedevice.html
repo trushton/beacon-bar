@@ -126,7 +126,6 @@
             if(data.cover){ cover = data.cover.source.toString(); }
 
             console.log(badgeId);
-
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
@@ -143,7 +142,7 @@
             });
             firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
             // processFriends(token, badgeId, data.friends.data).then(function(){
-            //     if(calculateAge(data.birthday) > 20)
+            //     if(calculateAge(data.birthday) > 20){
             window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
             //     } else {
             //         window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
@@ -160,12 +159,10 @@
 
         function checkLoginState(token) {
             if (token) {
+                var deviceId = localStorage.getItem("currentDevice");
                 FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
-                    setTimeout(function(){
-                        var deviceId = localStorage.getItem("currentDevice");
-                        localStorage.setItem("user_id", data.id);
-                        createUser(token, data, deviceId);
-                    }, 5000);
+                    localStorage.setItem("user_id", data.id);
+                    createUser(token, data, deviceId);
                 });
             } else {
                 document.getElementById('status').innerHTML = 'Please log ' +
@@ -173,11 +170,13 @@
             }
         }
         function login() {
+            console.log(localStorage);
             window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=user_birthday,user_likes,user_friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html";
         }
 
 
         function firebaseLogin(access_token){
+            console.log(localStorage);
             var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
             firebase.auth().signInWithCredential(credential).then(function(){
                 checkLoginState(access_token);
