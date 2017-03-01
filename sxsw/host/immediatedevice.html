@@ -174,7 +174,7 @@
             window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&scope=user_birthday,user_likes,user_friends&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html?deviceId=" + deviceId;
         }
 
-        function firebaseLogin(access_token){
+        function firebaseLogin(access_token, deviceId){
             console.log(localStorage);
             var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
             firebase.auth().signInWithCredential(credential).then(function(){
@@ -182,11 +182,14 @@
             });
         }
         checkIfRegistered();
-        var regex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
-        var results = regex.exec(window.location.href);
-        console.log(results);
-        if(results && results[2]) {
-            firebaseLogin(results[2]);
+        var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
+        var deviceIdRegex = new RegExp('#deviceId' + "(=([^&#]*)|&|#|$)");
+        var tokenResults = tokenRegex.exec(window.location.href);
+        var deviceId = deviceRegex.exec(window.location.href);
+        console.log(tokenResults);
+        console.log(deviceId);
+        if(tokenResults && tokenResults[2] && deviceId) {
+            firebaseLogin(tokenResults[2], deviceId);
         }
     </script>
 
