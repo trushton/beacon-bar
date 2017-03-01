@@ -183,10 +183,15 @@
         var deviceId = deviceIdRegex.exec(window.location.href);
         console.log(tokenResults);
         console.log(deviceId);
-        checkIfRegistered(deviceId);
-        if(tokenResults && tokenResults[2] && deviceId) {
-            firebaseLogin(tokenResults[2], deviceId);
-        }
+
+        setTimeout(function(){
+            console.log(localStorage);
+            console.log('If_REGISTERED');
+            checkIfRegistered(deviceId);
+            if(tokenResults && tokenResults[2] && deviceId) {
+                firebaseLogin(tokenResults[2], deviceId);
+            }
+        }, 0);
     </script>
 
 
