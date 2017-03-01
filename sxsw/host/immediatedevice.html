@@ -119,11 +119,11 @@
 
         function getBadgeId(facebookId){
             firebase.database().ref('badges/'+facebookId).once('value').then(function(snapshot){
-                console.log(snapshot.val());
-                console.log('gettingBadge');
                 if(snapshot.child('badge')){
+                    console.log('returning the val ' + snapshot.child('badge').val());
                     return snapshot.child('badge').val();
                 }
+                console.log("no val to return");
             });
         }
 
