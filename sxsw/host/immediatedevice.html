@@ -88,15 +88,14 @@
 
         function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
-            //firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
-            console.log(data);
             friends.once('value', function(snapshot){
+                var instance = this;
                 if(!snapshot.hasChild(userId)) {
                     data.friends.data.forEach(function(friend) {
-                        console.log("pushing snapshot was null " + userId + " " + getBadgeId(friend.id));
-                        firebase.database().ref('friends/'+userId).push(getBadgeId(friend.id));
-                        firebase.database().ref('friends/'+getBadgeId(friend.id)).push(userId);
+                        console.log("pushing snapshot was null " + instance.userId + " " + getBadgeId(friend.id));
+                        firebase.database().ref('friends/'+instance.userId).push(getBadgeId(friend.id));
+                        firebase.database().ref('friends/'+getBadgeId(friend.id)).push(instance.userId);
                     });
                 }
                // } else {
