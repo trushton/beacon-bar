@@ -92,7 +92,7 @@
 
             friends.once('value', function(snapshot){
                 if(!snapshot.hasChild(userId)) {
-                    Promise.all(data.friends.data, function(friend) {
+                    return Promise.all(data.friends.data, function(friend) {
                         console.log(friend);
                         return getBadgeId(friend.id).then(function(result){
                             console.log(result);
