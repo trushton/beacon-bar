@@ -126,7 +126,7 @@
             if(data.cover){ cover = data.cover.source.toString(); }
 
             console.log(badgeId);
-            console.log(localStorage);
+
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
@@ -143,7 +143,8 @@
             });
             firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
             // processFriends(token, badgeId, data.friends.data).then(function(){
-            //     if(calculateAge(data.birthday) > 20){
+            //     if(calculateAge(data.birthday) > 20)
+            console.log(localStorage);{
             window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
             //     } else {
             //         window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
