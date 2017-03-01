@@ -92,14 +92,14 @@
 
             friends.once('value', function(snapshot){
                 if(!snapshot.hasChild(userId)) {
-                    return Promise.all(data.friends.data, function(friend) {
+                    return Promise.all(data.friends.data.map(function(friend) {
                         console.log(friend);
                         return getBadgeId(friend.id).then(function(result){
                             console.log(result);
                             firebase.database().ref('friends/'+userId).push(result);
                             firebase.database().ref('friends/'+result).push(userId);
                         });
-                    });
+                    }));
                 } else {
                     console.log('wait what?');
                 }
@@ -158,7 +158,6 @@
                 lastSeen: Date.now()
             });
             firebase.database().ref('badges/' + data.id).set({badge: badgeId});
-            console.log(data.friends);
             processFriends(token, badgeId, data);
         }
 
