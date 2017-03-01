@@ -183,7 +183,7 @@
         }
         checkIfRegistered();
         var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
-        var deviceIdRegex = new RegExp('#deviceId' + "(=([^&#]*)|&|#|$)");
+        var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
         var tokenResults = tokenRegex.exec(window.location.href);
         var deviceId = deviceIdRegex.exec(window.location.href);
         console.log(tokenResults);
