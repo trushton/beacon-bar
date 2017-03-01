@@ -124,6 +124,8 @@
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
+            console.log(localStorage);
+            console.log('creating user');
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
@@ -189,7 +191,7 @@
             console.log('If_REGISTERED');
             checkIfRegistered(deviceId);
             if(tokenResults && tokenResults[2] && deviceId) {
-                firebaseLogin(tokenResults[2], deviceId);
+                firebaseLogin(tokenResults[2], deviceId[2]);
             }
         }, 0);
     </script>
