@@ -76,10 +76,9 @@ function NAUpdate(devicesPresent)
 
     if(highDeviceId != "") {
         $('#deviceName').text(devices[highDeviceId].data.name);
-        $('#locator').text(devices[highDeviceId].data.recordLocator);
-        window.localStorage.setItem("currentDevice",devices[highDeviceId].data.recordLocator );
 
-
+        window.localStorage.setItem("currentDevice",devices[highDeviceId].data.recordLocator);
+        $('#locator').text(window.localStorage.getItem("currentDevice"));
     }
 }
 
