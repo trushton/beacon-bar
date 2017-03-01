@@ -125,8 +125,8 @@
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
-            var badgeId = window.localStorage.getItem("currentDevice");
-            if(badgeId === null || badgeId === undefined){badgeId = '';}
+            var badgeId = localStorage.getItem("currentDevice");
+            if(badgeId === null || badgeId === undefined){badgeId = 'test';}
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
