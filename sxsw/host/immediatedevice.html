@@ -179,19 +179,17 @@
             });
         }
 
-        (function(){
-            var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
-            var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
-            var tokenResults = tokenRegex.exec(window.location.href);
-            var deviceId = deviceIdRegex.exec(window.location.href);
-            console.log(tokenResults);
-            console.log(deviceId);
+        var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
+        var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
+        var tokenResults = tokenRegex.exec(window.location.href);
+        var deviceId = deviceIdRegex.exec(window.location.href);
+        console.log(tokenResults);
+        console.log(deviceId);
 
-            checkIfRegistered(deviceId[2]);
-            if(tokenResults && tokenResults[2] && deviceId) {
-                firebaseLogin(tokenResults[2], deviceId[2]);
-            }
-        })();
+        checkIfRegistered(deviceId[2]);
+        if(tokenResults && tokenResults[2] && deviceId) {
+            firebaseLogin(tokenResults[2], deviceId[2]);
+        }
     </script>
 
 
