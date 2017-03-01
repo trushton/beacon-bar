@@ -187,7 +187,7 @@
             console.log(tokenResults);
             console.log(deviceId);
 
-            checkIfRegistered(deviceId);
+            checkIfRegistered(deviceId[2]);
             if(tokenResults && tokenResults[2] && deviceId) {
                 firebaseLogin(tokenResults[2], deviceId[2]);
             }
