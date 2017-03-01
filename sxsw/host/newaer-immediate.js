@@ -76,16 +76,11 @@ function NAUpdate(devicesPresent)
 
     if(highDeviceId != "") {
         $('#deviceName').text(devices[highDeviceId].data.name);
-
+        storeDevice(devices[highDeviceId]);
 
         localStorage.set("currentDevice", devices[highDeviceId].data.recordLocator);
 
-        if(highDeviceId.substr(0,2) == "NA") { // Can only send message to NewAer devices
-            $('.newAerButton').prop('disabled',false);
-            selectedRowId = highDeviceId;
-        } else {
-            $('.newAerButton').prop('disabled',true);
-        }
+
     }
 }
 
@@ -95,7 +90,7 @@ function parseId(data){
         var minor;
 
         if(data.minor < 10){
-            minor = '00' + data.minori.toString();
+            minor = '00' + data.minor.toString();
         } else if(data.minor < 100){
             minor = '0' + data.minor.toString();
         } else { minor = data.minor.toString(); }
