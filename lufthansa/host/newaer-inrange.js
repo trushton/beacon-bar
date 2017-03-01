@@ -113,7 +113,7 @@ function NAUpdate(devicesPresent)
             removeDevice(devices[key]);
         }
     }
-    localStorage.setItem("rows", JSON.stringify(devicesPresent));
+    //localStorage.setItem("rows", JSON.stringify(devicesPresent));
 
 
     // Add
