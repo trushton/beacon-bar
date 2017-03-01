@@ -107,6 +107,7 @@
                  });
             });
 
+            firebase.auth().signOut();
             if(calculateAge(data.birthday) > 20){
                 window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
             } else {
