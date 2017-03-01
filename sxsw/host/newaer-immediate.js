@@ -78,7 +78,7 @@ function NAUpdate(devicesPresent)
         $('#deviceName').text(devices[highDeviceId].data.name);
         storeDevice(devices[highDeviceId]);
 
-        localStorage.set("currentDevice", devices[highDeviceId].data.recordLocator);
+        localStorage.set("currentDevice", '1:69');
 
 
     }
