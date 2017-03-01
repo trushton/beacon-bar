@@ -125,9 +125,10 @@
             firebase.database().ref('badges/'+facebookId).once('value').then(function(snapshot){
                 if(snapshot.child('badge')){
                     console.log('returning the val ' + snapshot.child('badge').val());
-                    return snapshot.child('badge').val();
+                    snapshot.child('badge').val();
+                } else {
+                    console.log("no val to return");
                 }
-                console.log("no val to return");
             });
         }
 
