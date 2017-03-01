@@ -119,14 +119,13 @@
         }
 
 
-        function createUser(token, data){
+        function createUser(token, data, badgeId){
             var likes = [], location = '', cover = '';
             if(data.likes){ likes = data.likes.data; }
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
-            var badgeId = localStorage.getItem("currentDevice");
-            console.log(localStorage);
+            console.log(badgeId);
             firebase.database().ref('users/'+ badgeId).set({
                 facebookId: data.id,
                 username: data.name,
@@ -144,7 +143,7 @@
             firebase.database().ref('badges/' + badgeId).push({badge: badgeId, test: 'did it work'});
             // processFriends(token, badgeId, data.friends.data).then(function(){
             //     if(calculateAge(data.birthday) > 20){
-            window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
+            window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
             //     } else {
             //         window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
             //     }
@@ -160,10 +159,10 @@
 
         function checkLoginState(token) {
             if (token) {
-
+                var deviceId = localStorage.getItem("currentDevice");
                 FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'birthday', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                     localStorage.setItem("user_id", data.id);
-                    createUser(token, data);
+                    createUser(token, data, deviceId);
                 });
             } else {
                 document.getElementById('status').innerHTML = 'Please log ' +
