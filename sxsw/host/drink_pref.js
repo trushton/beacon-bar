@@ -10,10 +10,10 @@ function finishRegistration(value){
 
 }
 
-(function () {
+$(document).ready(function () {
     firebase.database().ref('users/').once('value', function(snapshot){
         if(snapshot.hasChild(badge)){
 
         }
     });
-})();
+});

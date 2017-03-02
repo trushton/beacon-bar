@@ -73,7 +73,7 @@
     margin-left:12.5%;
 }
 
-#seperator1{
+#rect1{
     width: 28%;
     height: 2px;
     background-color: #FFFFFF;
@@ -81,7 +81,7 @@
     margin-top:50px;
     margin-left: 5%;
 }
-#seperator2{
+#rect2{
     width: 28%;
     height: 2px;
     background-color: #FFFFFF;
@@ -89,3 +89,17 @@
     margin-top:50px;
     margin-right: 5%;
 }
+
+#logos{
+    width: 100%;
+    position: fixed;
+    bottom: 27%;
+    left:12.5%;
+}
+
+#logos img {
+    position: relative;
+    margin-left: 15px;
+}
+
+

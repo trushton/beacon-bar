@@ -115,7 +115,7 @@
                //         });
                //     });
                // }
-            });//.then(function(){
+            }).then(function(){
                 console.log('done, redirecting');
                 console.log(localStorage.getItem('currentDevice'));
                 firebase.auth().signOut();
@@ -124,7 +124,7 @@
                 } else {
                     window.location = 'https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html&access_token=' + token;
                 }
-            //});
+            });
         }
 
         function getBadgeId(facebookId){
