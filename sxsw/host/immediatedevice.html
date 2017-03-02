@@ -127,10 +127,12 @@
             var val = firebase.database().ref('badges/').once('value', function(snapshot){
                 if(snapshot.hasChild(facebookId)) {
                     console.log(snapshot.child(facebookId).child('badge').val());
+                    console.log('inGetBadge');
                     return snapshot.child(facebookId).child('badge').val();
                 }
             });
             console.log(val);
+            console.log('returning val')
             return val;
         }
 
