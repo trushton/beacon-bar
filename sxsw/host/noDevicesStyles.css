@@ -1,3 +1,14 @@
+#vip{
+    width: 480px;
+    height: 141.34px;
+    background-color: rgba(0,0,0,0);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 150px;
+    color: #ffffff;
+}
+
 #noDevicesFooter {
     width: 1026px;
     height: 141px;
@@ -13,6 +24,7 @@
     text-align: center;
     line-height: 53px;
     color: #FFFFFF;
+    vertical-align: middle;
 }
 
 #sparkLounge{
@@ -21,6 +33,8 @@
     font-family: "Akzidenz Grotesk BQ";
     font-size: 50px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
     line-height: 57px;
     letter-spacing: 5px;
     color: #FFFFFF;
@@ -32,6 +46,8 @@
     font-family: "Akzidenz Grotesk BQ";
     font-size: 30px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
     line-height: 35px;
     letter-spacing: 3px;
     color: #FFFFFF;
@@ -42,4 +58,11 @@
     height: 103px;
     display: block;
     margin: auto;
+}
+
+#seperator1{
+    width: 320px;
+    height: 2px;
+    background-color: #FFFFFF;
+    vertical-align: middle;
 }
