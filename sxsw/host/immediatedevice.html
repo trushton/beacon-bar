@@ -117,6 +117,7 @@
                // }
             });//.then(function(){
                 console.log('done, redirecting');
+                console.log(localStorage.getItem('currentDevice'));
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
                     window.location =' https://www.facebook.com/logout.php?next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html&access_token=' + token;
