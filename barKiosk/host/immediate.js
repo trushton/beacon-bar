@@ -57,7 +57,7 @@ var drinks = {
     var badgeId = localStorage.getItem("currentDevice");
 
 
-    ref.once('value').then(function(snapshot) {
+    ref.once('value', function(snapshot) {
         if (snapshot.hasChild(badgeId)) {
             console.log('needs to be fixed');
             var user = snapshot.child(badgeId);
@@ -72,9 +72,7 @@ var drinks = {
             database.ref(badgeId).update({
                 barCount: (user.child('barCount')+1),
                 prevRecommendation: recommendation.name
-            }).then(function(){
-                console.log(recommendation);
-            })
+            });
         }
         else{
             $('#notFound').html("<h3>I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?</h3>");
