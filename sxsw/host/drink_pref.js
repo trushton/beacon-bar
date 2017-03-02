@@ -6,3 +6,7 @@ function finishRegistration(value){
     });
 
 }
+
+(function () {
+
+})();
