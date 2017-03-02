@@ -1,5 +1,5 @@
 #vip{
-    width: 480px;
+    width: 100%;
     height: 141.34px;
     background-color: rgba(0,0,0,0);
     text-align: center;
@@ -7,16 +7,20 @@
     margin-right: auto;
     font-size: 150px;
     color: #ffffff;
+    position: fixed;
 }
 
 #noDevicesFooter {
-    width: 1026px;
+    width: 100%;
     height: 141px;
     background-color: #139DD8;
+    position:fixed;
+    bottom:0;
+    left:0;
 }
 
 #noDevicesFooterText{
-    width: 979px;
+    width: 100%;
     height: 106px;
     font-family: "Akzidenz Grotesk BQ";
     font-size: 45px;
@@ -24,45 +28,64 @@
     text-align: center;
     line-height: 53px;
     color: #FFFFFF;
-    vertical-align: middle;
+    position:relative;
+    bottom:30px;
 }
 
 #sparkLounge{
-    width: 740.2px;
+    width: 100%;
     height: 57px;
     font-family: "Akzidenz Grotesk BQ";
     font-size: 50px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    position: fixed;
+    top: 25%;
     line-height: 57px;
     letter-spacing: 5px;
     color: #FFFFFF;
 }
 
 #atCapitalFactory{
-    width: 802px;
+    width: 100%;
     height: 35px;
     font-family: "Akzidenz Grotesk BQ";
     font-size: 30px;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
     line-height: 35px;
     letter-spacing: 3px;
     color: #FFFFFF;
+    position:absolute;
+    top:55%;
+
+}
+
+#separator{
+    width:100%;
+    position:fixed;
+    display:inline-block;
+    margin-top:25%;
+    margin-bottom:auto
 }
 
 #page1Logo{
     width: 92px;
     height: 103px;
-    display: block;
-    margin: auto;
+    margin-left:12.5%;
 }
 
 #seperator1{
-    width: 320px;
+    width: 28%;
     height: 2px;
     background-color: #FFFFFF;
-    vertical-align: middle;
+    float: left;
+    margin-top:50px;
+    margin-left: 5%;
+}
+#seperator2{
+    width: 28%;
+    height: 2px;
+    background-color: #FFFFFF;
+    float:right;
+    margin-top:50px;
+    margin-right: 5%;
 }
