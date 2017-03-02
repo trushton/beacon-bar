@@ -90,7 +90,7 @@
             var friends = firebase.database().ref('friends/');
             //firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
-            friends.once('value', function(snapshot){
+            friends.once('value').then(function(snapshot){
                 return Promise.all(data.friends.data.map(function (friend) {
                     console.log(friend);
                     return getBadgeId(friend.id).then(function (result) {
@@ -124,7 +124,7 @@
         }
 
         function getBadgeId(facebookId){
-            var val = firebase.database().ref('badges/').once('value', function(snapshot){
+            var val = firebase.database().ref('badges/').once('value').then(function(snapshot){
                 if(snapshot.hasChild(facebookId)) {
                     console.log(snapshot.child(facebookId).child('badge').val());
                     console.log('inGetBadge');
