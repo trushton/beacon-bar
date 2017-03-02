@@ -91,19 +91,15 @@
             //firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             friends.once('value', function(snapshot){
-                if(!snapshot.hasChild(userId)) {
-                    return Promise.all(data.friends.data.map(function(friend) {
-                        console.log(friend);
-                        return getBadgeId(friend.id).then(function(result){
-                            console.log(result);
-                            return Promise.all([
-                                firebase.database().ref('friends/'+userId).push(result),
-                                firebase.database().ref('friends/'+result).push(userId)]);
-                        });
-                    }));
-                } else {
-                    console.log('wait what?');
-                }
+                return Promise.all(data.friends.data.map(function (friend) {
+                    console.log(friend);
+                    return getBadgeId(friend.id).then(function (result) {
+                        console.log(result);
+                        return Promise.all([
+                            firebase.database().ref('friends/' + userId).push(result),
+                            firebase.database().ref('friends/' + result).push(userId)]);
+                    });
+                }));
                // } else {
                //         snapshot.child(userId).forEach(function(id){
                //             console.log("for each current friend");
