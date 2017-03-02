@@ -71,13 +71,13 @@ function NAUpdate(devicesPresent)
             highRssi = devices[key].rssi;
             highRssi = highRssi;
             highDeviceId = key;
-            localStorage.set("currentDevice", highDeviceId);
         }
     }
 
     if(highDeviceId != "") {
         $('#deviceName').text(devices[highDeviceId].data.name);
         $('#locator').text(devices[highDeviceId].data.recordLocator);
+        localStorage.set("currentDevice", parseId(devices[highDeviceId].data));
 
         if(highDeviceId.substr(0,2) == "NA") { // Can only send message to NewAer devices
             $('.newAerButton').prop('disabled',false);
@@ -85,6 +85,20 @@ function NAUpdate(devicesPresent)
         } else {
             $('.newAerButton').prop('disabled',true);
         }
+    }
+}
+
+function parseId(data){
+    if (typeof data.major !== 'undefined' && typeof data.minor !== 'undefined') {
+        var minor;
+
+        if(data.minor < 10){
+            minor = '00' + data.minor.toString();
+        } else if(data.minor < 100){
+            minor = '0' + data.minor.toString();
+        } else { minor = data.minor.toString(); }
+
+        return data.major.toString() + minor;
     }
 }
 

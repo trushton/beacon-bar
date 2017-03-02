@@ -54,7 +54,7 @@ var drinks = {
 (function(){
     var database = firebase.database();
     var ref = database.ref('users/');
-    var badgeId = processId('badge_locator'); /////////////Fill this in///////////////////
+    var badgeId = localStorage.getItem("currentDevice");
 
 
     ref.once('value').then(function(snapshot) {
@@ -83,3 +83,5 @@ function recommendDrink(preference){
     var keys = Object.keys(drinks[preference]);
     return drinks[preference[keys[keys.length * Math.random() <<0]]];
 }
+
+
