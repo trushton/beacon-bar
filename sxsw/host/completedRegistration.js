@@ -6,7 +6,7 @@ function displayData(){
         var image = document.createElement("img");
         var parent = document.getElementById("bod");
         image.id = "userImage";
-        image.src = $('.userImage').image(snapshot.child('picture').val());
+        image.src = snapshot.child('picture').val();
         parent.appendChild(image);
     });
 }

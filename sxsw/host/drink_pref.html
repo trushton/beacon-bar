@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>DrinkPreference</title>
     <script src="drink_pref.js" type="text/javascript" language="javascript"></script>
+    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <link rel="stylesheet" href="drink_pref_styles.css" type="text/css" media="all" />
     <script>
@@ -20,7 +21,7 @@
     </script>
 </head>
 
-<body background="mainBackground.png">
+<body id="bod" background="mainBackground.png">
     <p id="question">What libations do you like?</p>
     <table id="options" display="inline">
         <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
