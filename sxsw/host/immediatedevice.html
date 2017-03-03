@@ -31,6 +31,10 @@
   <body background="mainBackground.png">
 
     <div id="device">
+
+        <div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
+        <button id="register" onclick="login()">Register your badge</button>
+        <div id="dataProtection">We don\'t save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</div>
     </div>
     <div>
         <p id="test" color="white">test</p>
@@ -70,25 +74,7 @@
 
 
         function checkIfRegistered(userBadge){
-            var ref = firebase.database().ref('users/');
-            if(userBadge === null){userBadge = '';}
 
-            ref.once('value').then(function(snapshot){
-                if(!snapshot.hasChild('userBadge')){
-                    $("#device").html("<div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>" +
-                        '<button id="register" onclick="login()">Register your badge</button>'+
-                        '<div id="dataProtection">We don\'t save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!' +
-                        '</div>');
-                }
-                else{
-                    var user = snapshot.child(userBadge);
-                    $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
-                        "<img src='" + user.child('picture').val() + "'>" +
-                        "<h3>You've been here " + (user.child('visitCount').val()+1) + " times</h3>"
-                    );
-                    firebase.database().ref('users/' + userBadge).update({visitCount: user.child('visitCount').val()+1});
-                }
-            });
         }
 
 
@@ -185,11 +171,11 @@
             console.log(tokenResults);
             console.log(deviceId);
 
-            if(deviceId && deviceId[2]){
-                checkIfRegistered(deviceId[2]);
-            } else {
-                checkIfRegistered(localStorage.currentDevice);
-            }
+            //if(deviceId && deviceId[2]){
+            //    checkIfRegistered(deviceId[2]);
+            //} else {
+            //    checkIfRegistered(localStorage.currentDevice);
+            //}
             if(tokenResults && tokenResults[2] && deviceId) {
                 firebaseLogin(tokenResults[2], deviceId[2]);
             }

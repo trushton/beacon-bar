@@ -41,6 +41,7 @@ function parse_query_string(string)
 
 var highRssi;
 var highDeviceId;
+var prevHighDeviceId;
 
 function NAUpdate(devicesPresent)
 {
@@ -77,11 +78,25 @@ function NAUpdate(devicesPresent)
 
         if(highDeviceId != "") {
             $('#deviceName').text(devices[highDeviceId].data.name);
-            localStorage.currentDevice = parseId(devices[highDeviceId].data);
+            var badge = localStorage.currentDevice = parseId(devices[highDeviceId].data);
             $('#locator').text(parseId(devices[highDeviceId].data));
+
+            if(prevHighDeviceId != highDeviceId){
+                var ref = firebase.database().ref('users/');
+                ref.once('value').then(function(snapshot){
+                    if(snapshot.hasChild(badge)) {
+                        var user = snapshot.child(badge);
+                        $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
+                            "<img src='" + user.child('picture').val() + "'>" +
+                            "<h3>You've been here " + (user.child('visitCount').val() + 1) + " times</h3>"
+                        );
+                        firebase.database().ref('users/' + userBadge).update({visitCount: user.child('visitCount').val() + 1});
+                    }
+                });
+                prevHighDeviceId = highDeviceId;
+            }
         }
     }
-
 }
 
 
