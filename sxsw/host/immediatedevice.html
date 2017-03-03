@@ -119,7 +119,6 @@
             }).then(function(){
                 console.log('done, redirecting');
                 console.log(localStorage.getItem('currentDevice'));
-                localStorage.setItem("currentDevice", userId);
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
