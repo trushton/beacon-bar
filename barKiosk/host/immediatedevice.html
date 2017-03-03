@@ -132,6 +132,7 @@
         })();
 
         function recommendDrink(preference){
+            console.log(preference);
             var keys = Object.keys(drinks[preference]);
             return drinks[preference][keys[keys.length * Math.random() <<0]];
         }
