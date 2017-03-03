@@ -36,6 +36,7 @@
 	<array>
 		<string>immediate.js</string>
 		<string>immediatedevice.html</string>
+        <string>immediateStyles.css</string>
 		<string>inrangedevices.html</string>
 		<string>nodevices.html</string>
 		<string>jquery.dataTables.min.css</string>
