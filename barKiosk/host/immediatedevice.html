@@ -118,8 +118,8 @@
                   $('#suggestion').html("<h3>Hi there " + name + ", I'd recommend the " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>" +
                       "<h4>Fun fact: " + recommendation.fact + ".</h4>");
 
-                  database.ref(badgeId).update({
-                      barCount: (user.child('barCount')+1),
+                  database.ref('users/'+badgeId).update({
+                      barCount: (user.child('barCount').val()+1),
                       prevRecommendation: recommendation.name
                   });
               }
