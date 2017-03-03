@@ -1,10 +1,12 @@
 var badge;
 
 function finishRegistration(value){
+    badge = getQueryStringValue('badge');
+    var badge2 = localStorage.currentDevice;
     firebase.database().ref('users/'+ badge).update({
         drink_pref: value.toString()
     }).then(function(){
-        window.location = "/sxsw/host/completedRegistration.html?badge=" + badge;
+        window.location = "/sxsw/host/completedRegistration.html?badge=" + badge + "&badge2=" + badge2;
     });
 }
 
