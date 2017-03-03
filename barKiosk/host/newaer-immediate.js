@@ -101,7 +101,7 @@ function updateDevice(device)
 
     deviceDbRecord.once('value').then(function(currentRecord){
         deviceDbRecord.update({
-            barTime: (currentRecord.child('barTime') + 1)
+            barTime: (currentRecord.child('barTime').val() + 1)
         })
     })
 }
