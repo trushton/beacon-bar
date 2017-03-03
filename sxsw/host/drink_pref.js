@@ -8,8 +8,8 @@ function finishRegistration(value){
     });
 }
 
-$('document').ready(function(){
-    badge = localStorage.getItem('currentDevice');
+$(document).ready(function(){
+    badge = localStorage.currentDevice;
     firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
         if(snapshot.hasChild('picture')){
             var image = document.createElement(img);

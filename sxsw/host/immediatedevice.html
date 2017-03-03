@@ -108,7 +108,7 @@
                     }));
                 }
             }).then(function(){
-                $('#immediateBanner').html("<p>get current device: "+localStorage.getItem("currentDevice") + " localBadge: " + userId + " all data: " + data.id+ "</p>");
+                $('#immediateBanner').html("<p>get current device: "+localStorage.currentDevice + " localBadge: " + userId + " all data: " + data.id+ "</p>");
                 proximityLock = false;
                // firebase.auth().signOut();
                 if(data.age_range.min === 21){
@@ -166,7 +166,7 @@
         }
         function login() {
             proximityLock = true;
-            var deviceId = localStorage.getItem("currentDevice");
+            var deviceId = localStorage.currentDevice;
             window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html?deviceId=" + deviceId +"&scope=user_likes,user_friends";
         }
 
@@ -188,7 +188,7 @@
             if(deviceId && deviceId[2]){
                 checkIfRegistered(deviceId[2]);
             } else {
-                checkIfRegistered(localStorage.getItem("currentDevice"));
+                checkIfRegistered(localStorage.currentDevice);
             }
             if(tokenResults && tokenResults[2] && deviceId) {
                 firebaseLogin(tokenResults[2], deviceId[2]);

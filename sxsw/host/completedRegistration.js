@@ -1,5 +1,5 @@
 function displayData(){
-    var ref = firebase.database().ref('users/'+localStorage.getItem("currentDevice"));
+    var ref = firebase.database().ref('users/'+localStorage.currentDevice);
     ref.once('value').then(function(snapshot){
         $('.thankUser').text("Thank you " + snapshot.child('username').val()
         + " for coming to The Spark VIP Lounge at Capital Factory.");
