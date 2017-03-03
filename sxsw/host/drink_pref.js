@@ -1,5 +1,7 @@
+var badge;
+
 function finishRegistration(value){
-    firebase.database().ref('users/'+ localStorage.getItem('currentDevice')).update({
+    firebase.database().ref('users/'+ badge).update({
         drink_pref: value.toString()
     }).then(function(){
         window.location = "/sxsw/host/completedRegistration.html";
@@ -7,8 +9,9 @@ function finishRegistration(value){
 }
 
 $(document).ready(function(){
-    setTimeout(function(){
-        firebase.database().ref('users/'+localStorage.getItem('currentDevice')).once('value').then(function(){
+    firebase.database().ref('badges/'+localStorage.getItem('user_id')).once('value').then(function(snapshot){
+        badge = snapshot.child('badge').val();
+        firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
             if(snapshot.hasChild('picture')){
                 var image = document.createElement(img);
                 var parent = document.getElementById('bod');
@@ -17,5 +20,5 @@ $(document).ready(function(){
                 parent.appendChild(image);
             }
         });
-    }, 100);
+    });
 });

@@ -96,28 +96,14 @@
             friends.once('value').then(function(snapshot){
                 if(!snapshot.hasChild(userId)){
                     return Promise.all(data.friends.data.map(function (friend) {
-                        console.log(friend);
                         return getBadgeId(friend.id).then(function (result) {
-                            console.log(result);
                             return Promise.all([
                                 firebase.database().ref('friends/' + userId).push(result),
                                 firebase.database().ref('friends/' + result).push(userId)]);
                         });
                     }));
                 }
-               // } else {
-               //         snapshot.child(userId).forEach(function(id){
-               //             console.log("for each current friend");
-               //             if(getBadgeId(id.val()) !== friendBadge){
-               //                 console.log("not friends yet, adding" + userId + " " + friendBadge);
-               //                 friends.child(userId).push(friendBadge);
-               //                 friends.child(friendBadge).push(userId);
-               //             }
-               //         });
-               //     });
-               // }
             }).then(function(){
-                console.log('done, redirecting');
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
@@ -131,13 +117,9 @@
         function getBadgeId(facebookId){
             var val = firebase.database().ref('badges/').once('value').then(function(snapshot){
                 if(snapshot.hasChild(facebookId)) {
-                    console.log(snapshot.child(facebookId).child('badge').val());
-                    console.log('inGetBadge');
                     return snapshot.child(facebookId).child('badge').val();
                 }
             });
-            console.log(val);
-            console.log('returning val')
             return val;
         }
 
