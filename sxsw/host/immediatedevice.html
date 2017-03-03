@@ -118,7 +118,6 @@
                // }
             }).then(function(){
                 console.log('done, redirecting');
-                console.log(localStorage.getItem('currentDevice'));
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){

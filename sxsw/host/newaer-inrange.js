@@ -120,6 +120,33 @@ function NAUpdate(devicesPresent)
             addDevice(devicesPresent[key]);
         }
     }
+
+    // Find strongest
+    highRssi = -100;
+    for (var key in devices) {
+        if(devices[key].rssi > highRssi) {
+            highRssi = devices[key].rssi;
+            highDeviceId = key;
+        }
+    }
+
+    if(highDeviceId != "") {
+        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+    }
+}
+
+function parseId(data){
+    if (typeof data.major !== 'undefined' && typeof data.minor !== 'undefined') {
+        var minor;
+
+        if(data.minor < 10){
+            minor = '00' + data.minor.toString();
+        } else if(data.minor < 100){
+            minor = '0' + data.minor.toString();
+        } else { minor = data.minor.toString(); }
+
+        return data.major.toString() + minor;
+    }
 }
 
 function updateDevice(device)
