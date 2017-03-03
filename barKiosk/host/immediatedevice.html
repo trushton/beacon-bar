@@ -34,6 +34,8 @@
 
     <div id="suggestion" style="width:100%;color:black;text-align:center">
     </div>
+    <div id="notFound" style="width:100%;color:black;text-align:center">
+    </div>
     <script src="newaer-immediate.js" type="text/javascript" language="javascript"></script>
     <script>
         var drinks = {
@@ -41,17 +43,14 @@
               "Walmart Blue": {
                   "name": "Walmart Blue",
                   "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"],
-                  "fact": "Tito's Vodka is made close by in Austin, TX"
               },
               "Moscow Mule": {
                   "name": "Moscow Mule",
                   "ingredients": ["Vodka", "Gingerbeer", "Lime"],
-                  "fact": "Tito's Vodka is made close by in Austin, TX"
               },
               "Texas Sipper": {
                   "name": "Texas Sipper",
                   "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"],
-                  "fact": "Tito's Vodka is made close by in Austin, TX"
               }
           },
           "whiskey": {
@@ -62,40 +61,33 @@
               },
               "Texas Tea": {
                   "name": "Texas Tea",
-                  "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"],
-                  "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
+                  "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"]
               }
           },
           "beer": {
               "Shiner": {
                   "name": "Shiner",
-                  "type": "dark option",
-                  "fact": "Shiner is brewed in Shiner, TX"
+                  "type": "dark option"
               },
               "Fireman's 4": {
                   "name": "Fireman's 4",
-                  "type": "light option",
-                  "fact": "Fireman's 4 is brewed in Blanco, TX"
+                  "type": "light option"
               }
           },
           "red wine": {
               "Pinot Noir": {
                   "name": "Pinot Noir",
-                  "type": "Mark West",
-                  "fact": 'COME UP WITH SOMETHING'
+                  "type": "Mark West"
               },
               "Merlot": {
                   "name": "Merlot",
-                  "type": "Mark West",
-                  "fact": 'COME UP WITH SOMETHING'
+                  "type": "Mark West"
               }
           },
           "white wine": {
               "Chenin Blanc": {
                   "name": "Chenin Blanc",
-                  "type": "Llano Estacado",
-                  "fact": 'COME UP WITH SOMETHING'
-              }
+                  "type": "Llano Estacado"
           }
       };
 
@@ -107,16 +99,12 @@
 
           ref.once('value').then(function(snapshot) {
               if (snapshot.hasChild(badgeId)) {
-                  console.log('needs to be fixed');
                   var user = snapshot.child(badgeId);
                   var name = user.child('username').val();
                   var drink_pref = user.child('drink_pref').val();
-                  console.log(name + " " + drink_pref);
                   var recommendation = recommendDrink(drink_pref);
-                  console.log(recommendation);
 
-                  $('#suggestion').html("<h3>Hi there " + name + ", I'd recommend the " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>" +
-                      "<h4>Fun fact: " + recommendation.fact + ".</h4>");
+                  $('#suggestion').html("<h3>Hi there " + name + ", how about a " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>");
 
                   database.ref('users/'+badgeId).update({
                       barCount: (user.child('barCount').val()+1),
@@ -128,6 +116,8 @@
               }
           });
         })();
+
+
 
         function recommendDrink(preference){
             console.log(preference);
