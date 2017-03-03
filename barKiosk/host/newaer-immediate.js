@@ -95,8 +95,15 @@ function parseId(data){
 
 function updateDevice(device)
 {
+    var deviceDbRecord = firebase.database().ref('users'+ parseId(device.data));
     console.log("Updating device: "+device.deviceId);
     devices[device.deviceId] = device;
+
+    deviceDbRecord.once('value').then(function(currentRecord){
+        deviceDbRecord.update({
+            barTime: (currentRecord.child('barTime') + 1)
+        })
+    })
 }
 
 function removeDevice(device)
