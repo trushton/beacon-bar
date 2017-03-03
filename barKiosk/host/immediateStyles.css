@@ -1,3 +1,21 @@
+#bar{
+    width: 10%;
+    height: 70px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 60px;
+    font-style: italic;
+    line-height: 70px;
+    float:right;
+    color: #FFFFFF;
+    position: fixed;
+    margin-left:85%;
+    margin-top:0;
+
+}
+
+#recommendation{
+    display:inline-block;
+}
 
 #logos{
     width: 100%;
@@ -9,4 +27,13 @@
 #logos img {
     position: relative;
     margin-left: 4%;
+}
+
+#userImage{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: absolute;
+    top:21%;
+
 }
