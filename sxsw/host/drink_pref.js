@@ -4,7 +4,7 @@ function finishRegistration(value){
     firebase.database().ref('users/'+ badge).update({
         drink_pref: value.toString()
     }).then(function(){
-        window.location = "/sxsw/host/completedRegistration.html" + "&badge=" + badge;
+        window.location = "/sxsw/host/completedRegistration.html?badge=" + badge;
     });
 }
 
