@@ -41,10 +41,16 @@
     width: 100%;
     position: fixed;
     bottom: 10%;
-    left:12.5%;
+    left:4%;
 }
 
 #logos img {
     position: relative;
-    margin-left: 15px;
+    margin-left: 4%;
+}
+
+body {
+    background-image: url('mainBackground.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
 }

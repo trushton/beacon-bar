@@ -28,7 +28,7 @@
 
 
 </head>
-  <body background="mainBackground.png">
+  <body class="w3-container">
 
     <div id="device">
 
@@ -169,13 +169,6 @@
             var tokenResults = tokenRegex.exec(window.location.href);
             var deviceId = deviceIdRegex.exec(window.location.href);
             console.log(tokenResults);
-            console.log(deviceId);
-
-            //if(deviceId && deviceId[2]){
-            //    checkIfRegistered(deviceId[2]);
-            //} else {
-            //    checkIfRegistered(localStorage.currentDevice);
-            //}
             if(tokenResults && tokenResults[2] && deviceId) {
                 firebaseLogin(tokenResults[2], deviceId[2]);
             }
