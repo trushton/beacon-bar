@@ -40,50 +40,60 @@
         var drinks = {
           "Vodka": {
               "Walmart Blue": {
+                  "name": "Walmart Blue",
                   "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"],
                   "fact": "Tito's Vodka is made close by in Austin, TX"
               },
               "Moscow Mule": {
+                  "name": "Moscow Mule",
                   "ingredients": ["Vodka", "Gingerbeer", "Lime"],
                   "fact": "Tito's Vodka is made close by in Austin, TX"
               },
               "Texas Sipper": {
+                  "name": "Texas Sipper",
                   "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"],
                   "fact": "Tito's Vodka is made close by in Austin, TX"
               }
           },
           "Whiskey": {
               "Walmart Yellow": {
+                  "name": "Walmart Yellow",
                   "ingredients": ["Whiskey", "Sweet N Sour"],
                   "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
               },
               "Texas Tea": {
+                  "name": "Texas Tea",
                   "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"],
                   "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
               }
           },
           "Beer": {
               "Shiner": {
+                  "name": "Shiner",
                   "type": "dark option",
                   "fact": "Shiner is brewed in Shiner, TX"
               },
               "Fireman's 4": {
+                  "name": "Fireman's 4",
                   "type": "light option",
                   "fact": "Fireman's 4 is brewed in Blanco, TX"
               }
           },
           "Red Wine": {
               "Pinot Noir": {
+                  "name": "Pinot Noir",
                   "type": "Mark West",
                   "fact": 'COME UP WITH SOMETHING'
               },
               "Merlot": {
+                  "name": "Merlot",
                   "type": "Mark West",
                   "fact": 'COME UP WITH SOMETHING'
               }
           },
           "White Wine": {
               "Chenin Blanc": {
+                  "name": "Chenin Blanc",
                   "type": "Llano Estacado",
                   "fact": 'COME UP WITH SOMETHING'
               }
@@ -102,6 +112,7 @@
                   var user = snapshot.child(badgeId);
                   var name = user.child('username').val();
                   var drink_pref = user.child('drink_pref').val();
+                  console.log(name + " " + drink_pref);
                   var recommendation = recommendDrink(drink_pref);
                   console.log(recommendation);
 
@@ -122,7 +133,7 @@
 
         function recommendDrink(preference){
             var keys = Object.keys(drinks[preference]);
-            return drinks[preference[keys[keys.length * Math.random() <<0]]];
+            return drinks[preference][keys[keys.length * Math.random() <<0]];
         }
     </script>
   </body>
