@@ -36,26 +36,6 @@ html {
     color:black;
 }
 
-#immediateBanner{
-    width: 979px;
-    height: 106px;
-    font-family: "Akzidenz Grotesk BQ";
-    font-size: 45px;
-    font-style: italic;
-    text-align: center;
-    line-height: 53px;
-    color: #C4C4C4;
-}
-
-#dataProtection{
-    width: 374px;
-    height: 24px;
-    font-family: "Akzidenz Grotesk BQ";
-    font-size: 20px;
-    line-height: 24px;
-    text-align: center;
-    color: #C4C4C4;
-}
 
 #leftCol {
     width:50%;

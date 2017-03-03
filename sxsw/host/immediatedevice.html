@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
 
     <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
-
+    <link rel="stylesheet" href="immediateStyles.css" type="text/css" media="all" />
 
 
 
@@ -28,16 +28,18 @@
 
 
 </head>
-  <body id="immediateDevice">
-
-    <div id="background" style="width:1024px; height:768px;">
-    </div>
+  <body background="mainBackground.png">
 
     <div id="device">
-        <h3 id="tester">Things should be displayed here</h3>
     </div>
-    <div style="width:100%;color:black;text-align:center"><dl><dt>locator</dt><dd id="locator"></dd></dl></div>
 
+    <div id="logos">
+        <img src="walmart.png">
+        <img src="capitalfactory.png">
+        <img src="bluvision.png">
+        <img src="newaer.png">
+        <img src="originate.png">
+    </div>
     <script src="newaer-immediate.js" type="text/javascript" language="javascript"></script>
 
 
@@ -69,9 +71,10 @@
 
             ref.once('value').then(function(snapshot){
                 if(!snapshot.hasChild('userBadge')){
-                    $("#device").html("<div id='immediateBanner'><p>Got a VIP beacon badge?<br>Unlock the magic!</p></div>" +
-                        '<button onclick="login()">Register your badge with Facebook</button>'+
-                        '<div id="dataProtection">Don\'t worry, we won\'t save any of your data.</div>');
+                    $("#device").html("<div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>" +
+                        '<button id="register" onclick="login()">Register your badge</button>'+
+                        '<div id="dataProtection">We don\'t save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!' +
+                        '</div>');
                 }
                 else{
                     var user = snapshot.child(userBadge);
