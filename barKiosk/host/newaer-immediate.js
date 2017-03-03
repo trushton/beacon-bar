@@ -208,7 +208,7 @@ var drinks = {
             var drink_pref = user.child('drink_pref').val();
             var recommendation = recommendDrink(drink_pref);
 
-            $('#suggestion').html("<h3>Hi there " + name + ", how about a " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>");
+            $('#suggestion').html("<h3 style='color:white'>Hi there " + name + ", how about a " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>");
 
             database.ref('users/'+badgeId).update({
                 barCount: (user.child('barCount').val()+1),

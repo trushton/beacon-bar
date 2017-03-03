@@ -21,29 +21,51 @@
       <file leaf-file-name="kioskConfig.plist" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/kioskConfig.plist">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state relative-caret-position="433">
+              <caret line="42" column="37" lean-forward="false" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="immediatedevice.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="immediatedevice.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/host/immediatedevice.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="32" column="91" lean-forward="false" selection-start-line="32" selection-start-column="91" selection-end-line="32" selection-end-column="91" />
+            <state relative-caret-position="390">
+              <caret line="26" column="37" lean-forward="false" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="newaer-immediate.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="immediateStyles.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/host/immediateStyles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/host/styles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newaer-immediate.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/host/newaer-immediate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2655">
-              <caret line="182" column="30" lean-forward="false" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="622">
+              <caret line="210" column="57" lean-forward="false" selection-start-line="210" selection-start-column="57" selection-end-line="210" selection-end-column="57" />
+              <folding>
+                <marker date="1488583436000" expanded="true" signature="5734:5745" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -55,10 +77,11 @@
       <list>
         <option value="$PROJECT_DIR$/host/inrangedevices.html" />
         <option value="$PROJECT_DIR$/host/nodevices.html" />
-        <option value="$PROJECT_DIR$/kioskConfig.plist" />
         <option value="$PROJECT_DIR$/host/immediate.js" />
-        <option value="$PROJECT_DIR$/host/newaer-immediate.js" />
+        <option value="$PROJECT_DIR$/kioskConfig.plist" />
+        <option value="$PROJECT_DIR$/host/immediateStyles.css" />
         <option value="$PROJECT_DIR$/host/immediatedevice.html" />
+        <option value="$PROJECT_DIR$/host/newaer-immediate.js" />
       </list>
     </option>
   </component>
@@ -127,6 +150,11 @@
     <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/host" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -203,12 +231,12 @@
       <workItem from="1488304117688" duration="496000" />
       <workItem from="1488304965592" duration="2739000" />
       <workItem from="1488412178588" duration="2245000" />
-      <workItem from="1488569806622" duration="4899000" />
+      <workItem from="1488569806622" duration="5527000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15435000" />
+    <option name="totallyTimeSpent" value="16063000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
@@ -271,7 +299,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1185">
           <caret line="79" column="27" lean-forward="false" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
-          <folding />
+          <folding>
+            <marker date="1488583436000" expanded="true" signature="5734:5745" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -313,14 +343,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/kioskConfig.plist">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/host/immediate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -329,19 +351,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/host/newaer-immediate.js">
+    <entry file="file://$PROJECT_DIR$/host/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2655">
-          <caret line="182" column="30" lean-forward="false" selection-start-line="182" selection-start-column="30" selection-end-line="182" selection-end-column="30" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kioskConfig.plist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="433">
+          <caret line="42" column="37" lean-forward="false" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/host/immediateStyles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/host/immediatedevice.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="91" lean-forward="false" selection-start-line="32" selection-start-column="91" selection-end-line="32" selection-end-column="91" />
+        <state relative-caret-position="390">
+          <caret line="26" column="37" lean-forward="false" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/host/newaer-immediate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="210" column="57" lean-forward="false" selection-start-line="210" selection-start-column="57" selection-end-line="210" selection-end-column="57" />
+          <folding>
+            <marker date="1488583436000" expanded="true" signature="5734:5745" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
