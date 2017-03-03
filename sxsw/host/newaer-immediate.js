@@ -86,7 +86,7 @@ function NAUpdate(devicesPresent)
                         "<img src='" + user.child('picture').val() + "'>" +
                         "<h3>You've been here " + (user.child('visitCount').val() + 1) + " times</h3>"
                     );
-                    firebase.database().ref('users/' + userBadge).update({visitCount: user.child('visitCount').val() + 1});
+                    firebase.database().ref('users/' + badge).update({visitCount: user.child('visitCount').val() + 1});
                 }
             });
         }
