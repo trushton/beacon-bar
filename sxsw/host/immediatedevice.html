@@ -108,7 +108,7 @@
                     }));
                 }
             }).then(function(){
-                $('#immediateBanner').html("<h1>get current device: "+localStorage.getItem("currentDevice") + " localBadge: " + userId + " all data: " +data);
+                $('#immediateBanner').html("<p>get current device: "+localStorage.getItem("currentDevice") + " localBadge: " + userId + " all data: " +data + "</p>");
                 proximityLock = false;
                // firebase.auth().signOut();
                // if(data.age_range.min === 21){
