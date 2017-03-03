@@ -10,7 +10,7 @@ function finishRegistration(value){
     });
 }
 
-$(document).ready(function(){
+(function(){
     badge = getQueryStringValue('badge');
     console.log(badge);
     $('#question').text("get current device: "+ localStorage.currentDevice + " localBadge: " + badge);
@@ -23,7 +23,7 @@ $(document).ready(function(){
             parent.appendChild(image);
         }
     });
-});
+})();
 
 function getQueryStringValue (key) {
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
