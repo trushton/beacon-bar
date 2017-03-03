@@ -4,12 +4,13 @@ function finishRegistration(value){
     firebase.database().ref('users/'+ badge).update({
         drink_pref: value.toString()
     }).then(function(){
-        window.location = "/sxsw/host/completedRegistration.html";
+        window.location = "/sxsw/host/completedRegistration.html" + "&badge=" + badge;
     });
 }
 
 $(document).ready(function(){
     badge = getQueryStringValue('badge');
+    console.log(badge);
     firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
         if(snapshot.hasChild('picture')){
             var image = document.createElement(img);
