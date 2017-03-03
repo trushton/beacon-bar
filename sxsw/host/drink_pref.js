@@ -11,6 +11,7 @@ function finishRegistration(value){
 $(document).ready(function(){
     badge = getQueryStringValue('badge');
     console.log(badge);
+    $('#question').text("get current device: "+ localStorage.currentDevice + " localBadge: " + badge);
     firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
         if(snapshot.hasChild('picture')){
             var image = document.createElement(img);
