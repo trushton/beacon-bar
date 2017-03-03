@@ -1,5 +1,6 @@
 var devices = null;
 var selectedRowId = false;
+var proximityLock = false;
 
 
 $(function () {
@@ -43,41 +44,44 @@ var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
-    console.log("Update called with devicesPresent: "+devicesPresent);
-    unescape(devicesPresent);
+    if(!proximityLock){
+        console.log("Update called with devicesPresent: "+devicesPresent);
+        unescape(devicesPresent);
 
-    // Update
-    for (var key in devices) {
-        if(devicesPresent.hasOwnProperty(key)) {
-            // Update device
-            updateDevice(devicesPresent[key]);
-        } else {
-            // Remove device
-            removeDevice(devices[key]);
+        // Update
+        for (var key in devices) {
+            if(devicesPresent.hasOwnProperty(key)) {
+                // Update device
+                updateDevice(devicesPresent[key]);
+            } else {
+                // Remove device
+                removeDevice(devices[key]);
+            }
+        }
+
+        // Add
+        for (var key in devicesPresent) {
+            if (devices == null || devices.hasOwnProperty(key) == false) {
+                addDevice(devicesPresent[key]);
+            }
+        }
+
+        // Find strongest
+        highRssi = -100;
+        for (var key in devices) {
+            if(devices[key].rssi > highRssi) {
+                highRssi = devices[key].rssi;
+                highDeviceId = key;
+            }
+        }
+
+        if(highDeviceId != "") {
+            $('#deviceName').text(devices[highDeviceId].data.name);
+            localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+            $('#locator').text(parseId(devices[highDeviceId].data));
         }
     }
 
-    // Add
-    for (var key in devicesPresent) {
-        if (devices == null || devices.hasOwnProperty(key) == false) {
-            addDevice(devicesPresent[key]);
-        }
-    }
-
-    // Find strongest
-    highRssi = -100;
-    for (var key in devices) {
-        if(devices[key].rssi > highRssi) {
-            highRssi = devices[key].rssi;
-            highDeviceId = key;
-        }
-    }
-
-    if(highDeviceId != "") {
-        $('#deviceName').text(devices[highDeviceId].data.name);
-        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
-        $('#locator').text(parseId(devices[highDeviceId].data));
-    }
 }
 
 
