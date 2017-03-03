@@ -1,0 +1,12 @@
+
+#logos{
+    width: 100%;
+    position: fixed;
+    bottom: 10%;
+    left:4%;
+}
+
+#logos img {
+    position: relative;
+    margin-left: 4%;
+}
