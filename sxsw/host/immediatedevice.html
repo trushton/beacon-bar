@@ -34,11 +34,9 @@
 
         <div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
         <button id="register" onclick="login()">Register your badge</button>
-        <div id="dataProtection">We don\'t save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</div>
+        <div id="dataProtection">We don't save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</div>
     </div>
-    <div>
-        <p id="test" color="white">test</p>
-    </div>
+
 
     <div id="logos">
         <img src="walmart.png">
@@ -94,7 +92,6 @@
                     }));
                 }
             }).then(function(){
-                $('#immediateBanner').html("<p>get current device: "+ localStorage.currentDevice + " localBadge: " + userId + " all data: " + data.id+ "</p>");
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
