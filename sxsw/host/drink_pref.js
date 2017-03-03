@@ -9,7 +9,7 @@ function finishRegistration(value){
 }
 
 $(document).ready(function(){
-    badge = localStorage.currentDevice;
+    badge = getQueryStringValue('badge');
     firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
         if(snapshot.hasChild('picture')){
             var image = document.createElement(img);
@@ -20,3 +20,7 @@ $(document).ready(function(){
         }
     });
 });
+
+function getQueryStringValue (key) {
+    return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}
