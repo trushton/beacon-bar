@@ -95,7 +95,7 @@ function parseId(data){
 
 function updateDevice(device)
 {
-    var deviceDbRecord = firebase.database().ref('users'+ parseId(device.data));
+    var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
     console.log("Updating device: "+device.deviceId);
     devices[device.deviceId] = device;
 
