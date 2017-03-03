@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>DrinkPreference</title>
-    <script src="drink_pref.js" type="text/javascript" language="javascript"></script>
     <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <link rel="stylesheet" href="drink_pref_styles.css" type="text/css" media="all" />
@@ -17,8 +16,9 @@
             messagingSenderId: "9892124037"
         };
         firebase.initializeApp(config);
-        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
     </script>
+
+    <script src="drink_pref.js" type="text/javascript" language="javascript"></script>
 </head>
 
 <body id="bod" background="mainBackground.png">

@@ -8,7 +8,7 @@ function finishRegistration(value){
     });
 }
 
-$(document).ready(function(){
+$('document').ready(function(){
     firebase.database().ref('badges/'+localStorage.getItem('user_id')).once('value').then(function(snapshot){
         badge = snapshot.child('badge').val();
         firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
