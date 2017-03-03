@@ -80,13 +80,13 @@ function NAUpdate(devicesPresent)
 
             var ref = firebase.database().ref('users/');
             ref.once('value').then(function(snapshot){
-                if(snapshot.hasChild(badge) && snapshot.child(badge).child('lastseen').val() < (Date.now()-10000)) {
+                if(snapshot.hasChild(badge) && snapshot.child(badge).child('lastSeen').val() < (Date.now()-60000)) {
                     var user = snapshot.child(badge);
                     $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
                         "<img src='" + user.child('picture').val() + "'>" +
                         "<h3>You've been here " + (user.child('visitCount').val() + 1) + " times</h3>"
                     );
-                    firebase.database().ref('users/' + badge).update({visitCount: user.child('visitCount').val() + 1});
+                    firebase.database().ref('users/' + badge).update({lastSeen: Date.now(), visitCount: user.child('visitCount').val() + 1});
                 }
             });
         }
