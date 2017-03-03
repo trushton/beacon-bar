@@ -110,7 +110,7 @@
             }).then(function(){
                 $('#immediateBanner').html("<p>get current device: "+ localStorage.currentDevice + " localBadge: " + userId + " all data: " + data.id+ "</p>");
                 proximityLock = false;
-               // firebase.auth().signOut();
+                firebase.auth().signOut();
                 if(data.age_range.min === 21){
                     window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html%3F%26badge=' + userId;
                 } else {
