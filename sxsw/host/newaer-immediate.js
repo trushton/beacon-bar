@@ -80,7 +80,7 @@ function NAUpdate(devicesPresent)
 
             var ref = firebase.database().ref('users/');
             ref.once('value').then(function(snapshot){
-                if(snapshot.hasChild(badge) && snapshot.child(badge).child('lastSeen').val() < (Date.now()-60000)) {
+                if(snapshot.hasChild(badge) && snapshot.child(badge).child('lastSeen').val() < (Date.now()-360000)) {
                     var user = snapshot.child(badge);
                     $("#device").html("<h2>Good to see you again " + user.child('username').val() + "</h2>" +
                         "<img src='" + user.child('picture').val() + "'>" +
