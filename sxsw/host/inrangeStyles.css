@@ -1,0 +1,58 @@
+#logos{
+    width: 100%;
+    position: fixed;
+    bottom: 8%;
+    left:12.5%;
+}
+
+#logos img {
+    position: relative;
+    margin-left: 15px;
+}
+
+#tagline{
+    width: 553px;
+    height: 140px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 60px;
+    font-style: italic;
+    line-height: 70px;
+    color: #FFFFFF;
+    float: right;
+}
+
+#subtext{
+    width: 100%;
+    height: 27px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 23px;
+    line-height: 27px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+#rect{
+    width: 80%;
+    height: 125px;
+    background-color: #139DD8;
+    margin-left: 10%;
+    position: fixed;
+}
+
+#rect p{
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    line-height: 53px;
+    color: #FFFFFF;
+    text-align: center;
+    top:25%;
+}
+
+#triangle{
+    width: 338px;
+    height: 143px;
+    margin-left: 10%;
+    position: relative;
+    margin-top: 15%;
+}
