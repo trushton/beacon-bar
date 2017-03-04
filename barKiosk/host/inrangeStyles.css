@@ -11,7 +11,12 @@
 
 #logo{
     width: 20%;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-align-self: auto;
 }
 
 #userImage{
