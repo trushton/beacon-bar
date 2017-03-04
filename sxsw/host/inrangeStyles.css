@@ -30,6 +30,9 @@
     line-height: 27px;
     color: #FFFFFF;
     text-align: center;
+    position:relative;
+    top:15%;
+    left:1%
 }
 
 #rect{
