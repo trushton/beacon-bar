@@ -42,6 +42,7 @@
 		<string>inrangedevices.html</string>
 		<string>inrangeStyles.css</string>
 		<string>nodevices.html</string>
+		<string>nodevicesStyles.css</string>
 		<string>jquery.dataTables.min.css</string>
 		<string>jquery.dataTables.min.js</string>
 		<string>jquery.min.js</string>
