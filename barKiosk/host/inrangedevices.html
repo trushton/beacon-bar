@@ -8,18 +8,85 @@
     <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" media="all" />
 
     <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
-    <script src="newaer-inrange.js" type="text/javascript" language="javascript"></script>
+    <link rel="stylesheet" href="inrangeStyles.css" type="text/css" media="all" />
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+    </script>
 </head>
-<body id="inrangeDevices">
+<body background="mainBackground.png" style="background-size: 100% 100%">
 
-<div id="background">
-    <!- img src="inrange.jpg" ->
-</div>
+    <div id="guestHighlight">
+        <p></p>
+    </div>
 
-<div>
-    <h1 style="width:100%;background-color:black;color:white;text-align:center">SXSW Beacon Bar</h1>
-    <p style="width:100%;color:black;text-align:center">Come on over and grab yourself a drink!</p>
+    <div id="menu">
+        <div id = beer>
+            <p>BEER</p>
+            <div id="beerOptions">
+                <p><strong>Shiner</strong><br>Dark beer. Shiner, Tx</p>
+                <p><strong>Fireman's 4</strong><br>Light beer. Blanco, TX</p>
+            </div>
+        </div>
 
-</div>
+        <div id = wine>
+            <p>WINE</p>
+            <div id="wineOptions">
+                <p><strong>White Wine</strong><br>Llana estacado Chenin Blanc</p>
+                <p><strong>Red Wine</strong><br>Pinot Noir and Merlot</p>
+            </div>
+        </div>
+
+        <div id=cocktails>
+            <p>COCKTAILS</p>
+            <div id="cocktailOptions">
+                <p><strong>Walmart Blue </strong><br>Llana estacado Chenin Blanc</p>
+                <p><strong>Walmart Yellow</strong><br>Pinot Noir and Merlot</p><br>
+            </div>
+            <div id="cocktailOptions">
+                <p><strong>Moscow Mule</strong><br>Pinot Noir and Merlot</p>
+                <p><strong>Texas Tea</strong><br>Pinot Noir and Merlot</p><br>
+            </div>
+            <div id="cocktailOptions">
+                <p><strong>Texas Sipper</strong><br>Pinot Noir and Merlot</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="social">
+
+    </div>
+
+
+    <div id="logos">
+        <div id="logo">
+            <img src="walmart.png">
+        </div>
+        <div id="logo">
+            <img src="capitalfactory.png">
+        </div>
+        <div id="logo">
+            <img src="bluvision.png">
+        </div>
+        <div id="logo">
+            <img src="newaer.png">
+        </div>
+        <div id="logo">
+            <img src="originate.png">
+        </div>
+    </div>
+
+
+    <script src="newaer-inrange.js" type="text/javascript" language="javascript"></script>
 </body>
 </html>

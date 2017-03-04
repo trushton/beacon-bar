@@ -2,6 +2,7 @@ var datatable;
 var devices = null;
 var deviceArray = [];
 var selectedRowId = false;
+var guestRotationTime = 0;
 
 
 $(function () {
@@ -15,68 +16,7 @@ $(function () {
 });
 
 var groups = [ 'Immediate','Near','Far', 'Unknown'];
-$(document).ready(function() {
-    console.log("document ready");
 
-    datatable = $('#devices').dataTable( {
-        "data": devices,
-        "order": [[ 0, 'asc' ]],
-        "autoWidth":false,
-        "columnDefs": [
-            { "visible": false, "targets": 0 }
-        ],
-        "dom": '<"DTReportSettings"TC><"clear">t',
-        "columns": [
-            { "title": "Proximity Enum", "data":"proximity" },
-            { "title": "Name", "data":"data.name", "className":"nameColumn" },
-            { "title": "Locator", "data": "data.recordLocator", "className": "locatorColumn" },
-            { "title": "RSSI", "data":"rssi", "className": "rssiColumn" },
-            { "title": "Last Seen","data":"lastSeen", "className":"seenColumn" }
-        ],
-        "drawCallback": function ( settings ) {
-            var api = this.api();
-            var rows = api.rows( {page:'current'} ).nodes();
-            var last=null;
-
-            api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-                if ( last !== group ) {
-                    $(rows).eq( i ).before(
-                        '<tr class="group"><td colspan="5">'+groups[group]+'</td></tr>'
-                    );
-
-                    last = group;
-                }
-            } );
-            if(selectedRowId != false && selectedRowId.substr(0,2) == "NA") { // Can only send message to NewAer devices
-                $('.newAerButton').prop('disabled',false);
-            } else {
-                $('.newAerButton').prop('disabled',true);
-            }
-        },
-        "rowCallback": function( row, data ) {
-//            console.log("Checking row "+data.deviceId+" against selected: "+selectedRowId);
-            if ( data.deviceId == selectedRowId) {
-                $(row).addClass('selected');
-            }
-        }
-    } );
-
-    $('#devices tbody').on('click', 'tr', function () {
-        var id = this.id;
-        if(selectedRowId == id) {
-            selectedRowId = false;
-        } else {
-            if(selectedRowId != false) {
-                $(datatable.api().row('#' + selectedRowId).node()).toggleClass('selected');
-            }
-            selectedRowId = id;
-        }
-        $(this).toggleClass('selected');
-
-    } );
-
-
-});
 
 function parse_query_string(string)
 {
@@ -120,27 +60,49 @@ function NAUpdate(devicesPresent)
             addDevice(devicesPresent[key]);
         }
     }
+
+    // Find strongest
+    highRssi = -100;
+    if((Date.now() - 10000) > guestRotationTime){
+      for (var key in devices) {
+          if(devices[key].rssi > highRssi) {
+              highRssi = devices[key].rssi;
+              highDeviceId = key;
+              guestRotationTime = Date.now();
+          }
+      }
+    }
+
+    if(highDeviceId != "") {
+        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+    }
+
+}
+
+function parseId(data){
+    if (typeof data.major !== 'undefined' && typeof data.minor !== 'undefined') {
+        var minor;
+
+        if(data.minor < 10){
+            minor = '00' + data.minor.toString();
+        } else if(data.minor < 100){
+            minor = '0' + data.minor.toString();
+        } else { minor = data.minor.toString(); }
+
+        return data.major.toString() + minor;
+    }
 }
 
 function updateDevice(device)
 {
-//    console.log("Updating device: "+device.deviceId);
-    if(typeof device.data === 'undefined' || typeof device.data.name === 'undefined') {
-        device.data.name = device.name;
-    }
-    if(typeof device.data === 'undefined') {
-        device.data.recordLocator = "";
-    } else {
-        if(typeof device.data.recordLocator === 'undefined') {
-            if (typeof device.data.major === 'undefined' && typeof device.data.minor === 'undefined') {
-                device.data.recordLocator = "";
-            } else {
-                device.data.recordLocator = device.data.major + ":" + device.data.minor;
-            }
-        }
-    }
-    row = datatable.api().row('#'+device.deviceId);
-    row.data(device).draw();
+    var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
+    devices[device.deviceId] = device;
+
+    deviceDbRecord.once('value').then(function(currentRecord){
+        deviceDbRecord.update({
+            barTime: (currentRecord.child('barTime').val() + 1)
+        });
+    });
 }
 
 function removeDevice(device)
@@ -174,12 +136,23 @@ function addDevice(device)
     $(rowNode).attr('id',device.deviceId);
 }
 
-function sendMessage(deviceId, cta, url)
-{
-    console.log("Sending message to "+deviceId);
-    console.log(" with cta: "+cta);
-    console.log(" and url: "+url);
-    _url = encodeURIComponent(url);
-    _cta = encodeURIComponent(cta);
-    window.location = 'nakiosk://message/'+deviceId+'?cta='+_cta+'&url='+_url;
-}
+
+(function(){
+    var database = firebase.database();
+    var ref = database.ref('users/');
+    var badgeId = localStorage.currentDevice;
+
+    ref.once('value').then(function(snapshot) {
+        if (snapshot.hasChild(badgeId)) {
+            var user = snapshot.child(badgeId);
+            var name = user.child('username').val();
+            var drink_pref = user.child('drink_pref').val();
+
+            $('#guestHighlight').html("<p>Welcome to the Bar " + name + "!<br> You've been here " +  user.child('barCount').val() + " times.</p>" +
+                "<img id='userImage' src='" + user.child('picture').val() + "'>");
+        }
+        else{
+            $('#notFound').html("<h3>I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?</h3>");
+        }
+    });
+})();

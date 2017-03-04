@@ -26,7 +26,7 @@
 
 </head>
 
-<body id="bod" background="mainBackground.png">
+<body background="mainBackground.png" >
     <p id="question">What libations do you like?</p>
     <table id="options" display="inline">
         <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
@@ -59,7 +59,7 @@
         firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
             if(snapshot.hasChild('picture')){
                 var image = document.createElement(img);
-                var parent = document.getElementById('bod');
+                var parent = document.getElementsByName('body');
                 image.id = 'userImage';
                 image.src = snapshot.child('picture').val();
                 parent.appendChild(image);

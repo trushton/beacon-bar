@@ -1,0 +1,146 @@
+#logos{
+    width: 100%;
+    position: fixed;
+    bottom: 3%;
+    display: inline-flex;
+}
+
+#logos img {
+    margin:auto;
+}
+
+#logo{
+    width: 20%;
+    display: inline-flex;
+}
+
+#userImage{
+    width: 225px;
+    height: 225px;
+    border-radius: 50%;
+    position: fixed;
+    top: 4%;
+    left: 5%;
+
+}
+
+#guestHighlight{
+    width: 90%;
+    height: 200px;
+    background-color: #139DD8;
+    top: 5%;
+    left: 15%;
+    position: fixed;
+}
+
+#guestHighlight p{
+    width: 80%;
+    height: 177px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 40px;
+    font-style: italic;
+    line-height: 59px;
+    color: #FFFFFF;
+    margin-left: 15%;
+}
+
+
+#menu{
+
+}
+
+#beer{
+    width: 70px;
+    height: 30px;
+    background-color: #139DD8;
+    position: fixed;
+    top:35%;
+    left: 4%;
+
+}
+
+#beer p{
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+    line-height: 18px;
+    color: #ffffff;
+    bottom: 25%;
+    position: relative;
+}
+
+#beerOptions{
+    display: inline-flex;
+    margin-top: -25%
+}
+
+#beerOptions  p{
+    width: 160px;
+    text-align: left;
+}
+
+
+#wine{
+    width: 70px;
+    height: 30px;
+    background-color: #139DD8;
+    position: fixed;
+    top:50%;
+    left: 4%;
+
+}
+
+#wine p{
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+    line-height: 18px;
+    color: #ffffff;
+    bottom: 25%;
+    position: relative;
+}
+
+#wineOptions{
+    display: inline-flex;
+    margin-top: -25%
+
+}
+
+#wineOptions  p{
+    width: 200px;
+    text-align: left;
+}
+
+#cocktails{
+    width: 130px;
+    height: 30px;
+    background-color: #139DD8;
+    position: fixed;
+    top:65%;
+    left: 4%;
+
+}
+
+#cocktails p{
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 15px;
+    font-style: italic;
+    text-align: center;
+    line-height: 18px;
+    color: #ffffff;
+    bottom: 25%;
+    position: relative;
+}
+
+#cocktailOptions{
+    display: inline-flex;
+    margin-top: -15%
+
+}
+
+#cocktailOptions  p{
+    width: 200px;
+    text-align: left;
+}
