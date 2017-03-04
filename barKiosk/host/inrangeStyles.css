@@ -81,6 +81,7 @@
 }
 
 #beerOptions{
+    display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -moz-inline-box;
     display: -ms-inline-flexbox;
@@ -117,6 +118,7 @@
 }
 
 #wineOptions{
+    display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -moz-inline-box;
     display: -ms-inline-flexbox;
@@ -153,6 +155,7 @@
 }
 
 #cocktailOptions{
+    display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -moz-inline-box;
     display: -ms-inline-flexbox;
