@@ -40,6 +40,7 @@
 		<string>immediatedevice.html</string>
         <string>immediateStyles.css</string>
 		<string>inrangedevices.html</string>
+		<string>inrangeStyles.css</string>
 		<string>nodevices.html</string>
 		<string>jquery.dataTables.min.css</string>
 		<string>jquery.dataTables.min.js</string>
