@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>configUrl</key>
-	<string>https://beacon-bar-file-server.herokuapp.com/sxsw</string>
+	<string>https://beacon-bar-file-server.herokuapp.com/registrationKiosk</string>
 	<key>configShortName</key>
 	<string>sxsw-registration</string>
 	<key>configFullName</key>
