@@ -10,7 +10,7 @@
 }
 
 #logo{
-    width: 20%;
+    width: 15%;
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
     display: -moz-inline-box;
@@ -76,7 +76,11 @@
 }
 
 #beerOptions{
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-align-self: auto;
     margin-top: -25%
 }
 
@@ -108,7 +112,11 @@
 }
 
 #wineOptions{
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-align-self: auto;
     margin-top: -25%
 
 }
@@ -140,7 +148,11 @@
 }
 
 #cocktailOptions{
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
     display: inline-flex;
+    -webkit-align-self: auto;
     margin-top: -15%
 
 }
