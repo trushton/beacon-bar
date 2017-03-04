@@ -42,6 +42,7 @@
     position: fixed;
     bottom: 10%;
     left:4%;
+
 }
 
 #logos img {
@@ -49,4 +50,30 @@
     margin-left: 4%;
 }
 
+#userImage{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+    margin: auto;
+    margin-top: 6%;
+    z-index: 2;
 
+}
+
+#returnBanner{
+    width: 102%;
+    height: 234px;
+    background-color: #139DD8;
+    position: fixed;
+    z-index: 1;
+    top: 41%;
+    left: -1%;
+    text-align: center;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    line-height: 53px;
+    color: #ffffff;
+}
