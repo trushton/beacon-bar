@@ -86,7 +86,7 @@ function NAUpdate(devicesPresent)
                         "<img src='" + user.child('picture').val() + "'>" +
                         "<h3>You've been here " + (user.child('visitCount').val() + 1) + " times</h3>"
                     );
-                    if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-60000){
+                    if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-60000)){
                         firebase.database().ref('users/' + badge).update({lastSeen: Date.now(), visitCount: user.child('visitCount').val() + 1});
                     }
                 }
