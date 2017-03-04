@@ -33,7 +33,49 @@
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    position: absolute;
-    top:21%;
+    position: fixed;
+    top: 20%;
+    left: 65%;
 
+}
+
+#welcomeBanner{
+    width: 608px;
+    height: 160px;
+    background-color: #139DD8;
+    top: 30%;
+    left: 5%;
+    position: fixed;
+}
+
+#welcomeBanner p{
+    width: 521px;
+    height: 160px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 50px;
+    line-height: 59px;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+    bottom: 15%;
+    left: 7%
+
+}
+
+#suggestion {
+    width: 95%;
+    height: 92px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 40px;
+    font-style: italic;
+    text-align: center;
+    line-height: 46px;
+    color: #FFFFFF;
+    top: 55%;
+    position: fixed;
+
+}
+#triangle{
+    position: absolute;
+    bottom: 100%;
 }

@@ -208,7 +208,10 @@ var drinks = {
             var drink_pref = user.child('drink_pref').val();
             var recommendation = recommendDrink(drink_pref);
 
-            $('#suggestion').html("<img src='" + user.child('picture').val()+"' id='userImage'> " +"<h3 id='recommendation' style='color:white'>Hi there " + name + ", how about a " + recommendation.name + " seeing as you like " + drink_pref + ".</h3>");
+            $('#welcomeBanner').html("<p>Welcome to the Bar " + user.child('username').val() + "!</p>" +
+                                     "<img id='triangle' src='rectangle11.png'>" +
+                                     "<img id='userImage' src='" + user.child('picture').val() + "'>");
+            $('#suggestion').html("<p>May we suggest a " + recommendation.name + " based upon your preference for " + drink_pref + ".</p>");
 
             database.ref('users/'+badgeId).update({
                 barCount: (user.child('barCount').val()+1),
