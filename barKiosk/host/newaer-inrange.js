@@ -138,6 +138,11 @@ function addDevice(device)
 
 
 (function(){
+    displayGuest();
+})();
+
+
+function displayGuest(){
     var database = firebase.database();
     var ref = database.ref('users/');
     var badgeId = localStorage.currentDevice;
@@ -155,4 +160,8 @@ function addDevice(device)
             $('#notFound').html("<h3>I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?</h3>");
         }
     });
-})();
+
+    setTimeout(function(){
+        displayGuest();
+    }, 10000);
+}

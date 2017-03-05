@@ -2,12 +2,7 @@
     width: 100%;
     position: fixed;
     bottom: 3%;
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -moz-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-align-self: auto;
 }
 
 #logos img {
@@ -15,13 +10,8 @@
 }
 
 #logo{
-    width: 15%;
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -moz-inline-box;
-    display: -ms-inline-flexbox;
+    width: 20%;
     display: inline-flex;
-    -webkit-align-self: auto;
 }
 
 #userImage{
@@ -55,10 +45,6 @@
 }
 
 
-#menu{
-
-}
-
 #beer{
     width: 70px;
     height: 30px;
@@ -81,12 +67,7 @@
 }
 
 #beerOptions{
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -moz-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-align-self: auto;
     margin-top: -25%
 }
 
@@ -118,12 +99,7 @@
 }
 
 #wineOptions{
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -moz-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-align-self: auto;
     margin-top: -25%
 
 }
@@ -155,12 +131,7 @@
 }
 
 #cocktailOptions{
-    display: -webkit-inline-box;
-    display: -webkit-inline-flex;
-    display: -moz-inline-box;
-    display: -ms-inline-flexbox;
     display: inline-flex;
-    -webkit-align-self: auto;
     margin-top: -15%
 
 }
