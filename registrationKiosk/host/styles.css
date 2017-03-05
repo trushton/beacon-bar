@@ -120,8 +120,6 @@ h2 {
     font-size:20px;
 }
 
-
-
 #thankYou {
     width: 521px;
     height: 94px;
@@ -164,6 +162,5 @@ h2 {
     border-radius: 50%;
     position: fixed;
     top: 20%;
-    left: 15%;
-
+    left: 3%;
 }
