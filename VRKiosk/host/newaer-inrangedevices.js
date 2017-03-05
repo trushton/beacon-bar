@@ -179,5 +179,5 @@ function checkIfGuest(data, index){
 
 function getSecondsSince(time) {
     var timeDiff = Math.floor((Date.now() - time) / 1000);
-    return Math.floor((timeDiff / 60)) + ":" + (timeDiff % 60);
+    return timeDiff.getUTCMinutes() + ':' + timeDiff.getUTCSeconds();
 }

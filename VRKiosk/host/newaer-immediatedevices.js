@@ -74,7 +74,7 @@ function NAUpdate(devicesPresent)
     }
 
     if(highDeviceId != "") {
-        localStorage.setItem("currentDevice", devices[highDeviceId].data.recordLocator);
+        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
     }
     updateTimers();
 }
@@ -87,7 +87,7 @@ function updateDevice(device) {
 
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
-            if(!vrQueue.hasChild('badge')) {
+            if(!vrQueue.hasChild(badge)) {
                 if(device.rssi > -70){
                     deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
                     if(currentRecord.child('vrEnqueueTimer').val() > 30){
@@ -152,7 +152,7 @@ function updateTimers(){
     database.ref('vrQueue').orderByChild('timeEntered').limitToFirst(3).once('value').then(function(currentQueue){
         database.ref('users/').once('value').then(function(queuedGuests){
             currentQueue.forEach(function(guest){
-                guestData.push({waitTime: getSecondsSince(currentQueue.child(guest.key).child('timeEntered').val()),
+                guestData.push({waitTime: getTimeSince(currentQueue.child(guest.key).child('timeEntered').val()),
                     name: queuedGuests.child(guest.key).child('username').val(),
                     picture: queuedGuests.child(guest.key).child('picture').val()});
             });
@@ -176,7 +176,46 @@ function checkIfGuest(data, index){
 }
 
 
-function getSecondsSince(time) {
-    var timeDiff = Math.floor((Date.now() - time) / 1000);
-    return Math.floor((timeDiff / 60)) + ":" + (timeDiff % 60);
+function getTimeSince(time) {
+    var timeDiff = new Date(Date.now() - time);
+    return timeDiff.getUTCMinutes() + ':' + timeDiff.getUTCSeconds();
 }
+
+(function(){
+
+    getSpotlightInfo();
+
+
+})();
+
+
+function getSpotlightInfo(){
+    var badge = localStorage.currentDevice;
+    var database = firebase.database();
+    var users = database.ref('users/');
+    var queue = database.ref('vrQueue/');
+
+    var spotlight = {};
+
+    return users.child(badge).once('value').then(function(userData){
+        spotlight['picture'] = userData.child('picture').val();
+        queue.once('value').then(function(queueData){
+            timeList = Object.keys(queueData.val()).map(function(guest){
+                return {badge: guest, time: queueData.child(guest).child('timeEntered').val()}
+            });
+            timeList = timeList.sort(function(a, b){
+                return a.time > b.time;
+            });
+            console.log(timeList);
+            console.log(localStorage.currentDevice);
+            console.log(badge);
+            console.log(timeList.map(function(e){return e.badge}).indexOf(badge));
+
+
+
+        });
+
+
+    });
+}
+
