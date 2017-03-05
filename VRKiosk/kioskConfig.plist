@@ -36,11 +36,13 @@
 	</dict>
 	<key>hostFiles</key>
 	<array>
-		<string>immediate.js</string>
+		<string>common.css</string>
+		<string>bootstrap-grid.css</string>
 		<string>immediatedevice.html</string>
 		<string>inrangedevices.html</string>
+        <string>inrangedevices.css</string>
 		<string>nodevices.html</string>
-		<string>noDevicesStyles.css</string>
+		<string>nodevices.css</string>
 		<string>jquery.dataTables.min.css</string>
 		<string>jquery.dataTables.min.js</string>
 		<string>jquery.min.js</string>
