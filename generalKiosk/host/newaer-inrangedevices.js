@@ -182,7 +182,7 @@ function createPairs(people) {
     var possibleConnections = [
        [1, 2, 3, 4],
        [0, 3, 5],
-       [0, 3, 4],
+       [0, 4],
        [0, 1, 4, 5],
        [0, 2, 3, 5],
        [1, 3, 4]
@@ -194,7 +194,7 @@ function createPairs(people) {
 
         for(var connectionNumber of possibleConnections[i]) {
             if(people[connectionNumber] !== undefined) {
-                pairs.append([people[i], people[connectionNumber]]);
+                pairs.push([people[i], people[connectionNumber]]);
             }
         }
     }
