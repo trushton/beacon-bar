@@ -16,8 +16,8 @@
 	<true/>
 	<key>beaconUUID</key>
 	<string>4E455741-4552-544C-4142-5357494E0D0A</string>
-  <key>beaconSensitivity</key>
-  <integer>2</integer>
+  	<key>beaconSensitivity</key>
+  	<integer>2</integer>
 	<key>hostSupport</key>
 	<true/>
 	<key>hostPages</key>
