@@ -144,8 +144,6 @@ function displayGraph(){
             people: userSubset
           };
 
-          console.log(sourceTemplate(context));
-
           $('#social-graph').html(sourceTemplate(context));
         } else {
 
@@ -158,8 +156,6 @@ function displayGraph(){
 
           console.log(context);
 
-          console.log(sourceTemplate(context));
-
           $('#social-graph').html(sourceTemplate(context));
         }
     });
@@ -169,7 +165,55 @@ function displayGraph(){
 // The object contains whether to draw a line between these two people and what the
 // commonalities are.
 function findCommonalities(peoplePairs) {
+  commonalities = [];
 
+  for(var peoplePair of peoplePairs) {
+    drinkPref = null;
+    hometown = null;
+
+    var similarLikes = [];
+
+    var person1Likes = peoplePair[0].likes;
+    var person2Likes = peoplePair[1].likes;
+
+    if(person1Likes !== null && person2Likes !== null) {
+      for (var i = 0; i < person1Likes.length; i++) {
+        for (var j = 0; j < person2Likes.length; j++) {
+          if (person1Likes[i].id === person2Likes[j].id) {
+            similarLikes.push(person1Likes[i]);
+          }
+        }
+      }
+    }
+
+    if(peoplePair[0].drinkPref === peoplePair[1].drinkPref) {
+      drinkPref = peoplePair[0].drinkPref;
+    }
+
+    if(peoplePair[0].hometown === peoplePair[1].hometown) {
+      hometown = peoplePair[0].hometown;
+    }
+
+    var lineClass;
+
+    if(similarLikes.length > 0 || drinkPref !== null || hometown !== null) {
+      lineClass = "line";
+    } else {
+      lineClass = "line-hidden";
+    }
+
+    var data = {
+      person1: peoplePair[2],
+      person2: peoplePair[3],
+      similarLikes: similarLikes,
+      similarDrinkPreference: drinkPref,
+      similarHometown: hometown,
+      lineClass: lineClass
+    }
+
+    commonalities.push(data);
+  }
+  return commonalities;
 }
 
 // Creates pairs of people for analysis
@@ -179,22 +223,23 @@ function createPairs(people) {
     }
 
     // Since the positions and counts are fixed we can create a table of "possible pairs"
+    // These are the unique combinations.
     var possibleConnections = [
        [1, 2, 3, 4],
-       [0, 3, 5],
-       [0, 4],
-       [0, 1, 4, 5],
-       [0, 2, 3, 5],
-       [1, 3, 4]
+       [3, 5],
+       [4],
+       [4, 5],
+       [5]
     ];
 
     var pairs = [];
 
-    for(var i = 0; i < people.length; i++) {
-
+    // We can do this because the index of the actual person is encoded as the index
+    // in the possibleConnections array.
+    for(var i = 0; i < possibleConnections.length; i++) {
         for(var connectionNumber of possibleConnections[i]) {
             if(people[connectionNumber] !== undefined) {
-                pairs.push([people[i], people[connectionNumber]]);
+                pairs.push([people[i], people[connectionNumber], i, connectionNumber]);
             }
         }
     }
@@ -241,7 +286,10 @@ function getPeopleSubset(subsetCount) {
               nearestPeople.push({
                   id: parseId(devices[key].data),
                   name: person.child('username').val(),
-                  photo: person.child('picture').val()
+                  photo: person.child('picture').val(),
+                  likes: person.child('likes').val(),
+                  drinkPref: person.child('drink_pref').val(),
+                  hometown: person.child('hometown').val()
               });
           }
         }
