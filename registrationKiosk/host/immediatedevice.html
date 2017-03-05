@@ -150,7 +150,7 @@
         function login() {
             proximityLock = true;
             var deviceId = localStorage.currentDevice;
-            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/immediatedevice.html%3FdeviceId=" + deviceId;
+            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_likes&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/immediatedevice.html%3FdeviceId=" + deviceId;
         }
 
         function firebaseLogin(access_token, deviceId){
