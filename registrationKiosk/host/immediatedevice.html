@@ -153,7 +153,8 @@
             proximityLock = true;
             var deviceId = localStorage.currentDevice;
             FB.login(function(response){
-
+                checkLoginState(response.authResponse.token, deviceId);
+                console.log(response.authResponse);
             });
            // window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/immediatedevice.html?deviceId=" + deviceId +"&scope=public_profile,user_likes,user_friends";
         }
