@@ -148,17 +148,31 @@ function displayGuest(){
     var badgeId = localStorage.currentDevice;
 
     ref.once('value').then(function(snapshot) {
+
+        var htmlz;
+
         if (snapshot.hasChild(badgeId)) {
             var user = snapshot.child(badgeId);
-            var name = user.child('username').val();
-            var drink_pref = user.child('drink_pref').val();
+            var guestSource = $('#guest-template').html();
+            var guestTemplate = Handlebars.compile(guestSource);
 
-            $('#guestHighlight').html("<p>Welcome to the Bar " + name + "!<br> You've been here " +  user.child('barCount').val() + " times.</p>" +
-                "<img id='userImage' src='" + user.child('picture').val() + "'>");
+            htmlz = guestTemplate({
+                guestName: user.child('username').val(),
+                guestImage: user.child('picture').val(),
+                visitCount: user.child('barCount').val(),
+                drinkPref: user.child('drink_pref').val()
+            });
+
+            var socialSource = $('#guest-social-template').html();
+            $('[data-guest-social]').html(Handlebars.compile(socialSource));
         }
-        else{
-            $('#notFound').html("<h3>I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?</h3>");
+        else {
+            var source = $('#not-found-template').html();
+            htmlz = Handlebars.compile(source);
         }
+
+        $('[data-guest-highlight]').html(htmlz);
+
     });
 
     setTimeout(function(){

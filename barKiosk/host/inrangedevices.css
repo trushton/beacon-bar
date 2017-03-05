@@ -1,0 +1,39 @@
+.menu-section {
+    margin-bottom: 20px;
+}
+
+.menu-section-head {
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-item-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.social-greeting {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.social-friends-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.social-friends-list li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.friend-avatar {
+    display: block;
+    height: 125px;
+    width: 125px;
+}
