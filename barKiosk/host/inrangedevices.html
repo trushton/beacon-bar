@@ -1,14 +1,195 @@
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>BeaconBar</title>
+    <link rel="stylesheet" href="bootstrap-grid.css" type="text/css" />
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="common.css" type="text/css" />
+    <link rel="stylesheet" href="inrangedevices.css" type="text/css" />
+</head>
+<body>
+
+    <header class="bar-header" role="header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h1 class="page-title text-right">bar</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <div class="container-fluid collapse">
+
+            <div class="row" data-guest-highlight></div>
+
+            <div class="row">
+                <!-- left col -->
+                <div class="col-xs-6">
+
+                    <section class="menu-section">
+                        <div class="menu-section-head">
+                            <span class="bar-label">Beer</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Shiner</div>
+                                    Dark beer. Shiner, Tx
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Fireman's 4</div>
+                                    Light berr. Blanco, Tx
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Foo</div>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Foo</div>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="menu-section">
+                        <div class="menu-section-head">
+                            <span class="bar-label">Wine</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">White</div>
+                                    Llana estacado Chenin Blanc
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Red</div>
+                                    Pinot Noir and Merlot
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="menu-section">
+                        <div class="menu-section-head">
+                            <span class="bar-label">Cocktails</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Moscow Mule</div>
+                                    Llana estacado Chenin Blanc
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Old Fashioned</div>
+                                    Llana estacado Chenin Blanc
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Texas Tea</div>
+                                    Llana estacado Chenin Blanc
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- right col -->
+                <div class="col-xs-6" data-guest-social></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bar-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="bar-footer-logos">
+                        <div class="logo">
+                            <img src="walmart.png" alt="walmart">
+                        </div>
+                        <div class="logo">
+                            <img src="capitalfactory.png" alt="capitalfactory">
+                        </div>
+                        <div class="logo">
+                            <img src="bluvision.png" alt="bluvision">
+                        </div>
+                        <div class="logo">
+                            <img src="newaer.png" alt="newaer">
+                        </div>
+                        <div class="logo">
+                            <img src="originate.png" alt="originate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script id="guest-template" type="text/x-handlebars-template">
+        <div class="col-xs-11 col-xs-push-1">
+            <div class="highlight">
+                <div class="highlight-media-main-left">
+                    <img class="img-circle" src="{{guestImage}}" alt="{{guestName}}">
+                </div>
+                <div class="highlight-body">
+                    <h2 class="highlight-title">
+                        Welcome to the Bar, {{guestName}}. You've been here {{visitCount}} times. Have a {{drinkPref}}!
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="guest-social-template" type="text/x-handlebars-template">
+        <div>
+            <h3 class="social-greeting">Happy to see you and {friends} having a drink together!</h3>
+            <ul class="social-friends-list">
+                <li>
+                    <img class="img-circle friend-avatar" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300x300&w=300&h=300" alt="bob">
+                </li>
+                <li>
+                    <img class="img-circle friend-avatar" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300x300&w=300&h=300" alt="bob">
+                </li>
+                <li>
+                    <img class="img-circle friend-avatar" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=300x300&w=300&h=300" alt="bob">
+                </li>
+            </ul>
+        </div>
+    </script>
+
+    <script id="not-found-template" type="text/x-handlebars-template">
+        <div class="col-xs-11 col-xs-push-1">
+            <div class="highlight">
+                <div class="highlight-body">
+                    <h2 class="highlight-title">
+                        I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </script>
+
     <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
     <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
-    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
-
     <script src="jquery.dataTables.min.js" type="text/javascript" language="javascript"></script>
-    <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" media="all" />
-
-    <link rel="stylesheet" href="inrangeStyles.css" type="text/css" media="all" />
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -22,70 +203,8 @@
         firebase.initializeApp(config);
         firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
     </script>
-</head>
-<body background="../../VRKiosk/host/mainBackground.png" style="background-size: 100% 100%">
+    <script src="newaer-inrangedevices.js" type="text/javascript" language="javascript"></script>
 
-    <div id="guestHighlight">
-        <p></p>
-    </div>
-
-    <div id="menu">
-        <div id = beer>
-            <p>BEER</p>
-            <div id="beerOptions">
-                <p><strong>Shiner</strong><br>Dark beer. Shiner, Tx</p>
-                <p><strong>Fireman's 4</strong><br>Light beer. Blanco, TX</p>
-            </div>
-        </div>
-
-        <div id = wine>
-            <p>WINE</p>
-            <div id="wineOptions">
-                <p><strong>White Wine</strong><br>Llana estacado Chenin Blanc</p>
-                <p><strong>Red Wine</strong><br>Pinot Noir and Merlot</p>
-            </div>
-        </div>
-
-        <div id=cocktails>
-            <p>COCKTAILS</p>
-            <div id="cocktailOptions">
-                <p><strong>Walmart Blue </strong><br>Llana estacado Chenin Blanc</p>
-                <p><strong>Walmart Yellow</strong><br>Pinot Noir and Merlot</p><br>
-            </div>
-            <div id="cocktailOptions">
-                <p><strong>Moscow Mule</strong><br>Pinot Noir and Merlot</p>
-                <p><strong>Texas Tea</strong><br>Pinot Noir and Merlot</p><br>
-            </div>
-            <div id="cocktailOptions">
-                <p><strong>Texas Sipper</strong><br>Pinot Noir and Merlot</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="social">
-
-    </div>
-
-
-    <div id="logos">
-        <div id="logo">
-            <img src="walmart.png">
-        </div>
-        <div id="logo">
-            <img src="capitalfactory.png">
-        </div>
-        <div id="logo">
-            <img src="bluvision.png">
-        </div>
-        <div id="logo">
-            <img src="newaer.png">
-        </div>
-        <div id="logo">
-            <img src="originate.png">
-        </div>
-    </div>
-
-
-    <script src="newaer-inrange.js" type="text/javascript" language="javascript"></script>
 </body>
 </html>
+

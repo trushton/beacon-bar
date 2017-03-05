@@ -36,20 +36,20 @@
 	</dict>
 	<key>hostFiles</key>
 	<array>
-		<string>immediate.js</string>
+		<string>bootstrap-grid.css</string>
 		<string>immediatedevice.html</string>
-        <string>immediateStyles.css</string>
+        <string>immediatedevice.css</string>
 		<string>inrangedevices.html</string>
-		<string>inrangeStyles.css</string>
+		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
-		<string>noDevicesStyles.css</string>
+		<string>nodevices.css</string>
 		<string>jquery.dataTables.min.css</string>
 		<string>jquery.dataTables.min.js</string>
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediate.js</string>
-		<string>newaer-inrange.js</string>
+		<string>newaer-immediatedevice.js</string>
+		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>
 		<string>bluvision.png</string>
