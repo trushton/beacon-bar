@@ -97,9 +97,9 @@
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
-                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html%3Fbadge=' + userId;
+                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3Fbadge=' + userId;
                 } else {
-                    window.location = 'https://www.facebook.com/logout.php?&access_token=' + token + "&next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html%3Fbadge=" + userId;
+                    window.location = 'https://www.facebook.com/logout.php?&access_token=' + token + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + userId;
                 }
             });
         }
@@ -152,7 +152,7 @@
         function login() {
             proximityLock = true;
             var deviceId = localStorage.currentDevice;
-            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html?deviceId=" + deviceId +"&scope=likes,user_friends";
+            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/immediatedevice.html?deviceId=" + deviceId +"&scope=likes,user_friends";
         }
 
         function firebaseLogin(access_token, deviceId){
