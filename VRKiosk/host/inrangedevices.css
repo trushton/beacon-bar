@@ -1,24 +1,10 @@
-#logos{
-    width: 100%;
-    position: fixed;
-    bottom: 3%;
-    display: inline-flex;
-}
 
-#logos img {
-    margin:auto;
-}
-
-#logo{
-    width: 20%;
-    display: inline-flex;
-}
 
 #banner{
     width: 80%;
     height: 160px;
     background-color: #139DD8;
-    top: 50%;
+    top: 70%;
     left: 10%;
     position: fixed;
 }
@@ -40,4 +26,50 @@
 #triangle{
     position: absolute;
     bottom: 100%;
+}
+
+.menu-section {
+    margin-bottom: 20px;
+}
+
+.menu-section-head {
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-item-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.queue-greeting {
+    font-size: 40px;
+    font-weight: 500;
+    margin-left:10%;
+}
+
+.queue-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left:10%;
+}
+
+.queue-list li {
+    display: inline-block;
+    margin-right: 40px;
+    width:30%;
+    background-color: #2b2b2b;
+    text-align: center;
+}
+
+.friend-avatar {
+    display: block;
+    height: 130px;
+    width: 130px;
+    margin: auto;
 }
