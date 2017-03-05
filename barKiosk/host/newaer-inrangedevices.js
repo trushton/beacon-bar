@@ -3,7 +3,7 @@ var devices = null;
 var deviceArray = [];
 var selectedRowId = false;
 var guestRotationTime = 0;
-
+var highDeviceId;
 
 $(function () {
     console.log("jquery start");
@@ -109,7 +109,6 @@ function removeDevice(device)
 {
 //    console.log("Removing device: "+device.deviceId);
     delete devices[device.deviceId];
-    datatable.api().row('#'+device.deviceId).remove().draw();
 }
 
 function addDevice(device)
@@ -132,8 +131,7 @@ function addDevice(device)
     }
 
     devices[device.deviceId] = device;
-    rowNode = datatable.api().row.add(device).draw().node();
-    $(rowNode).attr('id',device.deviceId);
+
 }
 
 
@@ -164,7 +162,22 @@ function displayGuest(){
             });
 
             var socialSource = $('#guest-social-template').html();
-            $('[data-guest-social]').html(Handlebars.compile(socialSource));
+            var socialTemplate = Handlebars.compile(socialSource);
+            checkForFriends(badgeId).then(function(friendsAtBar){
+                getFriendData(friendsAtBar).then(function(friendData){
+                    var names = [];
+                    for(var friend of friendData){
+                        names.push(friend.name);
+                    }
+                    socialHtml = socialTemplate({
+                        friendNames: names.join(),
+                        friend1_img: checkForPicture(friendData, 0),
+                        friend2_img: checkForPicture(friendData, 1),
+                        friend3_img: checkForPicture(friendData, 2)
+                    });
+                    $('[data-guest-social]').html(socialHtml);
+                });
+            });
         }
         else {
             var source = $('#not-found-template').html();
@@ -179,3 +192,48 @@ function displayGuest(){
         displayGuest();
     }, 10000);
 }
+
+function checkForPicture(data, index){
+    if(data[index]){
+        return data[index].picture
+    }
+}
+
+
+function checkForFriends(badgeId){
+    var friends = firebase.database().ref('friends/' + badgeId);
+    var peopleInBar = [];
+    var friendsAtBar = [];
+
+    for (var key in devices) {
+        if(devices[key].data.recordLocator){
+            peopleInBar.push(parseId(devices[key].data));
+        }
+    }
+
+    return friends.once('value').then(function(friendsList){
+        friendsList.forEach(function(friend){
+            if(peopleInBar.includes(friend.val().toString())){
+                friendsAtBar.push(friend.val().toString());
+            }
+        });
+        return friendsAtBar;
+    });
+}
+
+
+function getFriendData(friends){
+    var usersRef = firebase.database().ref('users/');
+    var friendData =[];
+
+    return usersRef.once('value').then(function(users){
+       for(var friend of friends){
+           var friendObj = users.child(friend);
+           friendData.push({name: friendObj.child('username').val(),
+                            picture: friendObj.child('picture').val()});
+       }
+       return friendData;
+    });
+
+}
+

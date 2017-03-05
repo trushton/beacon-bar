@@ -16,8 +16,8 @@
     font-family: "Akzidenz Grotesk BQ";
     font-size: 50px;
     text-align: center;
-    position: fixed;
-    top: 25%;
+    position: relative;
+    top: 20%;
     line-height: 57px;
     letter-spacing: 5px;
     color: #FFFFFF;
@@ -32,7 +32,7 @@
     line-height: 35px;
     letter-spacing: 3px;
     color: #FFFFFF;
-    position:absolute;
+    position: relative;
     top:55%;
 
 }

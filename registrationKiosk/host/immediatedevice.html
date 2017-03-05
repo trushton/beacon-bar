@@ -6,8 +6,7 @@
     <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
     <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
 
-    <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="immediateStyles.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="immediatedevices.css" type="text/css" media="all" />
 
 
 
@@ -81,7 +80,6 @@
 
         function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
-            //firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             friends.once('value').then(function(snapshot){
                 if(!snapshot.hasChild(userId)){
@@ -97,9 +95,9 @@
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
-                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/drink_pref.html%3Fbadge=' + userId;
+                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3Fbadge=' + userId;
                 } else {
-                    window.location = 'https://www.facebook.com/logout.php?&access_token=' + token + "&next=https://beacon-bar-file-server.herokuapp.com/sxsw/host/completedRegistration.html%3Fbadge=" + userId;
+                    window.location = 'https://www.facebook.com/logout.php?&access_token=' + token + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + userId;
                 }
             });
         }
@@ -128,7 +126,7 @@
                 location: location,
                 picture: data.picture.data.url.toString(),
                 cover: cover,
-                visitCount: 1,
+                visitCount: 0,
                 barCount: 0,
                 foodCount: 0,
                 vrCount: 0,
@@ -152,7 +150,7 @@
         function login() {
             proximityLock = true;
             var deviceId = localStorage.currentDevice;
-            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&redirect_uri=http://beacon-bar-file-server.herokuapp.com/sxsw/host/immediatedevice.html?deviceId=" + deviceId +"&scope=user_likes,user_friends";
+            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/immediatedevice.html%3FdeviceId=" + deviceId;
         }
 
         function firebaseLogin(access_token, deviceId){

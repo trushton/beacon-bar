@@ -16,8 +16,8 @@
 	<true/>
 	<key>beaconUUID</key>
 	<string>4E455741-4552-544C-4142-5357494E0D0A</string>
-  <key>beaconSensitivity</key>
-  <integer>2</integer>
+  	<key>beaconSensitivity</key>
+  	<integer>2</integer>
 	<key>hostSupport</key>
 	<true/>
 	<key>hostPages</key>
@@ -49,18 +49,18 @@
 		<string>drink_pref_styles.css</string>
 		<string>immediate.js</string>
 		<string>immediatedevice.html</string>
-		<string>immediateStyles.css</string>
+		<string>immediatedevices.css</string>
 		<string>inrangedevices.html</string>
-		<string>inrangeStyles.css</string>
+		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
-		<string>noDevicesStyles.css</string>
+		<string>nodevices.css</string>
 		<string>jquery.dataTables.min.css</string>
 		<string>jquery.dataTables.min.js</string>
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediate.js</string>
-		<string>newaer-inrange.js</string>
+		<string>newaer-immediatedevices.js</string>
+		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>
 		<string>bluvision.png</string>
