@@ -14,69 +14,7 @@ $(function () {
     }
 });
 
-var groups = [ 'Immediate','Near','Far', 'Unknown'];
-$(document).ready(function() {
-    console.log("document ready");
 
-    datatable = $('#devices').dataTable( {
-        "data": devices,
-        "order": [[ 0, 'asc' ]],
-        "autoWidth":false,
-        "columnDefs": [
-            { "visible": false, "targets": 0 }
-        ],
-        "dom": '<"DTReportSettings"TC><"clear">t',
-        "columns": [
-            { "title": "Proximity Enum", "data":"proximity" },
-            { "title": "Name", "data":"data.name", "className":"nameColumn" },
-            { "title": "Locator", "data": "data.recordLocator", "className": "locatorColumn" },
-            { "title": "RSSI", "data":"rssi", "className": "rssiColumn" },
-            { "title": "Last Seen","data":"lastSeen", "className":"seenColumn" }
-        ],
-        "drawCallback": function ( settings ) {
-            var api = this.api();
-            var rows = api.rows( {page:'current'} ).nodes();
-            var last=null;
-
-            api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-                if ( last !== group ) {
-                    $(rows).eq( i ).before(
-                        '<tr class="group"><td colspan="5">'+groups[group]+'</td></tr>'
-                    );
-
-                    last = group;
-                }
-            } );
-            if(selectedRowId != false && selectedRowId.substr(0,2) == "NA") { // Can only send message to NewAer devices
-                $('.newAerButton').prop('disabled',false);
-            } else {
-                $('.newAerButton').prop('disabled',true);
-            }
-        },
-        "rowCallback": function( row, data ) {
-//            console.log("Checking row "+data.deviceId+" against selected: "+selectedRowId);
-            if ( data.deviceId == selectedRowId) {
-                $(row).addClass('selected');
-            }
-        }
-    } );
-
-    $('#devices tbody').on('click', 'tr', function () {
-        var id = this.id;
-        if(selectedRowId == id) {
-            selectedRowId = false;
-        } else {
-            if(selectedRowId != false) {
-                $(datatable.api().row('#' + selectedRowId).node()).toggleClass('selected');
-            }
-            selectedRowId = id;
-        }
-        $(this).toggleClass('selected');
-
-    } );
-
-
-});
 
 function parse_query_string(string)
 {
