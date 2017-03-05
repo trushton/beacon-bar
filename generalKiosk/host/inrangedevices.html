@@ -11,112 +11,28 @@
 <body>
 
     <header class="bar-header" role="header">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1 class="page-title text-right">bar</h1>
+                  <div class="page-title">Vip Spark Lounge</div>
                 </div>
             </div>
         </div>
     </header>
 
     <main role="main">
-        <div class="container-fluid collapse">
-
-            <div class="row" data-guest-highlight></div>
-
-            <div class="row">
-                <!-- left col -->
-                <div class="col-xs-6">
-
-                    <section class="menu-section">
-                        <div class="menu-section-head">
-                            <span class="bar-label">Beer</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Shiner</div>
-                                    Dark beer. Shiner, Tx
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Fireman's 4</div>
-                                    Light beer. Blanco, Tx
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-
-                    <section class="menu-section">
-                        <div class="menu-section-head">
-                            <span class="bar-label">Wine</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">White</div>
-                                    Llana estacado Chenin Blanc
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Red</div>
-                                    Pinot Noir and Merlot
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="menu-section">
-                        <div class="menu-section-head">
-                            <span class="bar-label">Cocktails</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Moscow Mule</div>
-                                    Tito's Vodka, Gingerbeer, and Lime
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Texas Sipper</div>
-                                    Tito's Vodka, St. Germaine, Grapefruit Juice, Mint, and Topo Chico
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Texas Tea</div>
-                                    TX Blended Whiskey, Sweet Tea, and Pomegranate Juice
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Walmart Blue</div>
-                                    Tito's Vodka, Lemonade, and Blue Cuacao
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Walmart Yellow</div>
-                                    TX Blended Whiskey, Sweet N Sour
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                </div>
-
-                <!-- right col -->
-                <div class="col-xs-6" data-guest-social></div>
-            </div>
+        <div class="container">
+            <div id="social-graph" />
         </div>
     </main>
 
     <footer class="bar-footer">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="footer-text">
+                     At the capital factory powered by:
+                </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -142,6 +58,36 @@
             </div>
         </div>
     </footer>
+
+    <!-- TEMPLATES -->
+
+    <script id="social-graph-template" type="text/x-handlebars-template">
+        <div class="container-fluid">
+            {{#each people}}
+                <div class="col-xs-1 col-xs-push-1">
+                  <span class='img-spacer'>
+                      <img class="img-circle person-{{@index}}-img" src="{{photo}}" alt="{{name}}" />
+                  </span>
+                </div>
+            {{/each}}
+        </div>
+
+        <div class="line" id="line-0-1" />
+        <div class="line" id="line-0-2" />
+        <div class="line" id="line-0-3" />
+        <div class="line" id="line-0-4" />
+
+        <div class="line" id="line-1-3" />
+        <div class="line" id="line-1-5" />
+
+        <div class="line" id="line-2-3" />
+        <div class="line" id="line-2-4" />
+
+        <div class="line" id="line-3-4" />
+        <div class="line" id="line-3-5" />
+
+        <div class="line" id="line-4-5" />
+    </script>
 
     <script id="guest-template" type="text/x-handlebars-template">
         <div class="col-xs-11 col-xs-push-1">

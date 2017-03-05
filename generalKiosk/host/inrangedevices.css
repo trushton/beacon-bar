@@ -1,0 +1,115 @@
+.menu-section {
+    margin-bottom: 20px;
+}
+
+.menu-section-head {
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-item-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.social-greeting {
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.social-friends-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.social-friends-list li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.friend-avatar {
+    display: block;
+    height: 125px;
+    width: 125px;
+}
+
+.page-title {
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 50px;
+    text-align: center;
+    line-height: 57px;
+    letter-spacing: 5px;
+    color: #FFFFFF;
+}
+
+.footer-text {
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 30px;
+    text-align: center;
+    line-height: 35px;
+    letter-spacing: 3px;
+    color: #FFFFFF;
+}
+
+/* Pseudo-level ordered images */
+
+.person-0-img {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 113px;
+    left: 205px;
+}
+
+.person-1-img {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 162px;
+    left: 848px;
+}
+
+.person-2-img {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 305px;
+    left: 37px;
+}
+
+.person-3-img {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 230px;
+    left: 471px;
+}
+
+.person-4-img {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 443px;
+    left: 362px;
+}
+
+.person-5-img {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 424px;
+    left: 695px;
+}
+
+.line {
+    display: none;
+    box-sizing: border-box;
+    width: 262.02px;
+    height: 346px;
+    border: 4px solid #139DD8;
+}

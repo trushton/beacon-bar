@@ -1,0 +1,47 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BeaconBar</title>
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="immediatedevice.css" type="text/css" media="all" />
+</head>
+<body background="mainBackground.png" style="background-size: 100% 100%">
+    <div>
+        <p id="bar">BAR</p>
+    </div>
+
+    <div id="welcomeBanner">
+    </div>
+
+    <div id="suggestion">
+    </div>
+
+    <div id="logos">
+        <img src="walmart.png">
+        <img src="capitalfactory.png">
+        <img src="bluvision.png">
+        <img src="newaer.png">
+        <img src="originate.png">
+    </div>
+
+    <div id="notFound">
+    </div>
+
+    <script src="jquery.min.js" type="text/javascript"></script>
+    <script src="jquery-ui.min.js" type="text/javascript"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+    </script>
+    <script src="newaer-immediatedevice.js" type="text/javascript"></script>
+</body>
+</html>
