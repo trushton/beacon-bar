@@ -49,7 +49,8 @@
 .queue-greeting {
     font-size: 40px;
     font-weight: 500;
-    margin-left:10%;
+    margin-left: 10%;
+    margin-bottom: 1%;
 }
 
 .queue-list {

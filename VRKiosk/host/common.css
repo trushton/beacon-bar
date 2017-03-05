@@ -75,7 +75,8 @@ h4 {
 .bar-header {
     height: 110px;
     top: 0;
-    padding: 25px;
+    padding-right: 25px;
+    padding-top: 25px;
 }
 
 .bar-header h1 {
@@ -86,10 +87,6 @@ h4 {
 .bar-footer {
     bottom: 0;
     height: 100px;
-}
-
-main {
-    padding-top: 20px;
 }
 
 /** common */

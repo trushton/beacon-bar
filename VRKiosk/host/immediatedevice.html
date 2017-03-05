@@ -25,14 +25,8 @@
     <div class="container-fluid collapse">
         <div class="row" data-queue-next-three></div>
 
-        <div class="row">
-            <div class="col-xs-12">
-                <div id="banner">
-                    <p>Hey! Come Closer!</p>
-                    <img id='triangle' src='rectangle11.png'>
-                </div>
-            </div>
-        </div>
+        <div class="col-xs-6" data-guest-spotlight></div>
+        <div class="col-xs-6" data-queue></div>
     </div>
 </main>
 
@@ -69,6 +63,40 @@
             {{#if guest1}}
             Up Next:
             {{/if}}
+        </h3>
+        <ul class="queue-list">
+            {{#if guest1}}
+            <li>
+                <h3>{{guest1.name}}</h3>
+                <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
+                <h3>In queue for {{guest1.waitTime}}</h3>
+            </li>
+            {{/if}}
+            {{#if guest2}}
+            <li>
+                <h3>{{guest2.name}}</h3>
+                <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
+                <h3>In queue for {{guest2.waitTime}}</h3>
+            </li>
+            {{/if}}
+            {{#if guest3}}
+            <li>
+                <h3>{{guest3.name}}</h3>
+                <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
+                <h3>In queue for {{guest3.waitTime}}</h3>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+</script>
+
+<script id="guest-spotlight" type="text/x-handlebars-template">
+    <div>
+        {{#if spotlight.picture}}
+        <img class="img-circle friend-avatar" src="{{spotlight.picture}}">
+        {{/if}}
+        <h3 class="spotlight-greeting">
+
         </h3>
         <ul class="queue-list">
             {{#if guest1}}
