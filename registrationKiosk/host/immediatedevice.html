@@ -120,7 +120,7 @@
             if(data.location){ location = data.location.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
-            firebase.database().ref('users/'+ badgeId).set({
+            firebase.database().ref('users/'+ badgeId).update({
                 facebookId: data.id,
                 username: data.name,
                 age_range: data.age_range,
