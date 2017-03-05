@@ -38,7 +38,7 @@ function parse_query_string(string)
 
 function NAUpdate(devicesPresent)
 {
-//    console.log("Update called with devicesPresent: "+devicesPresent);
+    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
 
     // Update
@@ -58,27 +58,61 @@ function NAUpdate(devicesPresent)
             addDevice(devicesPresent[key]);
         }
     }
-}
 
-function updateDevice(device)
-{
-//    console.log("Updating device: "+device.deviceId);
-    if(typeof device.data === 'undefined' || typeof device.data.name === 'undefined') {
-        device.data.name = device.name;
-    }
-    if(typeof device.data === 'undefined') {
-        device.data.recordLocator = "";
-    } else {
-        if(typeof device.data.recordLocator === 'undefined') {
-            if (typeof device.data.major === 'undefined' && typeof device.data.minor === 'undefined') {
-                device.data.recordLocator = "";
-            } else {
-                device.data.recordLocator = device.data.major + ":" + device.data.minor;
-            }
+    // Find strongest
+    highRssi = -100;
+    for (var key in devices) {
+        if(devices[key].rssi > highRssi) {
+            highRssi = devices[key].rssi;
+            highDeviceId = key;
         }
     }
-    row = datatable.api().row('#'+device.deviceId);
-    row.data(device).draw();
+
+    if(highDeviceId != "") {
+        localStorage.setItem("currentDevice", devices[highDeviceId].data.recordLocator);
+    }
+}
+
+function updateDevice(device) {
+    var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
+    var badge = parseId(device.data);
+
+    devices[device.deviceId] = device;
+
+    deviceDbRecord.once('value').then(function(currentRecord){
+        firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
+           if(!vrQueue.hasChild('badge')) {
+               if(device.rssi > -70){
+                   deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
+                   if(currentRecord.child('vrEnqueueTimer').val() > 30){
+                       firebase.database().ref('vrQueue/' + badge).update({
+                           timeEntered: Date.now()
+                       });
+                       deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                   }
+               }
+               else{
+                   deviceDbRecord.update({ vrEnqueueTimer: 0 });
+               }
+           }
+        });
+    })
+
+}
+
+
+function parseId(data){
+    if (typeof data.major !== 'undefined' && typeof data.minor !== 'undefined') {
+        var minor;
+
+        if(data.minor < 10){
+            minor = '00' + data.minor.toString();
+        } else if(data.minor < 100){
+            minor = '0' + data.minor.toString();
+        } else { minor = data.minor.toString(); }
+
+        return data.major.toString() + minor;
+    }
 }
 
 function removeDevice(device)

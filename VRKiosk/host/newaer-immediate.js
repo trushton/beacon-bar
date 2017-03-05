@@ -69,29 +69,54 @@ function NAUpdate(devicesPresent)
     for (var key in devices) {
         if(devices[key].rssi > highRssi) {
             highRssi = devices[key].rssi;
-            highRssi = highRssi;
             highDeviceId = key;
         }
     }
 
     if(highDeviceId != "") {
-        $('#deviceName').text(devices[highDeviceId].data.name);
-        $('#locator').text(devices[highDeviceId].data.recordLocator);
-        localStorage.set("currentDevice", devices[highDeviceId].data.recordLocator);
-
-        if(highDeviceId.substr(0,2) == "NA") { // Can only send message to NewAer devices
-            $('.newAerButton').prop('disabled',false);
-            selectedRowId = highDeviceId;
-        } else {
-            $('.newAerButton').prop('disabled',true);
-        }
+        localStorage.setItem("currentDevice", devices[highDeviceId].data.recordLocator);
     }
 }
 
-function updateDevice(device)
-{
-    console.log("Updating device: "+device.deviceId);
+function updateDevice(device) {
+    var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
+    var badge = parseId(device.data);
+
     devices[device.deviceId] = device;
+
+    deviceDbRecord.once('value').then(function(currentRecord){
+        firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
+            if(!vrQueue.hasChild('badge')) {
+                if(device.rssi > -70){
+                    deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
+                    if(currentRecord.child('vrEnqueueTimer').val() > 30){
+                        firebase.database().ref('vrQueue/' + badge).update({
+                            timeEntered: Date.now()
+                        });
+                        deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                    }
+                }
+                else{
+                    deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                }
+            }
+        });
+    })
+}
+
+
+function parseId(data){
+    if (typeof data.major !== 'undefined' && typeof data.minor !== 'undefined') {
+        var minor;
+
+        if(data.minor < 10){
+            minor = '00' + data.minor.toString();
+        } else if(data.minor < 100){
+            minor = '0' + data.minor.toString();
+        } else { minor = data.minor.toString(); }
+
+        return data.major.toString() + minor;
+    }
 }
 
 function removeDevice(device)

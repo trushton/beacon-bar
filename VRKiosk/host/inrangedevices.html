@@ -8,18 +8,51 @@
     <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" media="all" />
 
     <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="inrangeStyles.css" type="text/css" media="all" />
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+    </script>
+
     <script src="newaer-inrange.js" type="text/javascript" language="javascript"></script>
 </head>
-<body id="inrangeDevices">
+<body background="mainBackground.png" style="background-size: 100% 100%;;">
 
-<div id="background">
-    <!- img src="inrange.jpg" ->
-</div>
+    <div id="upNext"></div>
 
-<div>
-    <h1 style="width:100%;background-color:black;color:white;text-align:center">SXSW Beacon Bar</h1>
-    <p style="width:100%;color:black;text-align:center">Come a little closer and we can get you registered</p>
+    <div id="banner">
+        <p>Hey! Come Closer!</p>
+        <img id='triangle' src='../../VRKiosk/host/rectangle11.png'>
+    </div>
 
-</div>
+    <div id="logos">
+        <div id="logo">
+            <img src="walmart.png">
+        </div>
+        <div id="logo">
+            <img src="capitalfactory.png">
+        </div>
+        <div id="logo">
+            <img src="bluvision.png">
+        </div>
+        <div id="logo">
+            <img src="newaer.png">
+        </div>
+        <div id="logo">
+            <img src="originate.png">
+        </div>
+    </div>
+
 </body>
 </html>
