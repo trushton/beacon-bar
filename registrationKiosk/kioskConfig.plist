@@ -59,8 +59,8 @@
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediate.js</string>
-		<string>newaer-inrange.js</string>
+		<string>newaer-immediatedevices.js</string>
+		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>
 		<string>bluvision.png</string>

@@ -39,7 +39,7 @@
     <string>common.css<string>
 		<string>bootstrap-grid.css</string>
 		<string>immediatedevice.html</string>
-    <string>immediatedevice.css</string>
+   		<string>immediatedevice.css</string>
 		<string>inrangedevices.html</string>
 		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
