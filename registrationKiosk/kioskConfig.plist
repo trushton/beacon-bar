@@ -75,11 +75,10 @@
 	<array>
 		<string>background.png</string>
 		<string>config.html</string>
+		<string>newaer.js</string>
+		<string>jquery.min.js</string>
 		<string>ipad-styles.css</string>
 		<string>iphone-styles.css</string>
-		<string>jquery.min.js</string>
-		<string>newaer.js</string>
-		<string>newicon_blue.png</string>
 		<string>other-styles.css</string>
 	</array>
 </dict>
