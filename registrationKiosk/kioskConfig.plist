@@ -49,11 +49,11 @@
 		<string>drink_pref_styles.css</string>
 		<string>immediate.js</string>
 		<string>immediatedevice.html</string>
-		<string>immediateStyles.css</string>
+		<string>immediatedevices.css</string>
 		<string>inrangedevices.html</string>
-		<string>inrangeStyles.css</string>
+		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
-		<string>noDevicesStyles.css</string>
+		<string>nodevices.css</string>
 		<string>jquery.dataTables.min.css</string>
 		<string>jquery.dataTables.min.js</string>
 		<string>jquery.min.js</string>

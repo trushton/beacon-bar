@@ -209,7 +209,7 @@ var drinks = {
             var recommendation = recommendDrink(drink_pref);
 
             $('#welcomeBanner').html("<p>Welcome to the Bar " + user.child('username').val() + "!</p>" +
-                                     "<img id='triangle' src='../../VRKiosk/host/rectangle11.png'>" +
+                                     "<img id='triangle' src='rectangle11.png'>" +
                                      "<img id='userImage' src='" + user.child('picture').val() + "'>");
             $('#suggestion').html("<p>May we suggest a " + recommendation.name + " based upon your preference for " + drink_pref + ".</p>");
 
