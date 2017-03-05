@@ -6,7 +6,6 @@
     <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
     <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
 
-    <link rel="stylesheet" href="styles.css" type="text/css" media="all" />
     <link rel="stylesheet" href="immediateStyles.css" type="text/css" media="all" />
 
 
@@ -81,7 +80,6 @@
 
         function processFriends(token, userId, data){
             var friends = firebase.database().ref('friends/');
-            //firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
 
             friends.once('value').then(function(snapshot){
                 if(!snapshot.hasChild(userId)){
@@ -128,7 +126,7 @@
                 location: location,
                 picture: data.picture.data.url.toString(),
                 cover: cover,
-                visitCount: 1,
+                visitCount: 0,
                 barCount: 0,
                 foodCount: 0,
                 vrCount: 0,
