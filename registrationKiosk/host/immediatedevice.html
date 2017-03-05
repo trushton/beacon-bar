@@ -116,7 +116,7 @@
             var likes = [], location = '', cover = '', hometown = '';
             if(data.likes){ likes = data.likes.data; }
             if(data.location){ location = data.location.name;}
-            if(data.hometown){ location = data.hometown.name;}
+            if(data.hometown){ hometown = data.hometown.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
 
             firebase.database().ref('users/'+ badgeId).update({
