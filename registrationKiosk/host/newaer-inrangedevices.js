@@ -106,7 +106,7 @@ function NAUpdate(devicesPresent)
                         "</div>"
 
                     );
-                    if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-240000)){
+                    if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-120000)){
                         firebase.database().ref('users/' + badge).update({lastSeen: Date.now(), visitCount: user.child('visitCount').val() + 1});
                     }
                 } else if(highRssi > -70){
