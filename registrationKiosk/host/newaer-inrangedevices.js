@@ -285,16 +285,5 @@ function firebaseLogin(access_token, deviceId){
 })();
 
 
-function finishRegistration(value){
-    badge = getQueryStringValue('badge');
-    firebase.database().ref('users/'+ badge).update({
-        drink_pref: value.toString()
-    }).then(function(){
-        window.location = "https://www.facebook.com/logout.php?&access_token=" + token + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + badge;
-    });
-}
 
-function getQueryStringValue (key) {
-    return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-}
 
