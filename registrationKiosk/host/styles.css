@@ -164,3 +164,15 @@ h2 {
     top: 20%;
     left: 3%;
 }
+
+#deleteAccount{
+    width: 700px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: large;
+    font-style: italic;
+    line-height: normal;
+    color: #FFFFFF;
+    position: fixed;
+    bottom: 12%;
+    right: 5%;
+}

@@ -1,32 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>DrinkPreference</title>
-    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
-    <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
-    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
-    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
-
-
-    <link rel="stylesheet" href="drink_pref_styles.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="inrangedevices.css" type="text/css" media="all" />
-
-
-
+    <title>BeaconBar</title>
+    <link rel="stylesheet" href="bootstrap-grid.css" type="text/css" />
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="common.css" type="text/css" />
+    <link rel="stylesheet" href="inrangedevices.css" type="text/css" />
+    <link rel="stylesheet" href="drink_pref_styles.css" type="text/css" />
 </head>
 
-<body background="mainBackground.png" >
-    <p id="question">What libations do you like?</p>
-    <table id="options" display="inline">
-        <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
-        <td><input class="drink" name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
-        <td><input class="drink" name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
-        <td><input class="drink" name="drink" type="button" value="red wine" onclick="finishRegistration(value)"></td>
-        <td><input class="drink" name="drink" type="button" value="white wine" onclick="finishRegistration(value)"></td>
-    </table>
-    <div id="next">Next</div>
+<body>
+    <main role="main">
+        <p id="question">What libations do you like?</p>
+        <table id="options" display="inline">
+            <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
+            <td><input class="drink" name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
+            <td><input class="drink" name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
+            <td><input class="drink" name="drink" type="button" value="red wine" onclick="finishRegistration(value)"></td>
+            <td><input class="drink" name="drink" type="button" value="white wine" onclick="finishRegistration(value)"></td>
+        </table>
+        <div id="next">Next</div>
+    </main>
 
+
+    <footer class="bar-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="bar-footer-logos">
+                        <div class="logo">
+                            <img src="walmart.png" alt="walmart">
+                        </div>
+                        <div class="logo">
+                            <img src="capitalfactory.png" alt="capitalfactory">
+                        </div>
+                        <div class="logo">
+                            <img src="bluvision.png" alt="bluvision">
+                        </div>
+                        <div class="logo">
+                            <img src="newaer.png" alt="newaer">
+                        </div>
+                        <div class="logo">
+                            <img src="originate.png" alt="originate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -44,12 +69,8 @@
     <script>
         function finishRegistration(value){
             badge = getQueryStringValue('deviceId');
-            token = getQueryStringValue('#accesstoken');
             var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
             var tokenResults = tokenRegex.exec(window.location.href);
-            console.log(badge + "badge");
-            console.log(token + "token");
-            console.log(tokenResults[2] + "accessToken");
             firebase.database().ref('users/'+ badge).update({
                 drink_pref: value.toString()
             }).then(function(){

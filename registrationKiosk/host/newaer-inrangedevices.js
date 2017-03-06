@@ -82,21 +82,34 @@ function NAUpdate(devicesPresent)
                     var user = snapshot.child(badge);
 
 
+                    document.getElementById('near').style.display = "block";
                     document.getElementById('device').style.display = 'none';
+                    document.getElementById('far').style.display = 'none';
+                    document.getElementById('returnVisit').style.display = 'block';
 
 
                     $("#returnVisit").html(
                         "<img id='userImage' src='" + user.child('picture').val() + "'>" +
                         "<div id='returnBanner'>" +
-                        "<p>Welcome back to the VIP lounge " + user.child('username').val() + "!</p>" +
-                        "<p>You've been here " + (user.child('visitCount').val() + 1) + " times.</p>" +
+                            "<p>Welcome back to the VIP lounge " + user.child('username').val() + "!</p>" +
+                            "<p>You've been here " + (user.child('visitCount').val() + 1) + " times.</p>" +
+                            "<div id='deleteAccount'>" +
+                                "<button onclick='removeAccount()'>Delete account</button>" +
+                            "</div>" +
+                            "<div id='refreshAccount'>" +
+                                "<button onclick='login()'>Refresh account</button>" +
+                            "</div>" +
+
                         "</div>"
+
                     );
                     if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-240000)){
                         firebase.database().ref('users/' + badge).update({lastSeen: Date.now(), visitCount: user.child('visitCount').val() + 1});
                     }
                 } else if(highRssi > -70){
                     document.getElementById('far').style.display = 'none';
+                    document.getElementById('device').style.display = 'block';
+                    document.getElementById('returnVisit').style.display = 'none';
                     document.getElementById('near').style.display = 'block';
                 } else {
                     document.getElementById('far').style.display = 'block';
@@ -104,6 +117,15 @@ function NAUpdate(devicesPresent)
                 }
             });
     }
+}
+
+function removeAccount(){
+    var badge = localStorage.currentDevice;
+    var database = firebase.database();
+
+    database.ref('users/').child(badge).remove();
+    database.ref('vrQueue').child(badge).remove();
+    window.location.reload();
 }
 
 

@@ -1,5 +1,5 @@
 #question{
-    width: 619px;
+    width: 100%;
     height: 53px;
     font-family: "Akzidenz Grotesk BQ";
     font-size: 45px;
@@ -8,7 +8,7 @@
     color: #FFFFFF;
     position: absolute;
     top: 130px;
-    left: 300px;
+    text-align: center;
 }
 
 #options{

@@ -1,49 +1,64 @@
 <html>
 <head>
-    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
-    <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
-    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
-
-    <script src="jquery.dataTables.min.js" type="text/javascript" language="javascript"></script>
-    <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" media="all" />
-
-    <link rel="stylesheet" href="inrangedevices.css" type="text/css" media="all" />
-
+    <meta charset="UTF-8">
+    <title>BeaconBar</title>
+    <link rel="stylesheet" href="bootstrap-grid.css" type="text/css" />
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="common.css" type="text/css" />
+    <link rel="stylesheet" href="inrangedevices.css" type="text/css" />
 </head>
-<body background="mainBackground.png" style="background-size: 100% 100%">
+<body>
 
+    <main role="main">
+        <div id="near" style="display: none">
+            <div id="device">
+                <div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
+                <button id="register" onclick="login()">Register your badge with Facebook</button>
+                <div id="dataProtection"><p>We don't save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</p></div>
+            </div>
 
-<div id="near" style="display: none">
-    <div id="device">
-        <div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
-        <button id="register" onclick="login()">Register your badge with Facebook</button>
-        <div id="dataProtection"><p>We don't save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</p></div>
-    </div>
+            <div id="returnVisit"></div>
+        </div>
 
-    <div id="returnVisit"></div>
-</div>
+        <div id="far">
+            <p id="tagline">Got a VIP Beacon on you badge?</p>
+            <img id="triangle" src="rectangle11.png">
+            <div id="rect">
+                <p>Come closer for the magic to happen!</p>
+            </div>
+            <div id='subtext'>
+                <p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p>
+            </div>
+        </div>
+    </main>
 
-<div id="far">
-    <p id="tagline">Got a VIP Beacon on you badge?</p>
-    <img id="triangle" src="rectangle11.png">
-    <div id="rect">
-        <p>Come closer for the magic to happen!</p>
-    </div>
-    <div id='subtext'>
-        <p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p>
-    </div>
+    <footer class="bar-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
 
-
-    <div id="logos">
-        <img src="walmart.png">
-        <img src="capitalfactory.png">
-        <img src="bluvision.png">
-        <img src="newaer.png">
-        <img src="originate.png">
-    </div>
-
-
-</div>
+                    <div class="bar-footer-logos">
+                        <div class="logo">
+                            <img src="walmart.png" alt="walmart">
+                        </div>
+                        <div class="logo">
+                            <img src="capitalfactory.png" alt="capitalfactory">
+                        </div>
+                        <div class="logo">
+                            <img src="bluvision.png" alt="bluvision">
+                        </div>
+                        <div class="logo">
+                            <img src="newaer.png" alt="newaer">
+                        </div>
+                        <div class="logo">
+                            <img src="originate.png" alt="originate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <script>
@@ -65,6 +80,7 @@
             window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_hometown,user_location,user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3FdeviceId=" + deviceId;
         }
     </script>
+    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
     <script src="newaer-inrangedevices.js" type="text/javascript" language="javascript"></script>
 
 </body>
