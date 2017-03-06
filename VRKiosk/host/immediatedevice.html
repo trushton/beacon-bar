@@ -103,12 +103,14 @@
 <script id="remaining-queued-guests" type="text/x-handlebars-template">
     <div>
         <ul class="queue-secondary-list">
+            {{#if guests}}
             <li class="list-header">
                 <h3></h3>
                 <h3>Name</h3>
                 <h3>Wait time</h3>
                 <h3>Position</h3>
             </li>
+            {{/if}}
             {{#each guests}}
             <li>
                 <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">

@@ -9,7 +9,7 @@
 	<key>configFullName</key>
 	<string>SXSW VR Experience Kiosk</string>
 	<key>configDescription</key>
-	<string>This is the registration kiosk for the SXSW VR experience</string>
+	<string>This is the kiosk for the SXSW VR experience</string>
 	<key>newaerEnable</key>
 	<true/>
 	<key>beaconEnable</key>
@@ -45,6 +45,7 @@
 		<string>common.css</string>
 		<string>bootstrap-grid.css</string>
 		<string>immediatedevice.html</string>
+        <string>immediatedevice.css</string>
 		<string>inrangedevices.html</string>
         <string>inrangedevices.css</string>
 		<string>nodevices.html</string>
