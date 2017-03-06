@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <title>BeaconBar</title>
     <link rel="stylesheet" href="bootstrap-grid.css" type="text/css" />
     <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
@@ -14,7 +15,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="page-title text-right">bar</h1>
+                <h1 class="page-title text-right">VR Lounge</h1>
             </div>
         </div>
     </div>
@@ -22,21 +23,18 @@
 
 <main role="main">
     <div class="container-fluid collapse">
+        <div class="row" data-queue-next-three></div>
 
+        <div class="row">
+            <div class="col-xs-12">
+                <div id="banner">
+                    <p>Hey! Come Closer!</p>
+                    <img id='triangle' src='rectangle11.png'>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
-
-<div id="vip">V I P</div>
-
-<div id="sparkLounge">SPARK LOUNGE</div>
-
-<div id="separator">
-    <div id="rect1"></div>
-    <img id="page1Logo" src="Page1.png"/>
-    <div id="rect2"></div>
-</div>
-
-<div id="atCapitalFactory">AT THE CAPITAL FACTORY POWERED BY:</div>
 
 <footer class="bar-footer">
     <div class="container">
@@ -65,7 +63,56 @@
     </div>
 </footer>
 
+<script id="queued-guests-template" type="text/x-handlebars-template">
+    <div>
+        <h3 class="queue-greeting">
+            {{#if guest1}}
+            Up Next:
+            {{/if}}
+        </h3>
+        <ul class="queue-list">
+            {{#if guest1}}
+            <li>
+                <h3>{{guest1.name}}</h3>
+                <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
+                <h3>In queue for {{guest1.waitTime}}</h3>
+            </li>
+            {{/if}}
+            {{#if guest2}}
+            <li>
+                <h3>{{guest2.name}}</h3>
+                <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
+                <h3>In queue for {{guest2.waitTime}}</h3>
+            </li>
+            {{/if}}
+            {{#if guest3}}
+            <li>
+                <h3>{{guest3.name}}</h3>
+                <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
+                <h3>In queue for {{guest3.waitTime}}</h3>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+</script>
+
 <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
+<script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+        authDomain: "beaconbar-e8384.firebaseapp.com",
+        databaseURL: "https://beaconbar-e8384.firebaseio.com",
+        storageBucket: "beaconbar-e8384.appspot.com",
+        messagingSenderId: "9892124037"
+    };
+    firebase.initializeApp(config);
+    firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+</script>
 <script src="newaer-nodevices.js" type="text/javascript" language="javascript"></script>
+
 </body>
 </html>

@@ -1,82 +1,77 @@
-#vip{
-    width: 100%;
-    height: 141.34px;
-    background-color: rgba(0,0,0,0);
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 150px;
-    color: #ffffff;
+
+#banner{
+    width: 80%;
+    height: 160px;
+    background-color: #139DD8;
+    top: 70%;
+    left: 10%;
     position: fixed;
 }
 
-#sparkLounge{
-    width: 100%;
-    height: 57px;
+#banner p{
+    width: 80%;
+    height: 160px;
     font-family: "Akzidenz Grotesk BQ";
-    font-size: 50px;
+    font-size: 72px;
+    line-height: 90px;
+    color: #FFFFFF;
     text-align: center;
     position: relative;
-    top: 20%;
-    line-height: 57px;
-    letter-spacing: 5px;
-    color: #FFFFFF;
+    bottom: 15%;
+    left: 7%
+
 }
 
-#atCapitalFactory{
-    width: 100%;
-    height: 35px;
-    font-family: "Akzidenz Grotesk BQ";
-    font-size: 30px;
+#triangle{
+    position: absolute;
+    bottom: 100%;
+}
+
+.menu-section {
+    margin-bottom: 20px;
+}
+
+.menu-section-head {
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-item-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.queue-greeting {
+    font-size: 40px;
+    font-weight: 500;
+    margin-left:10%;
+    margin-top: -5%;
+    margin-bottom: 1%;
+}
+
+.queue-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left:10%;
+}
+
+.queue-list li {
+    display: inline-block;
+    margin-right: 40px;
+    width:25%;
+    background-color: #2b2b2b;
     text-align: center;
-    line-height: 35px;
-    letter-spacing: 3px;
-    color: #FFFFFF;
-    position: relative;
-    top:55%;
-
 }
 
-#separator{
-    width:100%;
-    position:fixed;
-    display:inline-block;
-    margin-top:25%;
-    margin-bottom:auto
-}
-
-#page1Logo{
-    width: 92px;
-    height: 103px;
-    margin-left:12.5%;
-}
-
-#rect1{
-    width: 28%;
-    height: 2px;
-    background-color: #FFFFFF;
-    float: left;
-    margin-top:50px;
-    margin-left: 5%;
-}
-#rect2{
-    width: 28%;
-    height: 2px;
-    background-color: #FFFFFF;
-    float:right;
-    margin-top:50px;
-    margin-right: 5%;
-}
-
-#logos{
-    width: 100%;
-    position: fixed;
-    bottom: 27%;
-    left:12.5%;
-}
-
-#logos img {
-    position: relative;
-    margin-left: 15px;
+.friend-avatar {
+    display: block;
+    height: 130px;
+    width: 130px;
+    margin: auto;
 }
 
