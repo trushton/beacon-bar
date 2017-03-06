@@ -134,7 +134,7 @@ h2 {
 }
 
 #thankYouBanner{
-    width: 825px;
+    width: 900px;
     height: 234px;
     background-color: #139DD8;
     position: absolute;
@@ -143,7 +143,7 @@ h2 {
 }
 
 .thankUser{
-    width: 590px;
+    width: 600px;
     height: 159px;
     font-family: "Akzidenz Grotesk BQ";
     font-size: 45px;
@@ -152,7 +152,7 @@ h2 {
     color: #FFFFFF;
     text-align: center;
     position:relative;
-    left:25%;
+    left:30%;
     top:15%;
 }
 
