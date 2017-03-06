@@ -4,7 +4,6 @@ $(function () {
         console.log("Clicked save button");
         var configObject = { };
         configObject.name = $('#name').val();
-        configObject.recordLocator = $('#recordLocator').val();
         saveConfig(configObject);
     });
 });
@@ -24,5 +23,4 @@ function saveConfig(configObject)
 function NASetConfig(config) {
     console.log("setConfig called with: "+config);
     $('#name').val(config.name);
-    $('#recordLocator').val(config.recordLocator);
 }
