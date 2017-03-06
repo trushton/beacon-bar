@@ -27,5 +27,3 @@ function parse_query_string(string)
     return b;
 }
 
-
-
