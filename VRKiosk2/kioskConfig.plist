@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>configUrl</key>
-	<string>https://beacon-bar-file-server.herokuapp.com/barKiosk2</string>
+	<string>https://beacon-bar-file-server.herokuapp.com/VRKiosk2</string>
 	<key>configShortName</key>
-	<string>sxsw-bar2</string>
+	<string>sxsw-VR2</string>
 	<key>configFullName</key>
-	<string>SXSW Beacon Bar Kiosk2</string>
+	<string>SXSW Beacon Bar VR Kiosk2</string>
 	<key>configDescription</key>
 	<string>This is the bar kiosk for the SXSW VIP lounge</string>
 	<key>newaerEnable</key>
