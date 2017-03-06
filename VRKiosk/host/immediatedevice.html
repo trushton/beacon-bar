@@ -84,28 +84,18 @@
         <h3 class="spotlight-greeting">
             You are {{spotlight.position}} in line!
         </h3>
-        <ul class="queue-list">
-            {{#if guest1}}
+        <ul class="social-list">
+            <h3 class="spotlight-social">
+                {{#if socialConnector}}
+                You are all {{socialConnector}}
+                {{/if}}
+            </h3>
+
+            {{#each socialConnection}}
             <li>
-                <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
-                <h3>{{guest1.name}}</h3>
-                <h3>In queue for {{guest1.waitTime}}</h3>
+                <img class="img-circle friend-avatar" src="{{socialConnection.picture}}" alt="bob">
             </li>
-            {{/if}}
-            {{#if guest2}}
-            <li>
-                <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
-                <h3>{{guest2.name}}</h3>
-                <h3>In queue for {{guest2.waitTime}}</h3>
-            </li>
-            {{/if}}
-            {{#if guest3}}
-            <li>
-                <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
-                <h3>{{guest3.name}}</h3>
-                <h3>In queue for {{guest3.waitTime}}</h3>
-            </li>
-            {{/if}}
+            {{/each}}
         </ul>
     </div>
 </script>
