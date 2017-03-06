@@ -87,6 +87,7 @@ function NAUpdate(devicesPresent)
 }
 
 function updateDevice(device) {
+
     var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
     var badge = parseId(device.data);
 
@@ -153,6 +154,7 @@ function addDevice(device)
 }
 
 function updateTimers(){
+    console.log('getting called now');
     var database = firebase.database();
     var guestData = [];
 
