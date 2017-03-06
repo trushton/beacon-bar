@@ -188,7 +188,7 @@
 
         function checkLoginState(token, deviceId) {
             if (token) {
-                FB.api('/me', {access_token: token, fields: ['name', 'furst_name', 'picture.type(large)', 'age_range', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
+                FB.api('/me', {access_token: token, fields: ['name', 'first_name', 'picture.type(large)', 'age_range', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                     localStorage.setItem("user_id", data.id);
                     createUser(token, data, deviceId);
                 });
