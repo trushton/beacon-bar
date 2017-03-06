@@ -36,12 +36,6 @@
 	</dict>
 	<key>hostFiles</key>
 	<array>
-		<string>akzidenzgrotesk.otf</string>
-		<string>akzidenzgrotesk_light.otf</string>
-		<string>akzidenzgrotesk_light_italic.otf</string>
-		<string>akzidenzgrotesk_medium_italic.otf</string>
-		<string>akzidenzgrotesk_super.otf</string>
-		<string>akzidenzgrotesk_super_italic.otf</string>
 		<string>common.css</string>
 		<string>bootstrap-grid.css</string>
 		<string>immediatedevice.html</string>
@@ -55,7 +49,7 @@
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediatedevices.js</string>
+		<string>newaer-immediatedevice.js</string>
 		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>
