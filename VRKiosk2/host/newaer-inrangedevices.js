@@ -1,13 +1,9 @@
-var datatable;
 var devices = null;
-var deviceArray = [];
 var selectedRowId = false;
 var updatePeriodInSeconds = 5;
 var nearRangeRssi = -70;
-var timeToEnterQueue = 30;
+var timToEnterQueue = 30;
 var prevUpdate = 0;
-
-
 
 $(function () {
     console.log("jquery start");
@@ -19,7 +15,11 @@ $(function () {
     }
 });
 
+$(document).ready(function() {
+    console.log("document ready");
+});
 
+var groups = [ 'Immediate','Near','Far', 'Unknown'];
 
 function parse_query_string(string)
 {
@@ -40,6 +40,9 @@ function parse_query_string(string)
     b['page'] = page;
     return b;
 }
+
+var highRssi;
+var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
@@ -84,6 +87,7 @@ function NAUpdate(devicesPresent)
 }
 
 function updateDevice(device) {
+
     var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
     var badge = parseId(device.data);
 
@@ -91,23 +95,22 @@ function updateDevice(device) {
 
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
-           if(!vrQueue.hasChild(badge)) {
-               if(device.rssi > nearRangeRssi){
-                   deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
-                   if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
-                       firebase.database().ref('vrQueue/' + badge).update({
-                           timeEntered: Date.now()
-                       });
-                       deviceDbRecord.update({ vrEnqueueTimer: 0 });
-                   }
-               }
-               else{
-                   deviceDbRecord.update({ vrEnqueueTimer: 0 });
-               }
-           }
+            if(!vrQueue.hasChild(badge)) {
+                if(device.rssi > nearRangeRssi){
+                    deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
+                    if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
+                        firebase.database().ref('vrQueue/' + badge).update({
+                            timeEntered: Date.now()
+                        });
+                        deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                    }
+                }
+                else{
+                    deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                }
+            }
         });
     })
-
 }
 
 
@@ -127,13 +130,11 @@ function parseId(data){
 
 function removeDevice(device)
 {
-//    console.log("Removing device: "+device.deviceId);
     delete devices[device.deviceId];
 }
 
 function addDevice(device)
 {
-//    console.log("Adding device: "+device.deviceId);
     if(devices == null) devices = Object;
     if(typeof device.data === 'undefined' || typeof device.data.name === 'undefined') {
         device.data.name = device.name;
@@ -149,48 +150,101 @@ function addDevice(device)
             }
         }
     }
-
     devices[device.deviceId] = device;
 }
 
-
 function updateTimers(){
+    console.log('getting called now');
     var database = firebase.database();
     var guestData = [];
 
-    database.ref('vrQueue').orderByChild('timeEntered').limitToFirst(3).once('value').then(function(currentQueue){
-        database.ref('users/').once('value').then(function(queuedGuests){
-            currentQueue.forEach(function(guest){
-                guestData.push({waitTime: getMinutesSince(currentQueue.child(guest.key).child('timeEntered').val()),
-                                name: queuedGuests.child(guest.key).child('username').val(),
-                                picture: queuedGuests.child(guest.key).child('picture').val()});
-            });
+    database.ref('vrQueue').orderByChild('timeEntered').once('value').then(function(currentQueue){
+        timeList = Object.keys(currentQueue.val()).map(function(guest){
+            return {badge: guest, time: parseInt(currentQueue.child(guest).child('timeEntered').val())}
+        });
+        timeList = timeList.sort(function(a, b){
+            return a.time < b.time;
+        });
+
+        database.ref('users/').once('value').then(function(guests){
+            console.log(timeList);
+            for(var person of timeList) {
+                guestData.push({
+                    name: guests.child(person.badge).child('username').val(),
+                    picture: guests.child(person.badge).child('picture').val(),
+                    waitTime: getTimeSince(person.time),
+                    position: timeList.map(function(e){return e.badge}).indexOf(person.badge) +1
+                });
+            }
         }).then(function() {
-            var queueSource = $('#queued-guests-template').html();
-            var queueTemplate = Handlebars.compile(queueSource);
+            var upNext = guestData.slice(0,3);
+            var upNextSource = $('#queued-guests-up-next').html();
+            var upNextTemplate = Handlebars.compile(upNextSource);
+            var upNextHtml = upNextTemplate({ guests: upNext });
 
-            var queueHtml = queueTemplate({
-                guest1: checkIfGuest(guestData,0),
-                guest2: checkIfGuest(guestData, 1),
-                guest3: checkIfGuest(guestData, 2)
-            });
+            $('[data-queue-next-three]').html(upNextHtml);
 
-            $('[data-queue-next-three]').html(queueHtml);
+            var remainingQueue = guestData.slice(3);
+            var remainingSource = $('#remaining-queued-guests').html();
+            var remainingTemplate = Handlebars.compile(remainingSource);
+            var remainingHtml = remainingTemplate({ guests: remainingQueue })
 
-
+            $('[data-queue]').html(remainingHtml);
 
         })
     });
-
-
-}
-
-function checkIfGuest(data, index){
-    if(data[index]){return data[index];}
 }
 
 
-function getMinutesSince(time) {
+function getTimeSince(time) {
     var timeDiff = new Date(Date.now() - time);
-    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + "minutes";
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " minutes";
+}
+
+(function(){
+    getSpotlightInfo();
+})();
+
+
+function getSpotlightInfo(){
+    var badge = localStorage.currentDevice;
+    var database = firebase.database();
+    var users = database.ref('users/');
+    var queue = database.ref('vrQueue/');
+
+    var spotlight = {};
+
+    users.child(badge).once('value').then(function(userData){
+        spotlight['picture'] = userData.child('picture').val();
+        queue.once('value').then(function(queueData){
+            timeList = Object.keys(queueData.val()).map(function(guest){
+                return {badge: guest, time: parseInt(queueData.child(guest).child('timeEntered').val())}
+            });
+            timeList = timeList.sort(function(a, b){
+                return a.time < b.time;
+            });
+
+            var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
+            switch(position){
+                case 1:
+                    spotlight['position'] = '1st';
+                    break;
+                case 2:
+                    spotlight['position'] = '2nd';
+                    break;
+                case 3:
+                    spotlight['position'] = '3rd';
+                    break;
+                default:
+                    spotlight['position'] = position + 'th';
+            }
+
+            var spotlightSource = $('#guest-spotlight').html();
+            var spotlightTemplate = Handlebars.compile(spotlightSource);
+
+            var spotlightHtml = spotlightTemplate({ spotlight: spotlight });
+
+            $('[data-guest-spotlight]').html(spotlightHtml);
+        });
+    });
 }

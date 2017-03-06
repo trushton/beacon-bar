@@ -26,8 +26,6 @@
 		<string>nodevices.html</string>
 		<key>inRangePage</key>
 		<string>inrangedevices.html</string>
-		<key>immediatePage</key>
-		<string>immediatedevice.html</string>
 	</dict>
 	<key>clientPages</key>
 	<dict>
@@ -38,8 +36,6 @@
 	<array>
     	<string>common.css</string>
 		<string>bootstrap-grid.css</string>
-		<string>immediatedevice.html</string>
-   		<string>immediatedevice.css</string>
 		<string>inrangedevices.html</string>
 		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
@@ -49,7 +45,6 @@
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediatedevice.js</string>
 		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>
