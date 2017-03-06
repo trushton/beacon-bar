@@ -11,6 +11,8 @@ input[type="radio"] + label {
     color: #fff;
     line-height: 1;
     padding: 5px 10px;
+    width: 125px;
+    text-align: center;
 }
 
 /* selected radio aspect */
@@ -28,7 +30,7 @@ input[type="radio"]:checked + label {
 }
 
 #question {
-    width: 619px;
+    width: 100%;
     height: 53px;
     font-family: "Akzidenz Grotesk BQ";
     font-size: 45px;
@@ -38,11 +40,14 @@ input[type="radio"]:checked + label {
     position: absolute;
     top: 130px;
     text-align: center;
+    margin: auto;
 }
 
 #options{
-    position:absolute;
-    top:300px;
+    position: fixed;
+    top: 200px;
+    width: 100%;
+    margin-left: 3%;
 }
 
 .drink {
@@ -61,13 +66,14 @@ input[type="radio"]:checked + label {
     width: 200px;
     height: 60px;
     background-color: #139DD8;
-    position:relative;
+    position: fixed;
     float: right;
-    top: 660px;
     font-family: "Akzidenz Grotesk BQ";
-    font-size: 20px;
+    font-size: 18px;
     font-style: italic;
     line-height: 60px;
     color: #FFFFFF;
     text-align: center;
+    bottom: 15%;
+    right: 3%;
 }
