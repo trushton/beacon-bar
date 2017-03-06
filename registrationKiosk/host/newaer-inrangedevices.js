@@ -1,6 +1,8 @@
 var devices = null;
 var selectedRowId = false;
 var badge;
+var lastUpdateTime = 0;
+var updateIntervalInSeconds = 3;
 
 $(function () {
     console.log("jquery start");
@@ -73,12 +75,13 @@ function NAUpdate(devicesPresent)
             }
         }
 
-        if(highDeviceId != "") {
+        if(highDeviceId != "" && lastUpdateTime  < (Date.now() - (updateIntervalInSeconds * 1000))) {
+            lastUpdateTime = Date.now();
             var badge = localStorage.currentDevice = parseId(devices[highDeviceId].data);
 
             var ref = firebase.database().ref('users/');
             ref.once('value').then(function(snapshot){
-                if(snapshot.hasChild(badge) ) {
+                if(snapshot.hasChild(badge) && snapshot.child(badge).hasChild('username')) {
                     var user = snapshot.child(badge);
 
 
