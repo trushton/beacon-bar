@@ -1,5 +1,12 @@
+var datatable;
 var devices = null;
+var deviceArray = [];
 var selectedRowId = false;
+var updatePeriodInSeconds = 5;
+var nearRangeRssi = -70;
+var timeToEnterQueue = 30;
+var prevUpdate = 0;
+
 
 
 $(function () {
@@ -12,11 +19,7 @@ $(function () {
     }
 });
 
-$(document).ready(function() {
-    console.log("document ready");
-});
 
-var groups = [ 'Immediate','Near','Far', 'Unknown'];
 
 function parse_query_string(string)
 {
@@ -37,9 +40,6 @@ function parse_query_string(string)
     b['page'] = page;
     return b;
 }
-
-var highRssi;
-var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
@@ -74,9 +74,13 @@ function NAUpdate(devicesPresent)
     }
 
     if(highDeviceId != "") {
-        localStorage.setItem("currentDevice", devices[highDeviceId].data.recordLocator);
+        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
     }
-    updateTimers();
+
+    if(prevUpdate + (updatePeriodInSeconds * 1000) < Date.now()){
+        prevUpdate = Date.now();
+        updateTimers();
+    }
 }
 
 function updateDevice(device) {
@@ -87,10 +91,10 @@ function updateDevice(device) {
 
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
-            if(!vrQueue.hasChild('badge')) {
-                if(device.rssi > -70){
+            if(!vrQueue.hasChild(badge)) {
+                if(device.rssi > nearRangeRssi){
                     deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
-                    if(currentRecord.child('vrEnqueueTimer').val() > 30){
+                    if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
                         firebase.database().ref('vrQueue/' + badge).update({
                             timeEntered: Date.now()
                         });
@@ -103,6 +107,7 @@ function updateDevice(device) {
             }
         });
     })
+
 }
 
 
@@ -122,11 +127,13 @@ function parseId(data){
 
 function removeDevice(device)
 {
+//    console.log("Removing device: "+device.deviceId);
     delete devices[device.deviceId];
 }
 
 function addDevice(device)
 {
+//    console.log("Adding device: "+device.deviceId);
     if(devices == null) devices = Object;
     if(typeof device.data === 'undefined' || typeof device.data.name === 'undefined') {
         device.data.name = device.name;
@@ -142,8 +149,10 @@ function addDevice(device)
             }
         }
     }
+
     devices[device.deviceId] = device;
 }
+
 
 function updateTimers(){
     var database = firebase.database();
@@ -152,7 +161,7 @@ function updateTimers(){
     database.ref('vrQueue').orderByChild('timeEntered').limitToFirst(3).once('value').then(function(currentQueue){
         database.ref('users/').once('value').then(function(queuedGuests){
             currentQueue.forEach(function(guest){
-                guestData.push({waitTime: getSecondsSince(currentQueue.child(guest.key).child('timeEntered').val()),
+                guestData.push({waitTime: getMinutesSince(currentQueue.child(guest.key).child('timeEntered').val()),
                     name: queuedGuests.child(guest.key).child('username').val(),
                     picture: queuedGuests.child(guest.key).child('picture').val()});
             });
@@ -160,6 +169,7 @@ function updateTimers(){
             var queueSource = $('#queued-guests-template').html();
             var queueTemplate = Handlebars.compile(queueSource);
 
+            console.log('test');
             var queueHtml = queueTemplate({
                 guest1: checkIfGuest(guestData,0),
                 guest2: checkIfGuest(guestData, 1),
@@ -167,8 +177,13 @@ function updateTimers(){
             });
 
             $('[data-queue-next-three]').html(queueHtml);
+
+
+
         })
     });
+
+
 }
 
 function checkIfGuest(data, index){
@@ -176,7 +191,7 @@ function checkIfGuest(data, index){
 }
 
 
-function getSecondsSince(time) {
-    var timeDiff = Math.floor((Date.now() - time) / 1000);
-    return Math.floor((timeDiff / 60)) + ":" + (timeDiff % 60);
+function getMinutesSince(time) {
+    var timeDiff = new Date(Date.now() - time);
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + "minutes";
 }

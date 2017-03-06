@@ -65,18 +65,17 @@ h4 {
 
 .bar-header,
 .bar-footer {
-    background-color: rgba(255, 255, 255, 0.0);
+    background-color: rgba(255, 255, 255, 0.2);
     left: 0;
     position: fixed;
     width: 100%;
-    z-index: 0;
+    z-index: 1;
 }
 
 .bar-header {
     height: 110px;
     top: 0;
-    padding-right: 25px;
-    padding-top: 25px;
+    padding: 25px;
 }
 
 .bar-header h1 {
@@ -89,8 +88,8 @@ h4 {
     height: 100px;
 }
 
-main{
-    z-index: 1;
+main {
+    padding-top: 20px;
 }
 
 /** common */
@@ -174,16 +173,16 @@ main{
 /* HACKS */
 
 /** force hide content while scrolling on the body element */
-/*.bar-header,*/
-/*.bar-footer {*/
-    /*background: url('mainBackground.png') center no-repeat fixed;*/
-    /*background-size: cover;*/
-/*}*/
+.bar-header,
+.bar-footer {
+    background: url('mainBackground.png') center no-repeat fixed;
+    background-size: cover;
+}
 
-/*.bar-header {*/
-    /*background-position: top center;*/
-/*}*/
+.bar-header {
+    background-position: top center;
+}
 
-/*.bar-footer {*/
-    /*background-position: bottom center;*/
-/*}*/
+.bar-footer {
+    background-position: bottom center;
+}

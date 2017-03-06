@@ -1,7 +1,8 @@
 var devices = null;
 var selectedRowId = false;
-var proximityLock = false;
-
+var badge;
+var lastUpdateTime = 0;
+var updateIntervalInSeconds = 3;
 
 $(function () {
     console.log("jquery start");
@@ -44,7 +45,6 @@ var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
-    if(!proximityLock){
         console.log("Update called with devicesPresent: "+devicesPresent);
         unescape(devicesPresent);
 
@@ -75,30 +75,60 @@ function NAUpdate(devicesPresent)
             }
         }
 
-        if(highDeviceId != "") {
+        if(highDeviceId != "" && lastUpdateTime  < (Date.now() - (updateIntervalInSeconds * 1000))) {
+            lastUpdateTime = Date.now();
             var badge = localStorage.currentDevice = parseId(devices[highDeviceId].data);
 
             var ref = firebase.database().ref('users/');
             ref.once('value').then(function(snapshot){
-                if(snapshot.hasChild(badge) ) {
+                if(snapshot.hasChild(badge) && snapshot.child(badge).hasChild('username')) {
                     var user = snapshot.child(badge);
 
+
+                    document.getElementById('near').style.display = "block";
                     document.getElementById('device').style.display = 'none';
+                    document.getElementById('far').style.display = 'none';
+                    document.getElementById('returnVisit').style.display = 'block';
+
 
                     $("#returnVisit").html(
                         "<img id='userImage' src='" + user.child('picture').val() + "'>" +
                         "<div id='returnBanner'>" +
-                        "<p>Welcome back to the VIP lounge " + user.child('username').val() + "!</p>" +
-                        "<p>You've been here " + (user.child('visitCount').val() + 1) + " times.</p>" +
+                            "<p>Welcome back to the VIP lounge " + user.child('username').val() + "!</p>" +
+                            "<p>You've been here " + (user.child('visitCount').val() + 1) + " times.</p>" +
+                            "<div id='deleteAccount'>" +
+                                "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</button>" +
+                            "</div>" +
+                            "<div id='refreshAccount'>" +
+                                "<a href='#' style='color: white' onclick='login()'>Refresh account</a>" +
+                            "</div>" +
+
                         "</div>"
+
                     );
-                    if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-240000)){
+                    if(snapshot.child(badge).child('lastSeen').val() < (Date.now()-120000)){
                         firebase.database().ref('users/' + badge).update({lastSeen: Date.now(), visitCount: user.child('visitCount').val() + 1});
                     }
+                } else if(highRssi > -70){
+                    document.getElementById('far').style.display = 'none';
+                    document.getElementById('device').style.display = 'block';
+                    document.getElementById('returnVisit').style.display = 'none';
+                    document.getElementById('near').style.display = 'block';
+                } else {
+                    document.getElementById('far').style.display = 'block';
+                    document.getElementById('near').style.display = 'none';
                 }
             });
-        }
     }
+}
+
+function removeAccount(){
+    var badge = localStorage.currentDevice;
+    var database = firebase.database();
+
+    database.ref('users/').child(badge).remove();
+    database.ref('vrQueue').child(badge).remove();
+    window.location.reload();
 }
 
 
@@ -156,4 +186,7 @@ function sendMessage(deviceId, cta, url)
     _cta = encodeURIComponent(cta);
     window.location = 'nakiosk://message/'+deviceId+'?cta='+_cta+'&url='+_url;
 }
+
+
+
 
