@@ -169,6 +169,7 @@ function updateTimers(){
             var queueSource = $('#queued-guests-template').html();
             var queueTemplate = Handlebars.compile(queueSource);
 
+            console.log('test');
             var queueHtml = queueTemplate({
                 guest1: checkIfGuest(guestData,0),
                 guest2: checkIfGuest(guestData, 1),

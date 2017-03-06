@@ -105,7 +105,7 @@ function updateDevice(device) {
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
             if(!vrQueue.hasChild(badge)) {
-                if(device.rssi > nearRangeRssi){
+                if(device.rssi > nearRangeRssi && deviceDbRecord.hasChild('username')){
                     deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
                     if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
                         firebase.database().ref('vrQueue/' + badge).update({
