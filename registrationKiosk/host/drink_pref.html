@@ -169,6 +169,7 @@
             firebase.database().ref('users/'+ badgeId).update({
                 facebookId: data.id,
                 username: data.name,
+                firstName: data.first_name,
                 age_range: data.age_range,
                 likes: likes,
                 location: location,
@@ -187,7 +188,7 @@
 
         function checkLoginState(token, deviceId) {
             if (token) {
-                FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'age_range', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
+                FB.api('/me', {access_token: token, fields: ['name', 'furst_name', 'picture.type(large)', 'age_range', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
                     localStorage.setItem("user_id", data.id);
                     createUser(token, data, deviceId);
                 });
