@@ -12,15 +12,15 @@
 
 <body>
     <main role="main">
-        <p id="question">What libations do you like?</p>
+        <p id="question">What is your libation of choice?</p>
         <table id="options" display="inline">
-            <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
-            <td><input class="drink" name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
-            <td><input class="drink" name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
-            <td><input class="drink" name="drink" type="button" value="red wine" onclick="finishRegistration(value)"></td>
-            <td><input class="drink" name="drink" type="button" value="white wine" onclick="finishRegistration(value)"></td>
+            <td><input class="drink" name="drink" type="radio" value="vodka">Vodka</td>
+            <td><input class="drink" name="drink" type="radio" value="whiskey">Whiskey</td>
+            <td><input class="drink" name="drink" type="radio" value="beer">Beer</td>
+            <td><input class="drink" name="drink" type="radio" value="red wine">Red Wine</td>
+            <td><input class="drink" name="drink" type="radio" value="white wine">White Wine</td>
         </table>
-        <div id="next">Next</div>
+        <button id="Next" onclick="finishRegistration()">Complete Registration</button>
     </main>
 
 
@@ -51,6 +51,7 @@
         </div>
     </footer>
 
+    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -67,12 +68,15 @@
 
 
     <script>
-        function finishRegistration(value){
+        function finishRegistration(){
             badge = getQueryStringValue('deviceId');
             var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
             var tokenResults = tokenRegex.exec(window.location.href);
+
+            var drink_pref = $("input[name=drink]:checked").val();
+
             firebase.database().ref('users/'+ badge).update({
-                drink_pref: value.toString()
+                drink_pref: drink_pref.toLowerCase()
             }).then(function(){
                 window.location = "https://www.facebook.com/logout.php?&access_token=" + tokenResults[2] + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + badge;
             });

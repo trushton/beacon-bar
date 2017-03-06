@@ -135,24 +135,44 @@
     position: relative;
     display: block;
     margin: auto;
-    bottom: 80px;
+    bottom: 90px;
     z-index: 2;
 }
 
 #deleteAccount{
-    font-size: large;
-    background-color: crimson;
-    width: 15%;
-    margin-top: 7%;
-    display: inline;
+    width: 20%;
+    height: 30px;
+    border: 2px solid #FFFFFF;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    font-style: italic;
+    line-height: 24px;
+    color: #ffffff;
+    background: crimson;
+    position: fixed;
+    display: inline-block;
+    bottom: 13%;
+    left: 1%;
 }
 
 #refreshAccount{
-    font-size: large;
-    background-color: #3b5998;
-    width: 15%;
-    margin-top: 7%;
-    display: inline;
+    width: 20%;
+    height: 30px;
+    border: 2px solid #FFFFFF;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    font-style: italic;
+    line-height: 24px;
+    color: #FFFFFF;
+    background: #3b5998;
+    position: fixed;
+    display: inline-block;
+    bottom: 13%;
+    right: 1%;
+}
+
+#refreshAccount p{
+    vertical-align: middle;
 }
 
 #disclaimer{
