@@ -30,7 +30,6 @@
   <body background="mainBackground.png" style="background-size: 100% 100%">
 
     <div id="device">
-
         <div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
         <button id="register" onclick="login()">Register your badge</button>
         <div id="dataProtection"><p>We don't save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</p></div>
@@ -51,127 +50,14 @@
 
 
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '988112061288748',
-                cookie     : true,  // enable cookies to allow the server to access
-                                    // the session
-                xfbml      : true,  // parse social plugins on this page
-                version    : 'v2.8' // use graph api version 2.8
-            });
 
-        };
-
-        // Load the SDK asynchronously
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-
-
-        function checkIfRegistered(userBadge){
-
-        }
-
-
-
-        function processFriends(token, userId, data){
-            var friends = firebase.database().ref('friends/');
-
-            friends.once('value').then(function(snapshot){
-                if(!snapshot.hasChild(userId)){
-                    return Promise.all(data.friends.data.map(function (friend) {
-                        return getBadgeId(friend.id).then(function (result) {
-                            return Promise.all([
-                                firebase.database().ref('friends/' + userId).push(result),
-                                firebase.database().ref('friends/' + result).push(userId)]);
-                        });
-                    }));
-                }
-            }).then(function(){
-                proximityLock = false;
-                firebase.auth().signOut();
-                if(data.age_range.min === 21){
-                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3Fbadge=' + userId;
-                } else {
-                    window.location = 'https://www.facebook.com/logout.php?&access_token=' + token + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + userId;
-                }
-            });
-        }
-
-        function getBadgeId(facebookId){
-            var val = firebase.database().ref('badges/').once('value').then(function(snapshot){
-                if(snapshot.hasChild(facebookId)) {
-                    return snapshot.child(facebookId).child('badge').val();
-                }
-            });
-            return val;
-        }
-
-
-        function createUser(token, data, badgeId){
-            var likes = [], location = '', cover = '', hometown = '';
-            if(data.likes){ likes = data.likes.data; }
-            if(data.location){ location = data.location.name;}
-            if(data.hometown){ hometown = data.hometown.name;}
-            if(data.cover){ cover = data.cover.source.toString(); }
-
-            firebase.database().ref('users/'+ badgeId).update({
-                facebookId: data.id,
-                username: data.name,
-                age_range: data.age_range,
-                likes: likes,
-                location: location,
-                hometown: hometown,
-                picture: data.picture.data.url.toString(),
-                cover: cover,
-                visitCount: 0,
-                barCount: 0,
-                foodCount: 0,
-                vrCount: 0,
-                lastSeen: Date.now()
-            });
-            firebase.database().ref('badges/' + data.id).set({badge: badgeId});
-            processFriends(token, badgeId, data);
-        }
-
-        function checkLoginState(token, deviceId) {
-            if (token) {
-                FB.api('/me', {access_token: token, fields: ['name', 'picture.type(large)', 'age_range', 'friends', 'likes', 'hometown', 'location', 'cover']}, function(data) {
-                    localStorage.setItem("user_id", data.id);
-                    createUser(token, data, deviceId);
-                });
-            } else {
-                document.getElementById('status').innerHTML = 'Please log ' +
-                    'into Facebook.';
-            }
-        }
         function login() {
             proximityLock = true;
             var deviceId = localStorage.currentDevice;
-            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_hometown,user_location,user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/immediatedevice.html%3FdeviceId=" + deviceId;
+            window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_hometown,user_location,user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3FdeviceId=" + deviceId;
         }
 
-        function firebaseLogin(access_token, deviceId){
-            var credential = firebase.auth.FacebookAuthProvider.credential(access_token);
-            firebase.auth().signInWithCredential(credential).then(function(){
-                checkLoginState(access_token, deviceId);
-            });
-        }
 
-        (function(){
-            var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
-            var deviceIdRegex = new RegExp('deviceId' + "(=([^&#]*)|&|#|$)");
-            var tokenResults = tokenRegex.exec(window.location.href);
-            var deviceId = deviceIdRegex.exec(window.location.href);
-            console.log(tokenResults);
-            if(tokenResults && tokenResults[2] && deviceId) {
-                firebaseLogin(tokenResults[2], deviceId[2]);
-            }
-        })();
     </script>
 
 
