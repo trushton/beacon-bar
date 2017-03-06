@@ -84,6 +84,13 @@ function NAUpdate(devicesPresent)
         prevUpdate = Date.now();
         updateTimers();
     }
+
+    if(devices[highDeviceId].rssi > nearRangeRssi){
+        getSpotlightInfo();
+    }
+    else{
+        getSocialInfo();
+    }
 }
 
 function updateDevice(device) {
@@ -187,7 +194,7 @@ function updateTimers(){
             var remainingQueue = guestData.slice(3);
             var remainingSource = $('#remaining-queued-guests').html();
             var remainingTemplate = Handlebars.compile(remainingSource);
-            var remainingHtml = remainingTemplate({ guests: remainingQueue })
+            var remainingHtml = remainingTemplate({ guests: remainingQueue });
 
             $('[data-queue]').html(remainingHtml);
 
@@ -200,10 +207,6 @@ function getTimeSince(time) {
     var timeDiff = new Date(Date.now() - time);
     return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " minutes";
 }
-
-(function(){
-    getSpotlightInfo();
-})();
 
 
 function getSpotlightInfo(){
@@ -247,4 +250,8 @@ function getSpotlightInfo(){
             $('[data-guest-spotlight]').html(spotlightHtml);
         });
     });
+}
+
+function getSocialInfo(){
+
 }
