@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>configUrl</key>
+	<string>https://beacon-bar-file-server.herokuapp.com/RegistrationKiosk2</string>
+	<key>configShortName</key>
+	<string>sxsw-registration2</string>
+	<key>configFullName</key>
+	<string>SXSW Beacon Bar Registration Kiosk</string>
+	<key>configDescription</key>
+	<string>This is the registration kiosk for the SXSW VIP lounge</string>
+	<key>newaerEnable</key>
+	<true/>
+	<key>beaconEnable</key>
+	<true/>
+	<key>beaconUUID</key>
+	<string>4E455741-4552-544C-4142-5357494E0D0A</string>
+  	<key>beaconSensitivity</key>
+  	<integer>2</integer>
+	<key>hostSupport</key>
+	<true/>
+	<key>hostPages</key>
+	<dict>
+		<key>noDevicesPage</key>
+		<string>nodevices.html</string>
+		<key>inRangePage</key>
+		<string>inrangedevices.html</string>
+		<key>immediatePage</key>
+		<string>immediatedevice.html</string>
+		<key>drink_pref</key>
+		<string>drink_pref.html</string>
+		<key>completedRegistration</key>
+		<string>completedRegistration.html</string>
+	</dict>
+	<key>clientPages</key>
+	<dict>
+		<key>configPage</key>
+		<string>config.html</string>
+	</dict>
+	<key>hostFiles</key>
+	<array>
+		<string>mainBackground.png</string>
+		<string>Page1.png</string>
+		<string>completedRegistration.html</string>
+		<string>completedRegistration.js</string>
+		<string>drink_pref.html</string>
+		<string>drink_pref.js</string>
+		<string>drink_pref_styles.css</string>
+		<string>immediate.js</string>
+		<string>immediatedevice.html</string>
+		<string>immediatedevices.css</string>
+		<string>inrangedevices.html</string>
+		<string>inrangedevices.css</string>
+		<string>nodevices.html</string>
+		<string>nodevices.css</string>
+		<string>jquery.dataTables.min.css</string>
+		<string>jquery.dataTables.min.js</string>
+		<string>jquery.min.js</string>
+		<string>jquery-ui.min.js</string>
+		<string>jquery-ui.min.css</string>
+		<string>newaer-immediatedevices.js</string>
+		<string>newaer-inrangedevices.js</string>
+		<string>newaer-nodevices.js</string>
+		<string>styles.css</string>
+		<string>bluvision.png</string>
+		<string>capitalfactory.png</string>
+		<string>newaer.png</string>
+		<string>originate.png</string>
+		<string>walmart.png</string>
+		<string>walmartstar.png</string>
+		<string>rectangle11.png</string>
+	</array>
+	<key>clientFiles</key>
+	<array>
+		<string>background.png</string>
+		<string>config.html</string>
+		<string>newaer.js</string>
+		<string>jquery.min.js</string>
+		<string>ipad-styles.css</string>
+		<string>iphone-styles.css</string>
+		<string>other-styles.css</string>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrinkPreference</title>
+    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
+    <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" media="all" />
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+
+    <link rel="stylesheet" href="drink_pref_styles.css" type="text/css" media="all" />
+
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+    </script>
+
+</head>
+
+<body background="mainBackground.png" >
+    <p id="question">What libations do you like?</p>
+    <table id="options" display="inline">
+        <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
+        <td><input class="drink" name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
+        <td><input class="drink" name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
+        <td><input class="drink" name="drink" type="button" value="red wine" onclick="finishRegistration(value)"></td>
+        <td><input class="drink" name="drink" type="button" value="white wine" onclick="finishRegistration(value)"></td>
+    </table>
+    <div id="next">Next</div>
+    <script>
+        var badge;
+
+        function finishRegistration(value){
+            badge = getQueryStringValue('badge');
+            firebase.database().ref('users/'+ badge).update({
+                drink_pref: value.toString()
+            }).then(function(){
+                window.location = "/registrationKiosk/host/completedRegistration.html?badge=" + badge;
+            });
+        }
+
+        function getQueryStringValue (key) {
+            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+        }
+
+        badge = getQueryStringValue('badge');
+        console.log(badge);
+        firebase.database().ref('users/'+badge).once('value').then(function(snapshot){
+            if(snapshot.hasChild('picture')){
+                var image = document.createElement(img);
+                var parent = document.getElementsByName('body');
+                image.id = 'userImage';
+                image.src = snapshot.child('picture').val();
+                parent.appendChild(image);
+            }
+        });
+    </script>
+</body>
+</html>

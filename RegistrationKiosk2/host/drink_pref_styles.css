@@ -1,0 +1,44 @@
+#question{
+    width: 619px;
+    height: 53px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    line-height: 53px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 130px;
+    left: 300px;
+}
+
+#options{
+    position:absolute;
+    top:300px;
+}
+
+.drink {
+    width: 190px;
+    height: 60px;
+    border: 2px solid #FFFFFF;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    font-style: italic;
+    line-height: 24px;
+    color: #FFFFFF;
+    background: rgba(19, 157, 216, 0);
+}
+
+#next{
+    width: 200px;
+    height: 60px;
+    background-color: #139DD8;
+    position:relative;
+    float: right;
+    top: 660px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    font-style: italic;
+    line-height: 60px;
+    color: #FFFFFF;
+    text-align: center;
+}

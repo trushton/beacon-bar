@@ -1,0 +1,79 @@
+#immediateBanner{
+    width: 100%;
+    height: 106px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    text-align: center;
+    line-height: 53px;
+    color: #ffffff;
+}
+
+#register{
+    width: 20%;
+    height: 60px;
+    border: 2px solid #FFFFFF;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    font-style: italic;
+    line-height: 24px;
+    color: #FFFFFF;
+    background: #139DD8;
+    position: fixed;
+    display: inline-block;
+    left: 40%;
+    top: 40%;
+}
+
+#dataProtection{
+    width: 100%;
+    height: 24px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    position: fixed;
+    top: 20%;
+    color: #C4C4C4;
+}
+
+#logos{
+    width: 100%;
+    position: fixed;
+    bottom: 10%;
+    left:4%;
+
+}
+
+#logos img {
+    position: relative;
+    margin-left: 4%;
+}
+
+#userImage{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+    margin: auto;
+    margin-top: 6%;
+    z-index: 2;
+
+}
+
+#returnBanner{
+    width: 102%;
+    height: 234px;
+    background-color: #139DD8;
+    position: fixed;
+    z-index: 1;
+    top: 41%;
+    left: -1%;
+    text-align: center;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    line-height: 53px;
+    color: #ffffff;
+}
