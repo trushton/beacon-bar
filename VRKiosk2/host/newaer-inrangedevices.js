@@ -163,7 +163,7 @@ function updateTimers(){
             return {badge: guest, time: parseInt(currentQueue.child(guest).child('timeEntered').val())}
         });
         timeList = timeList.sort(function(a, b){
-            return a.time < b.time;
+            return a.time > b.time;
         });
 
         database.ref('users/').once('value').then(function(guests){
@@ -221,7 +221,7 @@ function getSpotlightInfo(){
                 return {badge: guest, time: parseInt(queueData.child(guest).child('timeEntered').val())}
             });
             timeList = timeList.sort(function(a, b){
-                return a.time < b.time;
+                return a.time > b.time;
             });
 
             var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
