@@ -160,7 +160,7 @@ function updateTimers(){
 
     database.ref('vrQueue').orderByChild('timeEntered').once('value').then(function(currentQueue){
         timeList = Object.keys(currentQueue.val()).map(function(guest){
-            return {badge: guest, time: currentQueue.child(guest).child('timeEntered').val()}
+            return {badge: guest, time: parseInt(currentQueue.child(guest).child('timeEntered').val())}
         });
         timeList = timeList.sort(function(a, b){
             return a.time > b.time;
