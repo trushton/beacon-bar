@@ -28,12 +28,37 @@
 
 <body background="mainBackground.png" >
     <p id="question">What libations do you like?</p>
-    <table id="options" display="inline">
-        <td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
+    <table id="options" class="drinks-table">
+        <td>
+            <input type="radio" id="drink-1" name="drink" value="vodka" onclick="finishRegistration(value)">
+            <label for="drink-1">Vodka</label>
+        </td>
+
+        <td>
+            <input type="radio" id="drink-2" name="drink" value="whiskey" onclick="finishRegistration(value)">
+            <label for="drink-2">Whiskey</label>
+        </td>
+
+        <td>
+            <input type="radio" id="drink-3" name="drink" value="beer" onclick="finishRegistration(value)">
+            <label for="drink-3">Beer</label>
+        </td>
+
+        <td>
+            <input type="radio" id="drink-4" name="drink" value="red wine" onclick="finishRegistration(value)">
+            <label for="drink-4">White wine</label>
+        </td>
+
+        <td>
+            <input type="radio" id="drink-5" name="drink" value="white wine" onclick="finishRegistration(value)">
+            <label for="drink-5">White wine</label>
+        </td>
+
+        <!--<td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
         <td><input class="drink" name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
         <td><input class="drink" name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
         <td><input class="drink" name="drink" type="button" value="red wine" onclick="finishRegistration(value)"></td>
-        <td><input class="drink" name="drink" type="button" value="white wine" onclick="finishRegistration(value)"></td>
+        <td><input class="drink" name="drink" type="button" value="white wine" onclick="finishRegistration(value)"></td>-->
     </table>
     <div id="next">Next</div>
     <script>
