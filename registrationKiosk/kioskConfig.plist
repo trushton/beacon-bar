@@ -45,9 +45,6 @@
 		<string>drink_pref.html</string>
 		<string>drink_pref.js</string>
 		<string>drink_pref_styles.css</string>
-		<string>immediate.js</string>
-		<string>immediatedevice.html</string>
-		<string>immediatedevices.css</string>
 		<string>inrangedevices.html</string>
 		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
@@ -57,7 +54,6 @@
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediatedevice.js</string>
 		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>

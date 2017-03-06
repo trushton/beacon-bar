@@ -1,6 +1,5 @@
 var devices = null;
 var selectedRowId = false;
-var proximityLock = false;
 var badge;
 
 $(function () {
@@ -44,7 +43,6 @@ var highDeviceId;
 
 function NAUpdate(devicesPresent)
 {
-    if(!proximityLock){
         console.log("Update called with devicesPresent: "+devicesPresent);
         unescape(devicesPresent);
 
@@ -83,7 +81,9 @@ function NAUpdate(devicesPresent)
                 if(snapshot.hasChild(badge) ) {
                     var user = snapshot.child(badge);
 
+
                     document.getElementById('device').style.display = 'none';
+
 
                     $("#returnVisit").html(
                         "<img id='userImage' src='" + user.child('picture').val() + "'>" +
@@ -103,7 +103,6 @@ function NAUpdate(devicesPresent)
                     document.getElementById('near').style.display = 'none';
                 }
             });
-        }
     }
 }
 

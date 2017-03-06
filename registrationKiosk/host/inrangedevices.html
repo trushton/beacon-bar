@@ -61,12 +61,11 @@
 
     <script>
         function login() {
-            proximityLock = true;
             var deviceId = localStorage.currentDevice;
             window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_hometown,user_location,user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3FdeviceId=" + deviceId;
         }
     </script>
-    <script src="newaer-inrange.js" type="text/javascript" language="javascript"></script>
+    <script src="newaer-inrangedevices.js" type="text/javascript" language="javascript"></script>
 
 </body>
 </html>
