@@ -84,7 +84,7 @@
                 proximityLock = false;
                 firebase.auth().signOut();
                 if(data.age_range.min === 21){
-                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3Fbadge=' + userId;
+                    window.location ='https://www.facebook.com/logout.php?&access_token=' + token +'&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=' + userId;
                 } else {
                     window.location = 'https://www.facebook.com/logout.php?&access_token=' + token + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + userId;
                 }
