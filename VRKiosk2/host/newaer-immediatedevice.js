@@ -98,7 +98,7 @@ function updateDevice(device) {
             if(!vrQueue.hasChild(badge)) {
                 if(device.rssi > nearRangeRssi){
                     deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
-                    if(currentRecord.child('vrEnqueueTimer').val() > timToEnterQueue){
+                    if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
                         firebase.database().ref('vrQueue/' + badge).update({
                             timeEntered: Date.now()
                         });
