@@ -38,6 +38,8 @@
 	</dict>
 	<key>hostFiles</key>
 	<array>
+		<string>common.css</string>
+		<string>bootstrap-grid.css</string>
 		<string>mainBackground.png</string>
 		<string>Page1.png</string>
 		<string>completedRegistration.html</string>
