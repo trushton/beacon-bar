@@ -47,6 +47,9 @@
             token = getQueryStringValue('#accesstoken');
             var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
             var tokenResults = tokenRegex.exec(window.location.href);
+            console.log(badge + "badge");
+            console.log(token + "token");
+            console.log(tokenResults[2] + "accessToken");
             firebase.database().ref('users/'+ badge).update({
                 drink_pref: value.toString()
             }).then(function(){
