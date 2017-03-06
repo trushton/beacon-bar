@@ -8,6 +8,7 @@
     font-size: 150px;
     color: #ffffff;
     position: fixed;
+    margin-top: -10%;
 }
 
 #noDevicesFooter {
@@ -63,7 +64,7 @@
     width:100%;
     position:fixed;
     display:inline-block;
-    margin-top:25%;
+    margin-top:17%;
     margin-bottom:auto
 }
 
