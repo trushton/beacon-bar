@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
-                    <h1 class="page-title text-right">bar</h1>
+                    <h1 class="page-title text-right">VR Lounge</h1>
                 </div>
             </div>
         </div>
@@ -23,96 +23,15 @@
 
     <main role="main">
         <div class="container-fluid collapse">
-
-            <div class="row" data-guest-highlight></div>
+            <div class="row" data-queue-next-three></div>
 
             <div class="row">
-                <!-- left col -->
-                <div class="col-xs-6">
-
-                    <section class="menu-section">
-                        <div class="menu-section-head">
-                            <span class="bar-label">Beer</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Shiner</div>
-                                    Dark beer. Shiner, Tx
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Fireman's 4</div>
-                                    Light beer. Blanco, Tx
-                                </div>
-                            </div>
-
-                        </div>
-                    </section>
-
-                    <section class="menu-section">
-                        <div class="menu-section-head">
-                            <span class="bar-label">Wine</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">White</div>
-                                    Llana estacado Chenin Blanc
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Red</div>
-                                    Pinot Noir and Merlot
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="menu-section">
-                        <div class="menu-section-head">
-                            <span class="bar-label">Cocktails</span>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Moscow Mule</div>
-                                    Tito's Vodka, Ginerbeer, and Lime
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Texas Sipper</div>
-                                    Tito's Vodka, St. Germaine, Grapefruit Juice, Mint, and Topo Chico
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Texas Tea</div>
-                                    TX Blended Whiskey, Sweet Tea, and Pomegranate Juice
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Walmart Blue</div>
-                                    Tito's Vodka, Lemonade, and Blue Cuacao
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Walmart Yellow</div>
-                                    TX Blended Whiskey, Sweet N Sour
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
+                <div class="col-xs-12">
+                    <div id="banner">
+                        <p>Hey! Come Closer!</p>
+                        <img id='triangle' src='rectangle11.png'>
+                    </div>
                 </div>
-
-                <!-- right col -->
-                <div class="col-xs-6" data-guest-social></div>
             </div>
         </div>
     </main>
@@ -144,57 +63,36 @@
         </div>
     </footer>
 
-    <script id="guest-template" type="text/x-handlebars-template">
-        <div class="col-xs-11 col-xs-push-1">
-            <div class="highlight">
-                <div class="highlight-media-main-left">
-                    <img class="img-circle" src="{{guestImage}}" alt="{{guestName}}">
-                </div>
-                <div class="highlight-body">
-                    <h2 class="highlight-title">
-                        Welcome to the Bar, {{guestName}}. You've been here {{visitCount}} times. Have a {{drinkPref}}!
-                    </h2>
-                </div>
-            </div>
-        </div>
-    </script>
-
-    <script id="guest-social-template" type="text/x-handlebars-template">
+    <script id="queued-guests-template" type="text/x-handlebars-template">
         <div>
-            <h3 class="social-greeting">
-                {{#if friendNames}}
-                Happy to see you and {{friendNames}} having a drink together!
+            <h3 class="queue-greeting">
+                {{#if guest1}}
+                Up Next:
                 {{/if}}
             </h3>
-            <ul class="social-friends-list">
-                {{#if friend1_img}}
+            <ul class="queue-list">
+                {{#if guest1}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{friend1_img}}" alt="bob">
+                    <h3>{{guest1.name}}</h3>
+                    <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
+                    <h3>In queue for {{guest1.waitTime}}</h3>
                 </li>
                 {{/if}}
-                {{#if friend2_img}}
+                {{#if guest2}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{friend_img2}}" alt="bob">
+                    <h3>{{guest2.name}}</h3>
+                    <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
+                    <h3>In queue for {{guest2.waitTime}}</h3>
                 </li>
                 {{/if}}
-                {{#if friend3_img}}
+                {{#if guest3}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{friend_img3}}" alt="bob">
+                    <h3>{{guest3.name}}</h3>
+                    <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
+                    <h3>In queue for {{guest3.waitTime}}</h3>
                 </li>
                 {{/if}}
             </ul>
-        </div>
-    </script>
-
-    <script id="not-found-template" type="text/x-handlebars-template">
-        <div class="col-xs-11 col-xs-push-1">
-            <div class="highlight">
-                <div class="highlight-body">
-                    <h2 class="highlight-title">
-                        I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?
-                    </h2>
-                </div>
-            </div>
         </div>
     </script>
 
@@ -218,4 +116,3 @@
 
 </body>
 </html>
-

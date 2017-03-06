@@ -1,6 +1,9 @@
 var devices = null;
 var selectedRowId = false;
-
+var updatePeriodInSeconds = 5;
+var nearRangeRssi = -70;
+var timToEnterQueue = 30;
+var prevUpdate = 0;
 
 $(function () {
     console.log("jquery start");
@@ -69,7 +72,6 @@ function NAUpdate(devicesPresent)
     for (var key in devices) {
         if(devices[key].rssi > highRssi) {
             highRssi = devices[key].rssi;
-            highRssi = highRssi;
             highDeviceId = key;
         }
     }
@@ -77,7 +79,40 @@ function NAUpdate(devicesPresent)
     if(highDeviceId != "") {
         localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
     }
+
+    if(prevUpdate + (updatePeriodInSeconds * 1000) < Date.now()){
+        prevUpdate = Date.now();
+        updateTimers();
+    }
 }
+
+function updateDevice(device) {
+
+    var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
+    var badge = parseId(device.data);
+
+    devices[device.deviceId] = device;
+
+    deviceDbRecord.once('value').then(function(currentRecord){
+        firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
+            if(!vrQueue.hasChild(badge)) {
+                if(device.rssi > nearRangeRssi){
+                    deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
+                    if(currentRecord.child('vrEnqueueTimer').val() > timToEnterQueue){
+                        firebase.database().ref('vrQueue/' + badge).update({
+                            timeEntered: Date.now()
+                        });
+                        deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                    }
+                }
+                else{
+                    deviceDbRecord.update({ vrEnqueueTimer: 0 });
+                }
+            }
+        });
+    })
+}
+
 
 function parseId(data){
     if (typeof data.major !== 'undefined' && typeof data.minor !== 'undefined') {
@@ -91,19 +126,6 @@ function parseId(data){
 
         return data.major.toString() + minor;
     }
-}
-
-function updateDevice(device)
-{
-    var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
-    console.log("Updating device: "+device.deviceId);
-    devices[device.deviceId] = device;
-
-    deviceDbRecord.once('value').then(function(currentRecord){
-        deviceDbRecord.update({
-            barTime: (currentRecord.child('barTime').val() + 1)
-        })
-    })
 }
 
 function removeDevice(device)
@@ -131,101 +153,99 @@ function addDevice(device)
     devices[device.deviceId] = device;
 }
 
-function sendMessage(deviceId, cta, url)
-{
-    console.log("Sending message to "+deviceId);
-    console.log(" with cta: "+cta);
-    console.log(" and url: "+url);
-    _url = encodeURIComponent(url);
-    _cta = encodeURIComponent(cta);
-    window.location = 'nakiosk://message/'+deviceId+'?cta='+_cta+'&url='+_url;
+function updateTimers(){
+    console.log('getting called now');
+    var database = firebase.database();
+    var guestData = [];
+
+    database.ref('vrQueue').orderByChild('timeEntered').once('value').then(function(currentQueue){
+        timeList = Object.keys(currentQueue.val()).map(function(guest){
+            return {badge: guest, time: parseInt(currentQueue.child(guest).child('timeEntered').val())}
+        });
+        timeList = timeList.sort(function(a, b){
+            return a.time < b.time;
+        });
+
+        database.ref('users/').once('value').then(function(guests){
+            console.log(timeList);
+            for(var person of timeList) {
+                guestData.push({
+                    name: guests.child(person.badge).child('username').val(),
+                    picture: guests.child(person.badge).child('picture').val(),
+                    waitTime: getTimeSince(person.time),
+                    position: timeList.map(function(e){return e.badge}).indexOf(person.badge) +1
+                });
+            }
+        }).then(function() {
+            var upNext = guestData.slice(0,3);
+            var upNextSource = $('#queued-guests-up-next').html();
+            var upNextTemplate = Handlebars.compile(upNextSource);
+            var upNextHtml = upNextTemplate({ guests: upNext });
+
+            $('[data-queue-next-three]').html(upNextHtml);
+
+            var remainingQueue = guestData.slice(3);
+            var remainingSource = $('#remaining-queued-guests').html();
+            var remainingTemplate = Handlebars.compile(remainingSource);
+            var remainingHtml = remainingTemplate({ guests: remainingQueue })
+
+            $('[data-queue]').html(remainingHtml);
+
+        })
+    });
 }
 
-var drinks = {
-    "vodka": {
-        "Walmart Blue": {
-            "name": "Walmart Blue",
-            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"]
-        },
-        "Moscow Mule": {
-            "name": "Moscow Mule",
-            "ingredients": ["Vodka", "Gingerbeer", "Lime"]
-        },
-        "Texas Sipper": {
-            "name": "Texas Sipper",
-            "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"]
-        }
-    },
-    "whiskey": {
-        "Walmart Yellow": {
-            "name": "Walmart Yellow",
-            "ingredients": ["Whiskey", "Sweet N Sour"],
-            "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
-        },
-        "Texas Tea": {
-            "name": "Texas Tea",
-            "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"]
-        }
-    },
-    "beer": {
-        "Shiner": {
-            "name": "Shiner",
-            "type": "dark option"
-        },
-        "Fireman's 4": {
-            "name": "Fireman's 4",
-            "type": "light option"
-        }
-    },
-    "red wine": {
-        "Pinot Noir": {
-            "name": "Pinot Noir",
-            "type": "Mark West"
-        },
-        "Merlot": {
-            "name": "Merlot",
-            "type": "Mark West"
-        }
-    },
-    "white wine": {
-        "Chenin Blanc": {
-            "name": "Chenin Blanc",
-            "type": "Llano Estacado"
-        }
-    }
-};
+
+function getTimeSince(time) {
+    var timeDiff = new Date(Date.now() - time);
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " minutes";
+}
 
 (function(){
-    var database = firebase.database();
-    var ref = database.ref('users/');
-    var badgeId = localStorage.getItem("currentDevice");
-
-
-    ref.once('value').then(function(snapshot) {
-        if (snapshot.hasChild(badgeId)) {
-            var user = snapshot.child(badgeId);
-            var name = user.child('username').val();
-            var drink_pref = user.child('drink_pref').val();
-            var recommendation = recommendDrink(drink_pref);
-
-            $('#welcomeBanner').html("<p>Welcome to the Bar " + user.child('username').val() + "!</p>" +
-                                     "<img id='triangle' src='rectangle11.png'>" +
-                                     "<img id='userImage' src='" + user.child('picture').val() + "'>");
-            $('#suggestion').html("<p>May we suggest a " + recommendation.name + " based upon your preference for " + drink_pref + ".</p>");
-
-            database.ref('users/'+badgeId).update({
-                barCount: (user.child('barCount').val()+1),
-                prevRecommendation: recommendation.name
-            });
-        }
-        else{
-            $('#notFound').html("<h3>I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?</h3>");
-        }
-    });
+    getSpotlightInfo();
 })();
 
-function recommendDrink(preference){
-    console.log(preference);
-    var keys = Object.keys(drinks[preference]);
-    return drinks[preference][keys[keys.length * Math.random() <<0]];
+
+function getSpotlightInfo(){
+    var badge = localStorage.currentDevice;
+    var database = firebase.database();
+    var users = database.ref('users/');
+    var queue = database.ref('vrQueue/');
+
+    var spotlight = {};
+
+    users.child(badge).once('value').then(function(userData){
+        spotlight['picture'] = userData.child('picture').val();
+        queue.once('value').then(function(queueData){
+            timeList = Object.keys(queueData.val()).map(function(guest){
+                return {badge: guest, time: parseInt(queueData.child(guest).child('timeEntered').val())}
+            });
+            timeList = timeList.sort(function(a, b){
+                return a.time < b.time;
+            });
+
+            var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
+            switch(position){
+                case 1:
+                    spotlight['position'] = '1st';
+                    break;
+                case 2:
+                    spotlight['position'] = '2nd';
+                    break;
+                case 3:
+                    spotlight['position'] = '3rd';
+                    break;
+                default:
+                    spotlight['position'] = position + 'th';
+            }
+
+            var spotlightSource = $('#guest-spotlight').html();
+            var spotlightTemplate = Handlebars.compile(spotlightSource);
+
+            var spotlightHtml = spotlightTemplate({ spotlight: spotlight });
+
+            $('[data-guest-spotlight]').html(spotlightHtml);
+        });
+    });
 }
+

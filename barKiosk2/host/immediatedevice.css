@@ -1,59 +1,20 @@
-#bar{
-    width: 10%;
-    height: 70px;
-    font-family: "Akzidenz Grotesk BQ";
-    font-size: 60px;
-    font-style: italic;
-    line-height: 70px;
-    float:right;
-    color: #FFFFFF;
-    position: fixed;
-    margin-left:85%;
-    margin-top:0;
 
-}
 
-#recommendation{
-    display:inline-block;
-}
-
-#logos{
-    width: 100%;
-    position: fixed;
-    bottom: 10%;
-    left:4%;
-}
-
-#logos img {
-    position: relative;
-    margin-left: 4%;
-}
-
-#userImage{
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    position: fixed;
-    top: 20%;
-    left: 65%;
-
-}
-
-#welcomeBanner{
-    width: 608px;
+#banner{
+    width: 80%;
     height: 160px;
     background-color: #139DD8;
-    top: 30%;
-    left: 5%;
+    top: 70%;
+    left: 10%;
     position: fixed;
 }
 
-#welcomeBanner p{
-    width: 521px;
+#banner p{
+    width: 80%;
     height: 160px;
     font-family: "Akzidenz Grotesk BQ";
-    font-size: 50px;
-    line-height: 59px;
+    font-size: 72px;
+    line-height: 90px;
     color: #FFFFFF;
     text-align: center;
     position: relative;
@@ -62,20 +23,102 @@
 
 }
 
-#suggestion {
-    width: 95%;
-    height: 92px;
-    font-family: "Akzidenz Grotesk BQ";
-    font-size: 40px;
-    font-style: italic;
-    text-align: center;
-    line-height: 46px;
-    color: #FFFFFF;
-    top: 55%;
-    position: fixed;
-
-}
 #triangle{
     position: absolute;
     bottom: 100%;
+}
+
+.menu-section {
+    margin-bottom: 20px;
+}
+
+.menu-section-head {
+    margin-bottom: 20px;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.menu-item-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.queue-greeting {
+    font-size: 40px;
+    font-weight: 500;
+    margin-left: 10%;
+    margin-top: -5%;
+    margin-bottom: 1%;
+}
+
+.queue-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left:10%;
+}
+
+.queue-list li {
+    display: inline-block;
+    margin-right: 40px;
+    width:25%;
+    background-color: #2b2b2b;
+    text-align: center;
+}
+
+.queue-secondary-list {
+    list-style: none;
+    margin: 2%;
+    margin-top:10%;
+    padding: 0;
+    background-color: #2b2b2b;
+}
+
+.queue-secondary-list li {
+    display: -webkit-box;
+    margin-right: 40px;
+    width:25%;
+    background-color: #2b2b2b;
+    text-align: center;
+}
+
+.queue-secondary-list h3,
+.queue-secondary-list h4{
+    margin:auto;
+}
+
+.friend-avatar {
+    display: block;
+    height: 130px;
+    width: 130px;
+    margin: auto;
+}
+
+.spotlight-image {
+    display: block;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    margin-top:6%;
+
+}
+
+.spotlight-greeting {
+    font-size: 60px;
+    font-weight: 300;
+    margin-left: 15%;
+}
+
+.spotlight-social {
+    font-size: 30px;
+    font-weight: 300;
+    margin-left: 15%;
+}
+
+.list-header{
+    margin-bottom: 5%;
+    background-color: transparent;
 }
