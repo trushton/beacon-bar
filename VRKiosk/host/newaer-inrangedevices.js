@@ -2,6 +2,11 @@ var datatable;
 var devices = null;
 var deviceArray = [];
 var selectedRowId = false;
+var updatePeriodInSeconds = 5;
+var nearRangeRssi = -70;
+var timeToEnterQueue = 30;
+var prevUpdate = 0;
+
 
 
 $(function () {
@@ -72,7 +77,10 @@ function NAUpdate(devicesPresent)
         localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
     }
 
-    updateTimers();
+    if(prevUpdate + (updatePeriodInSeconds * 1000) < Date.now()){
+        prevUpdate = Date.now();
+        updateTimers();
+    }
 }
 
 function updateDevice(device) {
@@ -84,9 +92,9 @@ function updateDevice(device) {
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
            if(!vrQueue.hasChild('badge')) {
-               if(device.rssi > -70){
+               if(device.rssi > nearRangeRssi){
                    deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
-                   if(currentRecord.child('vrEnqueueTimer').val() > 30){
+                   if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
                        firebase.database().ref('vrQueue/' + badge).update({
                            timeEntered: Date.now()
                        });
@@ -153,7 +161,7 @@ function updateTimers(){
     database.ref('vrQueue').orderByChild('timeEntered').limitToFirst(3).once('value').then(function(currentQueue){
         database.ref('users/').once('value').then(function(queuedGuests){
             currentQueue.forEach(function(guest){
-                guestData.push({waitTime: getSecondsSince(currentQueue.child(guest.key).child('timeEntered').val()),
+                guestData.push({waitTime: getMinutesSince(currentQueue.child(guest.key).child('timeEntered').val()),
                                 name: queuedGuests.child(guest.key).child('username').val(),
                                 picture: queuedGuests.child(guest.key).child('picture').val()});
             });
@@ -168,8 +176,13 @@ function updateTimers(){
             });
 
             $('[data-queue-next-three]').html(queueHtml);
+
+
+
         })
     });
+
+
 }
 
 function checkIfGuest(data, index){
@@ -177,7 +190,7 @@ function checkIfGuest(data, index){
 }
 
 
-function getSecondsSince(time) {
-    var timeDiff = Math.floor((Date.now() - time) / 1000);
-    return timeDiff.getUTCMinutes() + ':' + timeDiff.getUTCSeconds();
+function getMinutesSince(time) {
+    var timeDiff = new Date(Date.now() - time);
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + "minutes";
 }

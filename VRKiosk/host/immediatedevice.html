@@ -57,35 +57,21 @@
     </div>
 </footer>
 
-<script id="queued-guests-template" type="text/x-handlebars-template">
+<script id="queued-guests-up-next" type="text/x-handlebars-template">
     <div>
         <h3 class="queue-greeting">
-            {{#if guest1}}
+            {{#if guests}}
             Up Next:
             {{/if}}
         </h3>
         <ul class="queue-list">
-            {{#if guest1}}
+            {{#each guests}}
             <li>
-                <h3>{{guest1.name}}</h3>
-                <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
-                <h3>In queue for {{guest1.waitTime}}</h3>
+                <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
+                <h3>{{this.name}}</h3>
+                <h3>In queue for {{this.waitTime}}</h3>
             </li>
-            {{/if}}
-            {{#if guest2}}
-            <li>
-                <h3>{{guest2.name}}</h3>
-                <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
-                <h3>In queue for {{guest2.waitTime}}</h3>
-            </li>
-            {{/if}}
-            {{#if guest3}}
-            <li>
-                <h3>{{guest3.name}}</h3>
-                <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
-                <h3>In queue for {{guest3.waitTime}}</h3>
-            </li>
-            {{/if}}
+            {{/each}}
         </ul>
     </div>
 </script>
@@ -93,30 +79,30 @@
 <script id="guest-spotlight" type="text/x-handlebars-template">
     <div>
         {{#if spotlight.picture}}
-        <img class="img-circle friend-avatar" src="{{spotlight.picture}}">
+        <img class="img-circle spotlight-image" src="{{spotlight.picture}}">
         {{/if}}
         <h3 class="spotlight-greeting">
-            You are {{place}} in line!
+            You are {{spotlight.position}} in line!
         </h3>
         <ul class="queue-list">
             {{#if guest1}}
             <li>
-                <h3>{{guest1.name}}</h3>
                 <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
+                <h3>{{guest1.name}}</h3>
                 <h3>In queue for {{guest1.waitTime}}</h3>
             </li>
             {{/if}}
             {{#if guest2}}
             <li>
-                <h3>{{guest2.name}}</h3>
                 <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
+                <h3>{{guest2.name}}</h3>
                 <h3>In queue for {{guest2.waitTime}}</h3>
             </li>
             {{/if}}
             {{#if guest3}}
             <li>
-                <h3>{{guest3.name}}</h3>
                 <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
+                <h3>{{guest3.name}}</h3>
                 <h3>In queue for {{guest3.waitTime}}</h3>
             </li>
             {{/if}}
@@ -124,36 +110,23 @@
     </div>
 </script>
 
-<script id="data-vr-queue" type="text/x-handlebars-template">
+<script id="remaining-queued-guests" type="text/x-handlebars-template">
     <div>
-        {{#if spotlight.picture}}
-        <img class="img-circle friend-avatar" src="{{spotlight.picture}}">
-        {{/if}}
-        <h3 class="spotlight-greeting">
-            You are {{place}} in line!
-        </h3>
-        <ul class="queue-list">
-            {{#if guest1}}
-            <li>
-                <h3>{{guest1.name}}</h3>
-                <img class="img-circle friend-avatar" src="{{guest1.picture}}" alt="bob">
-                <h3>In queue for {{guest1.waitTime}}</h3>
+        <ul class="queue-secondary-list">
+            <li class="list-header">
+                <h3></h3>
+                <h3>Name</h3>
+                <h3>Wait time</h3>
+                <h3>Position</h3>
             </li>
-            {{/if}}
-            {{#if guest2}}
+            {{#each guests}}
             <li>
-                <h3>{{guest2.name}}</h3>
-                <img class="img-circle friend-avatar" src="{{guest2.picture}}" alt="bob">
-                <h3>In queue for {{guest2.waitTime}}</h3>
+                <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
+                <h4>{{this.name}}</h4>
+                <h4>{{this.waitTime}}</h4>
+                <h4>{{this.position}}</h4>
             </li>
-            {{/if}}
-            {{#if guest3}}
-            <li>
-                <h3>{{guest3.name}}</h3>
-                <img class="img-circle friend-avatar" src="{{guest3.picture}}" alt="bob">
-                <h3>In queue for {{guest3.waitTime}}</h3>
-            </li>
-            {{/if}}
+            {{/each}}
         </ul>
     </div>
 </script>

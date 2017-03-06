@@ -1,6 +1,9 @@
 var devices = null;
 var selectedRowId = false;
-
+var updatePeriodInSeconds = 5;
+var nearRangeRssi = -70;
+var timToEnterQueue = 30;
+var prevUpdate = 0;
 
 $(function () {
     console.log("jquery start");
@@ -76,7 +79,11 @@ function NAUpdate(devicesPresent)
     if(highDeviceId != "") {
         localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
     }
-    updateTimers();
+
+    if(prevUpdate + (updatePeriodInSeconds * 1000) < Date.now()){
+        prevUpdate = Date.now();
+        updateTimers();
+    }
 }
 
 function updateDevice(device) {
@@ -88,9 +95,9 @@ function updateDevice(device) {
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
             if(!vrQueue.hasChild(badge)) {
-                if(device.rssi > -70){
+                if(device.rssi > nearRangeRssi){
                     deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
-                    if(currentRecord.child('vrEnqueueTimer').val() > 30){
+                    if(currentRecord.child('vrEnqueueTimer').val() > timToEnterQueue){
                         firebase.database().ref('vrQueue/' + badge).update({
                             timeEntered: Date.now()
                         });
@@ -149,43 +156,51 @@ function updateTimers(){
     var database = firebase.database();
     var guestData = [];
 
-    database.ref('vrQueue').orderByChild('timeEntered').limitToFirst(3).once('value').then(function(currentQueue){
-        database.ref('users/').once('value').then(function(queuedGuests){
-            currentQueue.forEach(function(guest){
-                guestData.push({waitTime: getTimeSince(currentQueue.child(guest.key).child('timeEntered').val()),
-                    name: queuedGuests.child(guest.key).child('username').val(),
-                    picture: queuedGuests.child(guest.key).child('picture').val()});
-            });
+    database.ref('vrQueue').orderByChild('timeEntered').once('value').then(function(currentQueue){
+        timeList = Object.keys(currentQueue.val()).map(function(guest){
+            return {badge: guest, time: currentQueue.child(guest).child('timeEntered').val()}
+        });
+        timeList = timeList.sort(function(a, b){
+            return a.time < b.time;
+        });
+
+        database.ref('users/').once('value').then(function(guests){
+            console.log(timeList);
+            for(var person of timeList) {
+                guestData.push({
+                    name: guests.child(person.badge).child('username').val(),
+                    picture: guests.child(person.badge).child('picture').val(),
+                    waitTime: getTimeSince(person.time),
+                    position: timeList.map(function(e){return e.badge}).indexOf(person.badge) +1
+                });
+            }
         }).then(function() {
-            var queueSource = $('#queued-guests-template').html();
-            var queueTemplate = Handlebars.compile(queueSource);
+            var upNext = guestData.slice(0,3);
+            var upNextSource = $('#queued-guests-up-next').html();
+            var upNextTemplate = Handlebars.compile(upNextSource);
+            var upNextHtml = upNextTemplate({ guests: upNext });
 
-            var queueHtml = queueTemplate({
-                guest1: checkIfGuest(guestData,0),
-                guest2: checkIfGuest(guestData, 1),
-                guest3: checkIfGuest(guestData, 2)
-            });
+            $('[data-queue-next-three]').html(upNextHtml);
 
-            $('[data-queue-next-three]').html(queueHtml);
+            var remainingQueue = guestData.slice(3);
+            var remainingSource = $('#remaining-queued-guests').html();
+            var remainingTemplate = Handlebars.compile(remainingSource);
+            var remainingHtml = remainingTemplate({ guests: remainingQueue })
+
+            $('[data-queue]').html(remainingHtml);
+
         })
     });
-}
-
-function checkIfGuest(data, index){
-    if(data[index]){return data[index];}
 }
 
 
 function getTimeSince(time) {
     var timeDiff = new Date(Date.now() - time);
-    return timeDiff.getUTCMinutes() + ':' + timeDiff.getUTCSeconds();
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " minutes";
 }
 
 (function(){
-
     getSpotlightInfo();
-
-
 })();
 
 
@@ -197,25 +212,38 @@ function getSpotlightInfo(){
 
     var spotlight = {};
 
-    return users.child(badge).once('value').then(function(userData){
+    users.child(badge).once('value').then(function(userData){
         spotlight['picture'] = userData.child('picture').val();
         queue.once('value').then(function(queueData){
             timeList = Object.keys(queueData.val()).map(function(guest){
                 return {badge: guest, time: queueData.child(guest).child('timeEntered').val()}
             });
             timeList = timeList.sort(function(a, b){
-                return a.time > b.time;
+                return a.time < b.time;
             });
-            console.log(timeList);
-            console.log(localStorage.currentDevice);
-            console.log(badge);
-            console.log(timeList.map(function(e){return e.badge}).indexOf(badge));
 
+            var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
+            switch(position){
+                case 1:
+                    spotlight['position'] = '1st';
+                    break;
+                case 2:
+                    spotlight['position'] = '2nd';
+                    break;
+                case 3:
+                    spotlight['position'] = '3rd';
+                    break;
+                default:
+                    spotlight['position'] = position + 'th';
+            }
 
+            var spotlightSource = $('#guest-spotlight').html();
+            var spotlightTemplate = Handlebars.compile(spotlightSource);
 
+            var spotlightHtml = spotlightTemplate({ spotlight: spotlight });
+
+            $('[data-guest-spotlight]').html(spotlightHtml);
         });
-
-
     });
 }
 
