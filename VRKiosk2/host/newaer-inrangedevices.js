@@ -89,6 +89,7 @@ function NAUpdate(devicesPresent)
         getSpotlightInfo();
     }
     else{
+        $('[data-guest-spotlight]').html('');
         getSocialInfo();
     }
 }
