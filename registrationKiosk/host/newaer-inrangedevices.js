@@ -200,9 +200,6 @@ function processFriends(token, userId, data){
                 });
             }));
         }
-    }).then(function(){
-        proximityLock = false;
-        firebase.auth().signOut();
     });
 }
 
