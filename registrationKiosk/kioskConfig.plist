@@ -26,8 +26,6 @@
 		<string>nodevices.html</string>
 		<key>inRangePage</key>
 		<string>inrangedevices.html</string>
-		<key>immediatePage</key>
-		<string>immediatedevice.html</string>
 		<key>drink_pref</key>
 		<string>drink_pref.html</string>
 		<key>completedRegistration</key>
