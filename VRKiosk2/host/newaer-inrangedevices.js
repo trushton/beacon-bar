@@ -83,15 +83,16 @@ function NAUpdate(devicesPresent)
     if(prevUpdate + (updatePeriodInSeconds * 1000) < Date.now()){
         prevUpdate = Date.now();
         updateTimers();
+        if(highRssi > nearRangeRssi){
+            getSpotlightInfo();
+        }
+        else{
+            $('[data-guest-spotlight]').html('');
+            getSocialInfo();
+        }
     }
 
-    if(devices[highDeviceId].rssi > nearRangeRssi){
-        getSpotlightInfo();
-    }
-    else{
-        $('[data-guest-spotlight]').html('');
-        getSocialInfo();
-    }
+
 }
 
 function updateDevice(device) {
@@ -231,16 +232,19 @@ function getSpotlightInfo(){
             var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
             switch(position){
                 case 1:
-                    spotlight['position'] = '1st';
+                    spotlight['position'] = 'You are 1st in line!';
                     break;
                 case 2:
-                    spotlight['position'] = '2nd';
+                    spotlight['position'] = 'You are 2nd in line!';
                     break;
                 case 3:
-                    spotlight['position'] = '3rd';
+                    spotlight['position'] = 'You are 3rd in line';
+                    break;
+                case 0:
+                    spotlight['position'] = 'You aren\'t in line yet, stick around to be enqueued automatically!';
                     break;
                 default:
-                    spotlight['position'] = position + 'th';
+                    spotlight['position'] = 'You are ' + position + 'th in line!';
             }
 
             var spotlightSource = $('#guest-spotlight').html();
@@ -254,5 +258,5 @@ function getSpotlightInfo(){
 }
 
 function getSocialInfo(){
-
+    console.log('stub');
 }
