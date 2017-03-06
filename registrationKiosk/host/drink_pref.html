@@ -43,12 +43,14 @@
 
     <script>
         function finishRegistration(value){
-            badge = getQueryStringValue('badge');
-            token = getQueryStringValue('accesstoken');
+            badge = getQueryStringValue('deviceId');
+            token = getQueryStringValue('#accesstoken');
+            var tokenRegex = new RegExp('#access_token' + "(=([^&#]*)|&|#|$)");
+            var tokenResults = tokenRegex.exec(window.location.href);
             firebase.database().ref('users/'+ badge).update({
                 drink_pref: value.toString()
             }).then(function(){
-                window.location = "https://www.facebook.com/logout.php?&access_token=" + token + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + badge;
+                window.location = "https://www.facebook.com/logout.php?&access_token=" + tokenResults[2] + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + badge;
             });
         }
 
