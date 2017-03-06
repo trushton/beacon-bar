@@ -1,0 +1,189 @@
+/** fonts */
+
+@font-face {
+    font-family: 'Akzidenz Grotesk BQ';
+    src: url('akzidenzgrotesk.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Akzidenz Grotesk BQ';
+    font-weight: 300;
+    src: url('akzidenzgrotesk_light.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Akzidenz Grotesk BQ';
+    font-style: italic;
+    font-weight: 300;
+    src: url('akzidenzgrotesk_light_italic.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Akzidenz Grotesk BQ';
+    font-style: italic;
+    font-weight: 500;
+    src: url('akzidenzgrotesk_medium_italic.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Akzidenz Grotesk BQ';
+    font-weight: 700;
+    src: url('akzidenzgrotesk_super.otf') format("opentype");
+}
+
+@font-face {
+    font-family: 'Akzidenz Grotesk BQ';
+    font-style: italic;
+    font-weight: 700;
+    src: url('akzidenzgrotesk_super_italic.otf') format("opentype");
+}
+
+/** global */
+
+body {
+    background: url('mainBackground.png') top center no-repeat fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
+    color: #FFFFFF;
+    font-family: 'Akzidenz Grotesk BQ', Arial, sans-serif;
+    font-size: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 110px 0 100px; /* adjust to size of header and footer */
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 700;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+/** layout */
+
+.bar-header,
+.bar-footer {
+    background-color: rgba(255, 255, 255, 0.0);
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 0;
+}
+
+.bar-header {
+    height: 110px;
+    top: 0;
+    padding-right: 25px;
+    padding-top: 25px;
+}
+
+.bar-header h1 {
+    margin: 0;
+    line-height: 1;
+}
+
+.bar-footer {
+    bottom: 0;
+    height: 100px;
+}
+
+main{
+    z-index: 1;
+}
+
+/** common */
+
+.page-title {
+    font-size: 60px;
+    text-transform: uppercase;
+}
+
+.bar-footer-logos {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100px;
+    text-align: center;
+}
+
+.bar-footer-logos .logo {
+    flex: 1 0 auto;
+}
+
+.bar-footer-logos .logo img {
+    display: inline-block;
+}
+
+.highlight {
+    background-color: #139DD8;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.highlight-body {
+    padding: 20px;
+}
+
+.highlight-title {
+    font-size: 50px;
+    line-height: 59px;
+    margin: 0 0 20px;
+}
+
+.highlight-media-main-left {
+    float: left;
+    position: relative;
+    left: -75px;
+    top: -20px;
+}
+
+.highlight-media-main-left img {
+    height: 300px;
+    width: 300px;
+}
+
+.bar-label {
+    background-color: #139DD8;
+    display: inline-block;
+    font-style: italic;
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+/** utility */
+
+.img-circle {
+    border-radius: 50%;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.row.collapse {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* HACKS */
+
+/** force hide content while scrolling on the body element */
+/*.bar-header,*/
+/*.bar-footer {*/
+    /*background: url('mainBackground.png') center no-repeat fixed;*/
+    /*background-size: cover;*/
+/*}*/
+
+/*.bar-header {*/
+    /*background-position: top center;*/
+/*}*/
+
+/*.bar-footer {*/
+    /*background-position: bottom center;*/
+/*}*/
