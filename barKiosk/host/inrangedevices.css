@@ -1,23 +1,23 @@
 .menu-section {
-    margin-bottom: 20px;
+    font-size: .8125em;
 }
 
 .menu-section-head {
-    margin-bottom: 20px;
+    margin-bottom: .62rem;
 }
 
 .menu-item {
-    margin-bottom: 20px;
+    margin-bottom: .62rem;
 }
 
 .menu-item-title {
     display: block;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: .31rem;
 }
 
 .social-greeting {
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 500;
 }
 
@@ -29,11 +29,11 @@
 
 .social-friends-list li {
     display: inline-block;
-    margin-right: 20px;
+    margin-right: .62rem;
 }
 
 .friend-avatar {
     display: block;
-    height: 125px;
-    width: 125px;
+    height: 7rem;
+    width: 7rem;
 }
