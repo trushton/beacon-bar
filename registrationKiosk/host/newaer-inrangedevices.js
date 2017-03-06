@@ -165,10 +165,3 @@ function sendMessage(deviceId, cta, url)
 
 
 
-
-
-
-
-
-
-
