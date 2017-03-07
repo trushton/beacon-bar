@@ -197,9 +197,9 @@ function findCommonalities(peoplePairs) {
     var lineClass;
 
     if(similarLikes.length > 0 || drinkPref !== null || hometown !== null) {
-      lineClass = "line";
+      lineClass = "connector";
     } else {
-      lineClass = "line-hidden";
+      lineClass = "connector-hidden";
     }
 
     var data = {
