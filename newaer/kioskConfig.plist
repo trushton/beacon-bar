@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>configUrl</key>
-	<string>https://staging.newaer.com/kiosk/newaer</string>
+	<string>https://beacon-bar-file-server.herokuapp.com/newaer</string>
 	<key>configShortName</key>
 	<string>newaer</string>
 	<key>configFullName</key>
@@ -28,7 +28,7 @@
 	<key>clientPages</key>
 	<dict>
 		<key>configPage</key>
-		<string>config.html</string>
+		<string>configX.html</string>
 	</dict>
 	<key>hostFiles</key>
 	<array>

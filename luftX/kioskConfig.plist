@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>configUrl</key>
-	<string>https://beacon-bar-file-server.herokuapp.com/lufthansa</string>
+	<string>https://beacon-bar-file-server.herokuapp.com/luftX</string>
 	<key>configShortName</key>
-	<string>lufthansa</string>
+	<string>luftX</string>
 	<key>configFullName</key>
-	<string>Lufthansa Demo</string>
+	<string>LuftX</string>
 	<key>configDescription</key>
-	<string>This is a new configuration with a Lufthansa theme.  Get coupon, send alert, other actions.</string>
+	<string>This is a new configuration with a Lufthansa themelert, other actions.</string>
 	<key>newaerEnable</key>
 	<true/>
 	<key>beaconEnable</key>
@@ -20,13 +20,6 @@
   <integer>2</integer>
 	<key>hostSupport</key>
 	<true/>
-	<key>tvhostSupport</key>
-	<true/>
-	<key>tvhostPages</key>
-	<dict>
-		<key>main</key>
-		<string>main.js</string>
-	</dict>
 	<key>hostPages</key>
 	<dict>
 		<key>noDevicesPage</key>
@@ -65,7 +58,6 @@
 	</array>
 	<key>clientFiles</key>
 	<array>
-		<string>background.png</string>
 		<string>config.html</string>
 		<string>newaer.js</string>
 		<string>jquery.min.js</string>

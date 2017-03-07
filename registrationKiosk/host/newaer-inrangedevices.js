@@ -155,6 +155,25 @@ function parseId(data){
 function updateDevice(device)
 {
     console.log("Updating device: "+device.deviceId);
+    if(devices == null) devices = Object;
+    if(typeof device.data === 'undefined' || typeof device.data.name === 'undefined') {
+        device.data.name = device.name;
+    }
+    if(typeof device.data === 'undefined') {
+        device.data.recordLocator = "";
+    } else {
+        if(typeof device.data.recordLocator === 'undefined') {
+            if (typeof device.data.major === 'undefined' && typeof device.data.minor === 'undefined') {
+                device.data.recordLocator = "";
+            } else {
+                device.data.recordLocator = device.data.major + ":" + device.data.minor;
+            }
+        } else {
+            var locatorParts = device.data.recordLocator.split(':');
+            device.data.major = locatorParts[0];
+            device.data.minor = locatorParts[1];
+        }
+    }
     devices[device.deviceId] = device;
 }
 
@@ -178,8 +197,13 @@ function addDevice(device)
             } else {
                 device.data.recordLocator = device.data.major + ":" + device.data.minor;
             }
+        } else {
+            var locatorParts = device.data.recordLocator.split(':');
+            device.data.major = locatorParts[0];
+            device.data.minor = locatorParts[1];
         }
     }
+
     devices[device.deviceId] = device;
 }
 

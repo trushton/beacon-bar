@@ -4,6 +4,62 @@ var deviceArray = [];
 var selectedRowId = false;
 var guestRotationTime = 0;
 var highDeviceId;
+var nearThreshold = -70;
+var near = false;
+
+var drinks = {
+    "vodka": {
+        "Walmart Blue": {
+            "name": "Walmart Blue",
+            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"]
+        },
+        "Moscow Mule": {
+            "name": "Moscow Mule",
+            "ingredients": ["Vodka", "Gingerbeer", "Lime"]
+        },
+        "Texas Sipper": {
+            "name": "Texas Sipper",
+            "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"]
+        }
+    },
+    "whiskey": {
+        "Walmart Yellow": {
+            "name": "Walmart Yellow",
+            "ingredients": ["Whiskey", "Sweet N Sour"],
+            "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
+        },
+        "Texas Tea": {
+            "name": "Texas Tea",
+            "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"]
+        }
+    },
+    "beer": {
+        "Shiner": {
+            "name": "Shiner",
+            "type": "dark option"
+        },
+        "Fireman's 4": {
+            "name": "Fireman's 4",
+            "type": "light option"
+        }
+    },
+    "red wine": {
+        "Pinot Noir": {
+            "name": "Pinot Noir",
+            "type": "Mark West"
+        },
+        "Merlot": {
+            "name": "Merlot",
+            "type": "Mark West"
+        }
+    },
+    "white wine": {
+        "Chenin Blanc": {
+            "name": "Chenin Blanc",
+            "type": "Llano Estacado"
+        }
+    }
+};
 
 $(function () {
     console.log("jquery start");
@@ -63,18 +119,23 @@ function NAUpdate(devicesPresent)
 
     // Find strongest
     highRssi = -100;
-    if((Date.now() - 10000) > guestRotationTime){
-      for (var key in devices) {
-          if(devices[key].rssi > highRssi) {
-              highRssi = devices[key].rssi;
-              highDeviceId = key;
-              guestRotationTime = Date.now();
-          }
-      }
-    }
+    if((Date.now() - 5000) > guestRotationTime){
+        for (var key in devices) {
+            if(devices[key].rssi > highRssi) {
+                highRssi = devices[key].rssi;
+                highDeviceId = key;
+            }
+        }
 
-    if(highDeviceId != "") {
         localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+        displayGuest();
+
+        if(highDeviceId != "" && highRssi > nearThreshold) {
+            guestRotationTime = Date.now();
+            near = true;
+         } else {
+            near = false;
+        }
     }
 
 }
@@ -98,11 +159,13 @@ function updateDevice(device)
     var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
     devices[device.deviceId] = device;
 
-    deviceDbRecord.once('value').then(function(currentRecord){
-        deviceDbRecord.update({
-            barTime: (currentRecord.child('barTime').val() + 1)
+    if(deviceDbRecord.hasChild('username')){
+        deviceDbRecord.once('value').then(function(currentRecord){
+            deviceDbRecord.update({
+                barTime: (currentRecord.child('barTime').val() + 1)
+            });
         });
-    });
+    }
 }
 
 function removeDevice(device)
@@ -135,9 +198,6 @@ function addDevice(device)
 }
 
 
-(function(){
-    displayGuest();
-})();
 
 
 function displayGuest(){
@@ -158,26 +218,12 @@ function displayGuest(){
                 guestName: user.child('firstName').val(),
                 guestImage: user.child('picture').val(),
                 visitCount: user.child('barCount').val(),
-                drinkPref: user.child('drink_pref').val()
+                recommendedDrink: recommendDrink(user.child('drink_pref').val())
             });
 
-            var socialSource = $('#guest-social-template').html();
-            var socialTemplate = Handlebars.compile(socialSource);
-            checkForFriends(badgeId).then(function(friendsAtBar){
-                getFriendData(friendsAtBar).then(function(friendData){
-                    var names = [];
-                    for(var friend of friendData){
-                        names.push(friend.name);
-                    }
-                    socialHtml = socialTemplate({
-                        friendNames: names.join(),
-                        friend1_img: checkForPicture(friendData, 0),
-                        friend2_img: checkForPicture(friendData, 1),
-                        friend3_img: checkForPicture(friendData, 2)
-                    });
-                    $('[data-guest-social]').html(socialHtml);
-                });
-            });
+            if(near){ fillNearSocial(badgeId); }
+            else { fillFarSocial(); }
+
         }
         else {
             var source = $('#not-found-template').html();
@@ -188,10 +234,116 @@ function displayGuest(){
 
     });
 
-    setTimeout(function(){
-        displayGuest();
-    }, 10000);
 }
+
+const flatten = arr => arr.reduce(
+    (acc, val) => acc.concat(
+        Array.isArray(val) ? flatten(val) : val
+    ),
+    []
+);
+
+
+function filterForSharedLike(likes){
+    for(var like in likes){
+        likes[like] = Array.from(new Set(likes[like]));
+        if(likes[like].length < 2) { delete likes[like]; }
+    }
+    return likes;
+}
+
+
+function getSocialHeader(type){
+    switch(type){
+        case 'like':
+            return 'These people like ';
+            break;
+        case 'hometown':
+            return 'These people come from the hometown of ';
+            break;
+        case 'drink_pref':
+            return 'These people all enjoy ';
+            break;
+    }
+}
+
+
+function chooseFrom(type, data){
+    var keys = Object.keys(data);
+    var chosenKey = keys[keys.length * Math.random() <<0];
+
+    return {
+        header: getSocialHeader(type),
+        name: chosenKey,
+        people: data[chosenKey]
+    };
+}
+
+function fillFarSocial(){
+    var socialSource = $('#far-social-template').html();
+    var socialTemplate = Handlebars.compile(socialSource);
+    var socialHtml;
+
+    var likesArray = [];
+    var likesObj = {};
+    firebase.database().ref('users/').once('value').then(function(users){
+        users.forEach(function(user){
+            if(user.val()['likes']){
+                likesArray.push(user.val()['likes'].map(function(like){ return {name: like['name'], person: user.val()['picture']}}));
+            }
+        });
+
+        likesArray = flatten(likesArray);
+        likesArray.forEach(function(like){
+            if(!likesObj[like.name]){
+                likesObj[like.name] = [];
+            }
+            likesObj[like.name].push(like.person);
+        });
+
+
+        var sharedLikes = filterForSharedLike(likesObj);
+        var displayedProperty = chooseFrom('like', sharedLikes);
+
+
+        socialHtml = socialTemplate({
+            header: displayedProperty['header'],
+            name: displayedProperty['name'],
+            people: displayedProperty['people'],
+        });
+
+
+        document.getElementById('menu').style.display = 'none';
+        $('[data-near-social]').empty();
+        $('[data-far-social]').html(socialHtml);
+    });
+}
+
+
+function fillNearSocial(badgeId){
+    var socialSource = $('#near-social-template').html();
+    var socialTemplate = Handlebars.compile(socialSource);
+
+    checkForFriends(badgeId).then(function(friendsAtBar){
+        getFriendData(friendsAtBar).then(function(friendData){
+            var names = [];
+            for(var friend of friendData){
+                names.push(friend.name);
+            }
+            socialHtml = socialTemplate({
+                friendNames: names.join(),
+                friend1_img: checkForPicture(friendData, 0),
+                friend2_img: checkForPicture(friendData, 1),
+                friend3_img: checkForPicture(friendData, 2)
+            });
+
+            document.getElementById('menu').style.display = 'block';
+            $('[data-far-social]').empty();
+            $('[data-near-social]').html(socialHtml);
+        });
+    });
+}
+
 
 function checkForPicture(data, index){
     if(data[index]){
@@ -237,3 +389,8 @@ function getFriendData(friends){
 
 }
 
+
+function recommendDrink(preference) {
+    var keys = Object.keys(drinks[preference]);
+    return drinks[preference][keys[keys.length * Math.random() << 0]];
+}

@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>Example</string>
+	<string>testUser</string>
 	<key>recordLocator</key>
-	<string>123456</string>
+	<string>1:9999</string>
 </dict>
 </plist>

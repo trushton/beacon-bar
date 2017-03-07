@@ -1,6 +1,6 @@
 
 $(function () {
-    urlQuery = parse_query_string(window.location.href)
+    urlQuery = parse_query_string(window.location.href);
     console.log("urlQuery: "+JSON.stringify(urlQuery));
     if(urlQuery['kioskIdentifier']) {
         $('#kioskIdentifier').text(urlQuery['kioskIdentifier']);
