@@ -91,11 +91,17 @@ function NAUpdate(devicesPresent)
                     document.getElementById('returnVisit').style.display = 'block';
 
 
+                    var visitCountString = '';
+                    if(user.child('visitCount').val() == 1 ){
+                        visitCountString = 'You\'ve been here 1 time!';
+                    } else {
+                        visitCountString = 'You\'ve been here ' + user.child('visitCount').val() + ' times!';
+                    }
                     $("#returnVisit").html(
                         "<img id='userImage' src='" + user.child('picture').val() + "'>" +
                         "<div id='returnBanner'>" +
-                            "<p>Welcome back to the VIP lounge " + user.child('username').val() + "!</p>" +
-                            "<p>You've been here " + (user.child('visitCount').val() + 1) + " times.</p>" +
+                            "<p>Welcome back to the VIP lounge, <br>" + user.child('username').val() + "!</p>" +
+                            "<p>" + visitCountString + "</p>" +
                             "<div id='deleteAccount'>" +
                                 "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</button>" +
                             "</div>" +

@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
     <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" />
     <link rel="stylesheet" href="common.css" type="text/css" />
-    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <link rel="stylesheet" href="completedRegistration.css" type="text/css" />
 </head>
 <body id="bod">
     <div id="thankYouBanner">
@@ -19,6 +19,8 @@
     <div id="deleteAccount">
         <p>Return here anytime to delete your account and disconnect from Facebook.</p>
     </div>
+
+    <div class="col-xs-4" data-guest-social></div>
 
     <footer class="bar-footer">
         <div class="container">
@@ -47,6 +49,29 @@
         </div>
     </footer>
 
+    <script id="socialData" type="text/x-handlebars-template">
+        <div id="social">
+            <p>
+                {{#if likes}}
+                The number of guests with which you have something in common: {{likes.length}}
+                {{/if}}
+            </p>
+            <p>
+                {{#if hometown}}
+                {{hometown.person}} is also from {{hometown.town}}
+                {{/if}}
+            </p>
+            <div>
+                {{#if commonLike}}
+                <img class="connectedImage" src="{{commonLike.picture}}">
+                <p class="connectedImage">You like {{commonLike.likeName}} and so does {{commonLike.personName}}</p>
+                {{/if}}
+            </div>
+        </div>
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <script>
         // Initialize Firebase
@@ -61,13 +86,15 @@
         firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
     </script>
 
-    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
+
     <script>
+        var badge = getQueryStringValue('badge');
+
         function displayData(){
-            var ref = firebase.database().ref('users/'+ getQueryStringValue('badge'));
+            var ref = firebase.database().ref('users/' + badge);
             ref.once('value').then(function(snapshot){
-                $('.thankUser').text("Thank you " + snapshot.child('username').val()
-                    + " for coming to The Spark VIP Lounge at Capital Factory.");
+                $('.thankUser').text("Thank you, " + snapshot.child('username').val()
+                    + ", for coming to The Spark VIP Lounge at Capital Factory.");
                 var image = document.createElement("img");
                 var parent = document.getElementById("bod");
                 image.id = "userImage";
@@ -79,12 +106,114 @@
         function getQueryStringValue (key) {
             return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
         }
-        displayData();
+
+        function findPeopleFromHometown(){
+            var peopleFromHome = [];
+            var users = firebase.database().ref('users/');
+
+            return users.once('value').then(function(registeredUsers){
+               var hometown = registeredUsers.child(badge).child('hometown').val();
+
+                for(var user in registeredUsers.val()){
+                    if(registeredUsers.val()[user]['hometown'] === hometown && user !== badge){
+                        peopleFromHome.push( registeredUsers.val()[user] );
+                    }
+                }
+                return peopleFromHome;
+            });
+        }
+
+
+        function findPeopleFromLocation(){
+            var peopleFromLocation = [];
+            var users = firebase.database().ref('users/');
+
+            return users.once('value').then(function(registeredUsers){
+                var location = registeredUsers.child(badge).child('location').val();
+
+                for(var user in registeredUsers.val()){
+                    if(registeredUsers.val()[user]['location'] === location && user !== badge){
+                        peopleFromLocation.push( registeredUsers.val()[user] );
+                    }
+                }
+                return peopleFromLocation;
+            });
+        }
+
+
+        function findFriendsAtEvent(){
+            var friends = [];
+            var friendsRef = firebase.database().ref('friends/');
+
+            return firebase.database().ref('users/').once('value').then(function(users){
+                return friendsRef.child(badge).once('value').then(function(friendsList){
+                    friendsList.forEach(function(friend){
+                        friends.push( users.child(friend.val()).val() );
+                    });
+                    return friends;
+                });
+            });
+        }
+
+
+        function findCommonLikes(){
+            var peopleWithLikes = [];
+
+            return firebase.database().ref('users/').once('value').then(function(users){
+                var nowRegisteredUser = users.child(badge).val();
+                var userLikes = nowRegisteredUser['likes'];
+
+                // Ugly ugly loops
+                users.forEach(function(user){
+
+                    if(user.val()['username'] != nowRegisteredUser['username']){
+                        userLikes.forEach(function(like){
+                            if(user.val()['likes'] && user.val()['likes'].filter(function(x) {return x['name'] == like['name']}).length > 0){
+                                peopleWithLikes.push({
+                                    person: user.val(),
+                                    like: like
+                                })
+                            }
+                        });
+                    }
+                });
+
+                return peopleWithLikes;
+            });
+        }
+
+
+        (function(){
+            displayData();
+
+            Promise.all([findPeopleFromHometown(), findPeopleFromLocation(), findFriendsAtEvent(), findCommonLikes()]).then(function(data) {
+                var hometown = data[0];
+                var location = data[1];
+                var friends = data[2];
+                var likes = data[3];
+
+                var socialSource = $('#socialData').html();
+                var socialTemplate = Handlebars.compile(socialSource);
+                var socialHtml = socialTemplate({
+                    likes: likes,
+                    hometownCount: hometown.length,
+                    hometown: {town: hometown[0]['hometown'], person: hometown[0]['username']},
+                    location: location,
+                    friends: friends,
+                    commonLike: {likeName: likes[0]['like']['name'], personName: likes[0]['person']['username'], picture: likes[0]['person']['picture']}
+                });
+
+                console.log(socialHtml);
+                $('[data-guest-social]').html(socialHtml);
+
+            });
+        })();
+
     </script>
     <script>
         setTimeout(function() {
             window.location='inrangedevices.html'
-        }, 5000);
+        }, 7000);
     </script>
 
 </body>

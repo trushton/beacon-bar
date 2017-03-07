@@ -74,7 +74,7 @@
 
 #returnBanner{
     width: 102%;
-    height: 250px;
+    height: 260px;
     background-color: #139DD8;
     position: fixed;
     z-index: 1;
@@ -82,7 +82,7 @@
     left: -1%;
     text-align: center;
     font-family: "Akzidenz Grotesk BQ";
-    font-size: 45px;
+    font-size: 36px;
     font-style: italic;
     line-height: 53px;
     color: #ffffff;
