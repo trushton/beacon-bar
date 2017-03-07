@@ -155,7 +155,7 @@ function displayGuest(){
             var guestTemplate = Handlebars.compile(guestSource);
 
             htmlz = guestTemplate({
-                guestName: user.child('username').val(),
+                guestName: user.child('firstName').val(),
                 guestImage: user.child('picture').val(),
                 visitCount: user.child('barCount').val(),
                 drinkPref: user.child('drink_pref').val()
@@ -229,7 +229,7 @@ function getFriendData(friends){
     return usersRef.once('value').then(function(users){
        for(var friend of friends){
            var friendObj = users.child(friend);
-           friendData.push({name: friendObj.child('username').val(),
+           friendData.push({name: friendObj.child('firstName').val(),
                             picture: friendObj.child('picture').val()});
        }
        return friendData;

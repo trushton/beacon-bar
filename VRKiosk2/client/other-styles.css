@@ -1,0 +1,30 @@
+html {
+    font-family:arial;
+    color:blue;
+}
+
+#spacer
+{
+    margin-top:80px;
+}
+#footer img
+{
+    height:50%
+}
+
+#configuration input
+{
+    font-size:2em;
+}
+
+.configLabel
+{
+    text-align:right;
+    font-size:2em;
+}
+
+#configuration input[type=button] {
+    border:0px;
+    height:80px;
+}
+
