@@ -134,7 +134,7 @@ function addDevice(device)
 
 }
 
-function displayGraph(){
+function displayGraph() {
     var socialGraphSource = $('#social-graph-template').html();
     var sourceTemplate = Handlebars.compile(socialGraphSource);
 
@@ -157,6 +157,73 @@ function displayGraph(){
           $('#social-graph').html(sourceTemplate(context));
         }
     });
+}
+
+function displayWeb() {
+  // People are ordered from the inside out.
+  // Middle person is index 0, top person is index 1, and proceeds to index n
+  // clockwise.
+  var socialWebSource = $('#social-web-template').html();
+  var sourceTemplate = Handlebars.compile(socialWebSource);
+
+  getPeopleWeb().then(function(people) {
+    console.log(people);
+    var context = {
+      people: people
+    };
+
+    $('#social-web').html(sourceTemplate(context));
+  });
+}
+
+function getPeopleWeb() {
+  var usersRef = firebase.database().ref('users/');
+  return usersRef.once('value').then(function(snapshot) {
+    var nearestPeople = [];
+    for (var key in devices) {
+      if (devices[key].data.recordLocator && nearestPeople.length < 9) {
+        if (snapshot.hasChild(parseId(devices[key].data))) {
+          var person = snapshot.child(parseId(devices[key].data));
+          nearestPeople.push({
+            id: parseId(devices[key].data),
+            name: person.child('username').val(),
+            photo: person.child('picture').val(),
+            likes: person.child('likes').val(),
+            drinkPref: person.child('drink_pref').val(),
+            hometown: person.child('hometown').val(),
+            rssi: devices[key].rssi
+          });
+        }
+      }
+    }
+
+    if (nearestPeople.length === 0) {
+      return
+    }
+
+    if (nearestPeople.length < 9) {
+      // Pad nearestPeople with people who are on-site (most recent updates)
+    }
+
+    var nearestPerson = nearestPeople[0];
+
+    // In the event of a tie the first person in the list with the nearest rssi will be chosen.
+    for (var person of nearestPeople) {
+      if (person.rssi > nearestPerson.rssi) {
+        nearestPerson = person;
+      }
+    }
+
+    var remainingPeople = [];
+
+    for(var person of nearestPeople) {
+      if(person.id !== nearestPerson.id) {
+         remainingPeople.push(person);
+      }
+    }
+
+    return [nearestPerson].concat(remainingPeople);
+  });
 }
 
 function findCommonalities(peoplePair) {
