@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "Akzidenz Grotesk BQ";
+  src: url('../public/fonts/akzidenzgrotesk.otf'),
+       url('../public/fonts/akzidenzgrotesk_light.otf'),
+       url('../public/fonts/akzidenzgrotesk_light_italic.otf'),
+       url('../public/fonts/akzidenzgrotesk_medium_italic.otf'),
+       url('../public/fonts/akzidenzgrotesk_super.otf'),
+       url('../public/fonts/akzidenzgrotesk_super_italic.otf');
+}
+
+body {
+  background: url('../public/images/Background_1024x768.png')  no-repeat fixed;
+  -webkit-background-size: cover;
+  background-size: cover;
+  color: #FFFFFF;
+  font-family: "Akzidenz Grotesk BQ";
+}
+
+.page-divider {
+  display:flex;
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.page-division {
+  font-size: 20px;
+  min-width: 700px;
+  max-width: 1024px;
+}
+
+.page-division > p {
+  font-size: 22px;
+  padding: 2px 0;
+  margin: 0 0 5px;
+}
+
+#name-label {
+  width: 45px;
+  height: 16px;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+#waiting-label {
+  width: 65px;
+  height: 16px;
+  font-family: "Akzidenz Grotesk BQ";
+  font-size: 14px;
+  line-height: 16px;
+}
+
+#visits-label {
+  width: 48px;
+  height: 16px;
+  font-family: "Akzidenz Grotesk BQ";
+  font-size: 14px;
+  line-height: 16px;
+}
+
+#bartender-title {
+  width: 100%;
+  height: 70px;
+  text-align: right;
+  font-family: "Akzidenz Grotesk BQ";
+  font-size: 60px;
+  font-style: italic;
+  line-height: 70px;
+  margin: 5px 0 5px 0;
+}
+
+#guest-title {
+  width: 100%;
+  height: 47px;
+  float: left;
+  font-family: "Akzidenz Grotesk BQ";
+  font-size: 40px;
+  line-height: 47px;
+}
+
+.menu-item {
+  width: 198px;
+  height: 48px;
+  border: 1.6px solid #FFFFFF;
+}
+
+#image-large {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
