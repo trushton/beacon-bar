@@ -151,7 +151,7 @@ function displayGraph(){
 
           var context = {
             people: userSubset,
-            commonalities: findCommonalities(peoplePairs)
+            commonalities: findAllCommonalities(peoplePairs)
           };
 
           $('#social-graph').html(sourceTemplate(context));
@@ -159,68 +159,70 @@ function displayGraph(){
     });
 }
 
-// Searches likes, etc and returns a new object used to draw lines
-// The object contains whether to draw a line between these two people and what the
-// commonalities are.
-function findCommonalities(peoplePairs) {
-  commonalities = [];
+function findCommonalities(peoplePair) {
+  drinkPref = null;
+  hometown = null;
 
-  for(var peoplePair of peoplePairs) {
-    drinkPref = null;
-    hometown = null;
+  var similarLikes = [];
 
-    var similarLikes = [];
+  var person1Likes = peoplePair[0].likes;
+  var person2Likes = peoplePair[1].likes;
 
-    var person1Likes = peoplePair[0].likes;
-    var person2Likes = peoplePair[1].likes;
-
-    if(person1Likes !== null && person2Likes !== null) {
-      for (var i = 0; i < person1Likes.length; i++) {
-        for (var j = 0; j < person2Likes.length; j++) {
-          if (person1Likes[i].id === person2Likes[j].id) {
-            similarLikes.push(person1Likes[i]);
-          }
+  if(person1Likes !== null && person2Likes !== null) {
+    for (var i = 0; i < person1Likes.length; i++) {
+      for (var j = 0; j < person2Likes.length; j++) {
+        if (person1Likes[i].id === person2Likes[j].id) {
+          similarLikes.push(person1Likes[i]);
         }
       }
     }
+  }
 
-    if(peoplePair[0].drinkPref === peoplePair[1].drinkPref) {
-      drinkPref = peoplePair[0].drinkPref;
-    }
+  if(peoplePair[0].drinkPref === peoplePair[1].drinkPref) {
+    drinkPref = peoplePair[0].drinkPref;
+  }
 
-    if(peoplePair[0].hometown === peoplePair[1].hometown) {
-      hometown = peoplePair[0].hometown;
-    }
+  if(peoplePair[0].hometown === peoplePair[1].hometown) {
+    hometown = peoplePair[0].hometown;
+  }
 
-    var lineClass = null;
+  var lineClass = null;
 
-    if(similarLikes.length > 0 || drinkPref !== null || hometown !== null) {
-      lineClass = "connector";
-    } else {
-      lineClass = "connector-hidden";
-    }
+  if(similarLikes.length > 0 || drinkPref !== null || hometown !== null) {
+    lineClass = "connector";
+  } else {
+    lineClass = "connector-hidden";
+  }
 
-    var principleLike = null;
+  var principleLike = null;
 
-    if(similarLikes.length > 0) {
-      principleLike = "Facebook like";
-    } else if(hometown) {
-      principleLike = hometown;
-    } else if(drinkPref) {
-      principleLike = drinkPref;
-    }
+  if(similarLikes.length > 0) {
+    principleLike = "Facebook like";
+  } else if(hometown) {
+    principleLike = hometown;
+  } else if(drinkPref) {
+    principleLike = drinkPref;
+  }
 
-    var data = {
-      person1: peoplePair[2],
-      person2: peoplePair[3],
-      similarLikes: similarLikes,
-      similarDrinkPreference: drinkPref,
-      similarHometown: hometown,
-      principleLike: principleLike,
-      lineClass: lineClass
-    };
+  return {
+    person1: peoplePair[2],
+    person2: peoplePair[3],
+    similarLikes: similarLikes,
+    similarDrinkPreference: drinkPref,
+    similarHometown: hometown,
+    principleLike: principleLike,
+    lineClass: lineClass
+  };
+}
 
-    commonalities.push(data);
+// Searches likes, etc and returns a new object used to draw lines
+// The object contains whether to draw a line between these two people and what the
+// commonalities are.
+function findAllCommonalities(peoplePairs) {
+  commonalities = [];
+
+  for(var peoplePair of peoplePairs) {
+    commonalities.push(findCommonalities(peoplePair));
   }
   return commonalities;
 }
