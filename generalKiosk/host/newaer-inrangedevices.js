@@ -167,9 +167,25 @@ function displayWeb() {
   var sourceTemplate = Handlebars.compile(socialWebSource);
 
   getPeopleWeb().then(function(people) {
-    console.log(people);
+    var commonalities = [];
+    var nearestPerson = people[0];
+    var remainingPeople = [];
+
+    for(var person of people) {
+      if(person.id !== nearestPerson.id) {
+        remainingPeople.push(person);
+      }
+    }
+
+    var peoplePairs = [];
+
+    for(var i = 0; i < remainingPeople.length; i++) {
+      peoplePairs.push([nearestPerson, remainingPeople[i], 0, i + 1]);
+    }
+
     var context = {
-      people: people
+      people: people,
+      commonalities: findAllCommonalities(peoplePairs)
     };
 
     $('#social-web').html(sourceTemplate(context));
