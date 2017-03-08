@@ -135,7 +135,7 @@ function NAUpdate(devicesPresent)
         displayGuest();
         guestRotationTime = Date.now();
 
-        if(highDeviceId != "" && highRssi > nearThreshold) {
+        if(highDeviceId != "" && devices[highDeviceId].rssi > nearThreshold) {
             near = true;
          } else {
             near = false;
