@@ -10,58 +10,24 @@
 </head>
 <body>
 
-    <header class="bar-header" role="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                  <div class="page-title">Vip Spark Lounge</div>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <main role="main">
         <div class="container">
             <div id="social-graph" />
         </div>
     </main>
 
-    <footer class="bar-footer">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="footer-text">
-                     At the capital factory powered by:
-                </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-
-                    <div class="bar-footer-logos">
-                        <div class="logo">
-                            <img src="walmart.png" alt="walmart">
-                        </div>
-                        <div class="logo">
-                            <img src="capitalfactory.png" alt="capitalfactory">
-                        </div>
-                        <div class="logo">
-                            <img src="bluvision.png" alt="bluvision">
-                        </div>
-                        <div class="logo">
-                            <img src="newaer.png" alt="newaer">
-                        </div>
-                        <div class="logo">
-                            <img src="originate.png" alt="originate">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <!-- TEMPLATES -->
 
     <script id="social-graph-template" type="text/x-handlebars-template">
+        <header class="bar-header" role="header">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="page-title">Vip Spark Lounge</div>
+              </div>
+            </div>
+          </div>
+        </header>
         <div class="container-fluid">
             {{#each people}}
                 <div class="col-xs-1 col-xs-push-1">
@@ -80,49 +46,41 @@
                 </div>
             </div>
         {{/each}}
-    </script>
-
-    <script id="guest-template" type="text/x-handlebars-template">
-        <div class="col-xs-11 col-xs-push-1">
-            <div class="highlight">
-                <div class="highlight-media-main-left">
-                    <img class="img-circle" src="{{guestImage}}" alt="{{guestName}}">
-                </div>
-                <div class="highlight-body">
-                    <h2 class="highlight-title">
-                        Welcome to the Bar, {{guestName}}. You've been here {{visitCount}} times. Have a {{drinkPref}}!
-                    </h2>
-                </div>
+        <footer class="bar-footer">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="footer-text">
+                At the capital factory powered by:
+              </div>
             </div>
-        </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="bar-footer-logos">
+                    <div class="logo">
+                      <img src="walmart.png" alt="walmart">
+                    </div>
+                    <div class="logo">
+                      <img src="capitalfactory.png" alt="capitalfactory">
+                    </div>
+                    <div class="logo">
+                      <img src="bluvision.png" alt="bluvision">
+                    </div>
+                    <div class="logo">
+                      <img src="newaer.png" alt="newaer">
+                    </div>
+                    <div class="logo">
+                      <img src="originate.png" alt="originate">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </footer>
     </script>
 
-    <script id="guest-social-template" type="text/x-handlebars-template">
-        <div>
-            <h3 class="social-greeting">
-                {{#if friendNames}}
-                Happy to see you and {{friendNames}} having a drink together!
-                {{/if}}
-            </h3>
-            <ul class="social-friends-list">
-                {{#if friend1_img}}
-                <li>
-                    <img class="img-circle friend-avatar" src="{{friend1_img}}" alt="bob">
-                </li>
-                {{/if}}
-                {{#if friend2_img}}
-                <li>
-                    <img class="img-circle friend-avatar" src="{{friend_img2}}" alt="bob">
-                </li>
-                {{/if}}
-                {{#if friend3_img}}
-                <li>
-                    <img class="img-circle friend-avatar" src="{{friend_img3}}" alt="bob">
-                </li>
-                {{/if}}
-            </ul>
-        </div>
-    </script>
+
+
 
     <script id="not-found-template" type="text/x-handlebars-template">
         <div class="col-xs-11 col-xs-push-1">
