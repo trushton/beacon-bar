@@ -1,8 +1,8 @@
 var devices = null;
 var selectedRowId = false;
-var updatePeriodInSeconds = 5;
+var updatePeriodInSeconds = 3;
 var nearRangeRssi = -70;
-var timToEnterQueue = 30;
+var timeToEnterQueue = 5;
 var prevUpdate = 0;
 
 $(function () {
@@ -18,6 +18,8 @@ $(function () {
 $(document).ready(function() {
     console.log("document ready");
 });
+
+
 
 var groups = [ 'Immediate','Near','Far', 'Unknown'];
 
@@ -105,7 +107,7 @@ function updateDevice(device) {
     deviceDbRecord.once('value').then(function(currentRecord){
         firebase.database().ref('vrQueue/').once('value').then(function(vrQueue){
             if(!vrQueue.hasChild(badge)) {
-                if(device.rssi > nearRangeRssi && deviceDbRecord.hasChild('username')){
+                if(device.rssi > nearRangeRssi && currentRecord.child('username').val()){
                     deviceDbRecord.update({ vrEnqueueTimer: (currentRecord.child('vrEnqueueTimer').val() + 1) });
                     if(currentRecord.child('vrEnqueueTimer').val() > timeToEnterQueue){
                         firebase.database().ref('vrQueue/' + badge).update({
@@ -168,46 +170,55 @@ function updateTimers(){
     var guestData = [];
 
     database.ref('vrQueue').orderByChild('timeEntered').once('value').then(function(currentQueue){
-        timeList = Object.keys(currentQueue.val()).map(function(guest){
-            return {badge: guest, time: parseInt(currentQueue.child(guest).child('timeEntered').val())}
-        });
-        timeList = timeList.sort(function(a, b){
-            return a.time > b.time;
-        });
+        if(currentQueue){
+            timeList = Object.keys(currentQueue.val()).map(function(guest){
+                return {badge: guest, time: parseInt(currentQueue.child(guest).child('timeEntered').val())}
+            });
+            timeList = timeList.sort(function(a, b){
+                    return (a.time.toString() > b.time.toString()) ? 1 : -1;
+            });
 
-        database.ref('users/').once('value').then(function(guests){
-            console.log(timeList);
-            for(var person of timeList) {
-                guestData.push({
-                    name: guests.child(person.badge).child('username').val(),
-                    picture: guests.child(person.badge).child('picture').val(),
-                    waitTime: getTimeSince(person.time),
-                    position: timeList.map(function(e){return e.badge}).indexOf(person.badge) +1
-                });
-            }
-        }).then(function() {
-            var upNext = guestData.slice(0,3);
-            var upNextSource = $('#queued-guests-up-next').html();
-            var upNextTemplate = Handlebars.compile(upNextSource);
-            var upNextHtml = upNextTemplate({ guests: upNext });
+            database.ref('users/').once('value').then(function(guests){
+                for(var person of timeList) {
+                    guestData.push({
+                        name: guests.child(person.badge).child('username').val(),
+                        picture: guests.child(person.badge).child('picture').val(),
+                        location: guests.child(person.badge).child('location').val(),
+                        waitTime: getTimeSince(person.time),
+                        position: timeList.map(function(e){return e.badge}).indexOf(person.badge) +1
+                    });
+                }
 
-            $('[data-queue-next-three]').html(upNextHtml);
+                var upNext = guestData.slice(0,3);
+                var upNextSource = $('#queued-guests-up-next').html();
+                var upNextTemplate = Handlebars.compile(upNextSource);
+                var upNextHtml = upNextTemplate({ guests: upNext });
 
-            var remainingQueue = guestData.slice(3);
-            var remainingSource = $('#remaining-queued-guests').html();
-            var remainingTemplate = Handlebars.compile(remainingSource);
-            var remainingHtml = remainingTemplate({ guests: remainingQueue });
+                $('[data-queue-next-three]').html(upNextHtml);
 
-            $('[data-queue]').html(remainingHtml);
+                var remainingQueue = guestData.slice(3);
+                var remainingSource = $('#remaining-queued-guests').html();
+                var remainingTemplate = Handlebars.compile(remainingSource);
+                var remainingHtml = remainingTemplate({ guests: remainingQueue });
 
-        })
+                $('[data-queue]').html(remainingHtml);
+
+            });
+        }
     });
 }
 
 
 function getTimeSince(time) {
     var timeDiff = new Date(Date.now() - time);
-    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " minutes";
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " mins";
+}
+
+
+function leaveQueue(){
+    var badge = localStorage.currentDevice;
+    firebase.database().ref('vrQueue/').child(badge).remove();
+    window.location.reload();
 }
 
 
@@ -222,29 +233,40 @@ function getSpotlightInfo(){
     users.child(badge).once('value').then(function(userData){
         spotlight['picture'] = userData.child('picture').val();
         queue.once('value').then(function(queueData){
-            timeList = Object.keys(queueData.val()).map(function(guest){
-                return {badge: guest, time: parseInt(queueData.child(guest).child('timeEntered').val())}
-            });
-            timeList = timeList.sort(function(a, b){
-                return a.time > b.time;
-            });
+            if(queueData){
+                timeList = Object.keys(queueData.val()).map(function(guest){
+                    return {badge: guest, time: parseInt(queueData.child(guest).child('timeEntered').val())}
+                });
+                timeList = timeList.sort(function(a, b){
+                    return (a.time.toString() > b.time.toString()) ? 1 : -1;
+                });
 
-            var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
-            switch(position){
-                case 1:
-                    spotlight['position'] = 'You are 1st in line!';
-                    break;
-                case 2:
-                    spotlight['position'] = 'You are 2nd in line!';
-                    break;
-                case 3:
-                    spotlight['position'] = 'You are 3rd in line';
-                    break;
-                case 0:
-                    spotlight['position'] = 'You aren\'t in line yet, stick around to be enqueued automatically!';
-                    break;
-                default:
-                    spotlight['position'] = 'You are ' + position + 'th in line!';
+                spotlight['removeButton'] = true;
+
+                var position = timeList.map(function(e){return e.badge}).indexOf(badge) +1;
+                switch(position){
+                    case 1:
+                        spotlight['position'] = 'You are 1st in line!';
+                        break;
+                    case 2:
+                        spotlight['position'] = 'You are 2nd in line!';
+                        break;
+                    case 3:
+                        spotlight['position'] = 'You are 3rd in line!';
+                        break;
+                    case 0:
+                        if(userData.child('username').val()){
+                            spotlight['position'] = 'Stay here to be enqueued automatically!';
+                        } else {
+                            spotlight['position'] = 'Sorry, I don\'t recognize you, perhaps you need to register your badge?';
+                        }
+                        spotlight['removeButton'] = false;
+                        break;
+                    default:
+                        spotlight['position'] = 'You are ' + position + 'th in line!';
+                }
+            } else {
+                spotlight['position'] = 'You aren\'t in line yet, stick around to be enqueued automatically!';
             }
 
             var spotlightSource = $('#guest-spotlight').html();
@@ -260,3 +282,8 @@ function getSpotlightInfo(){
 function getSocialInfo(){
     console.log('stub');
 }
+
+
+Handlebars.registerHelper("counter", function (index){
+    return index + 1;
+});

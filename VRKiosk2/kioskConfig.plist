@@ -35,6 +35,7 @@
 	<key>hostFiles</key>
 	<array>
     	<string>common.css</string>
+		<string>responsive-scaling.js</string>
 		<string>bootstrap-grid.css</string>
 		<string>inrangedevices.html</string>
 		<string>inrangedevices.css</string>

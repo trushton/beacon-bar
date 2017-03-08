@@ -103,7 +103,7 @@ function NAUpdate(devicesPresent)
                             "<p>Welcome back to the VIP lounge, <br>" + user.child('username').val() + "!</p>" +
                             "<p>" + visitCountString + "</p>" +
                             "<div id='deleteAccount'>" +
-                                "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</button>" +
+                                "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</a>" +
                             "</div>" +
                             "<div id='refreshAccount'>" +
                                 "<a href='#' style='color: white' onclick='login()'>Refresh account</a>" +

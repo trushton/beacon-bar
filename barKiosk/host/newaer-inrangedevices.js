@@ -6,6 +6,9 @@ var guestRotationTime = 0;
 var highDeviceId;
 var nearThreshold = -70;
 var near = false;
+var visitTimeSeperation = 120;
+var prevBadge;
+var drinkRecommendation;
 
 var drinks = {
     "vodka": {
@@ -99,6 +102,7 @@ function NAUpdate(devicesPresent)
 //    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
 
+    console.log('calling it');
     // Update
     for (var key in devices) {
         if(devicesPresent.hasOwnProperty(key)) {
@@ -119,7 +123,7 @@ function NAUpdate(devicesPresent)
 
     // Find strongest
     highRssi = -100;
-    if((Date.now() - 5000) > guestRotationTime){
+    if((Date.now() - 3000) > guestRotationTime){
         for (var key in devices) {
             if(devices[key].rssi > highRssi) {
                 highRssi = devices[key].rssi;
@@ -129,9 +133,9 @@ function NAUpdate(devicesPresent)
 
         localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
         displayGuest();
+        guestRotationTime = Date.now();
 
         if(highDeviceId != "" && highRssi > nearThreshold) {
-            guestRotationTime = Date.now();
             near = true;
          } else {
             near = false;
@@ -159,13 +163,20 @@ function updateDevice(device)
     var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
     devices[device.deviceId] = device;
 
-    if(deviceDbRecord.hasChild('username')){
-        deviceDbRecord.once('value').then(function(currentRecord){
+    deviceDbRecord.once('value').then(function(currentRecord){
+        if(currentRecord.child('username').val()){
             deviceDbRecord.update({
                 barTime: (currentRecord.child('barTime').val() + 1)
             });
-        });
-    }
+        }
+
+        if(device.rssi > nearThreshold && currentRecord.child('lastSeenBar').val() < (Date.now() - (visitTimeSeperation * 1000))){
+            deviceDbRecord.update({
+                barCount: (currentRecord.child('barCount').val() + 1),
+                lastSeenBar: Date.now()
+            });
+        }
+    });
 }
 
 function removeDevice(device)
@@ -214,11 +225,16 @@ function displayGuest(){
             var guestSource = $('#guest-template').html();
             var guestTemplate = Handlebars.compile(guestSource);
 
+            if(prevBadge !== badgeId){
+                drinkRecommendation = recommendDrink(user.child('drink_pref').val());
+                prevBadge = badgeId;
+            }
+
             htmlz = guestTemplate({
                 guestName: user.child('firstName').val(),
                 guestImage: user.child('picture').val(),
                 visitCount: user.child('barCount').val(),
-                recommendedDrink: recommendDrink(user.child('drink_pref').val())
+                recommendedDrink: drinkRecommendation
             });
 
             if(near){ fillNearSocial(badgeId); }
@@ -236,12 +252,10 @@ function displayGuest(){
 
 }
 
-const flatten = arr => arr.reduce(
-    (acc, val) => acc.concat(
-        Array.isArray(val) ? flatten(val) : val
-    ),
-    []
-);
+function flatten(arr) {
+    const flat = [].concat(...arr);
+    return flat.some(Array.isArray) ? flatten(flat) : flat;
+}
 
 
 function filterForSharedLike(likes){
