@@ -73,12 +73,10 @@
         </div>
 
         {{#each commonalities}}
-            <!--<div class="{{lineClass}}" id="line-{{person1}}-{{person2}}"/>
-            <div class="{{lineClass}}" id="box-{{person1}}-{{person2}}" />-->
-            <div class="connector" id="line-{{person1}}-{{person2}}"/>
-            <div class="connector-box" id="box-{{person1}}-{{person2}}">
+            <div class="{{ lineClass }}" id="line-{{person1}}-{{person2}}"/>
+            <div class="{{ lineClass }}-box" id="box-{{person1}}-{{person2}}">
                 <div class="connector-box-text">
-                    EXAMPLE EXAMPLE EXAMPLE
+                    {{ principleLike }}
                 </div>
             </div>
         {{/each}}

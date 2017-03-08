@@ -154,8 +154,6 @@ function displayGraph(){
             commonalities: findCommonalities(peoplePairs)
           };
 
-          console.log(context);
-
           $('#social-graph').html(sourceTemplate(context));
         }
     });
@@ -194,12 +192,22 @@ function findCommonalities(peoplePairs) {
       hometown = peoplePair[0].hometown;
     }
 
-    var lineClass;
+    var lineClass = null;
 
     if(similarLikes.length > 0 || drinkPref !== null || hometown !== null) {
       lineClass = "connector";
     } else {
       lineClass = "connector-hidden";
+    }
+
+    var principleLike = null;
+
+    if(similarLikes.length > 0) {
+      principleLike = "Facebook like";
+    } else if(hometown) {
+      principleLike = hometown;
+    } else if(drinkPref) {
+      principleLike = drinkPref;
     }
 
     var data = {
@@ -208,8 +216,9 @@ function findCommonalities(peoplePairs) {
       similarLikes: similarLikes,
       similarDrinkPreference: drinkPref,
       similarHometown: hometown,
+      principleLike: principleLike,
       lineClass: lineClass
-    }
+    };
 
     commonalities.push(data);
   }
