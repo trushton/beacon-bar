@@ -32,8 +32,8 @@
             {{/each}}
 
             {{#each commonalities}}
-            <div class="connector" id="line-{{person1}}-{{person2}}-web" />
-            <div class="connector-box" id="box-{{person1}}-{{person2}}-web">
+            <div class="{{ lineClass }}" id="line-{{person1}}-{{person2}}-web" />
+            <div class="{{ lineClass }}-box" id="box-{{person1}}-{{person2}}-web">
               <div class="connector-box-text">
                 {{ principleLike }}
               </div>
