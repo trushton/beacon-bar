@@ -120,7 +120,7 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    top: 50px;
+    top: 16px;
     left: 462px;
 }
 
@@ -128,8 +128,8 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    top: 137px;
-    left: 667px;
+    top: 87px;
+    left: 713px;
 }
 
 .person-3-img-web {
@@ -144,15 +144,15 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    top: 553px;
-    left: 670px;
+    top: 602px;
+    left: 730px;
 }
 
 .person-5-img-web {
     position: fixed;
     width: 100px;
     height: 100px;
-    top: 618px;
+    top: 648px;
     left: 462px;
 }
 
@@ -160,8 +160,8 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    top: 553px;
-    left: 250px;
+    top: 602px;
+    left: 193px;
 }
 
 .person-7-img-web {
@@ -176,22 +176,22 @@
     position: fixed;
     width: 100px;
     height: 100px;
-    top: 137px;
-    left: 250px;
+    top: 87px;
+    left: 197px;
 }
 
 /* Line CSS - Web */
 
 #line-0-1-web {
     left: 510px;
-    top: 149px;
-    height: 161px;
+    top: 117px;
+    height: 192px;
 }
 
 #line-0-2-web {
-    left: 553px;
-    top: 289px;
-    width: 164px;
+    left: 536px;
+    top: 254px;
+    width: 227px;
     -ms-transform: rotate(-47deg);
     -webkit-transform: rotate(-47deg);
     transform: rotate(-47deg);
@@ -205,8 +205,8 @@
 
 #line-0-4-web {
     left: 540px;
-    top: 498px;
-    width: 177px;
+    top: 515px;
+    width: 256px;
     -ms-transform: rotate(-137deg);
     -webkit-transform: rotate(-137deg);
     transform: rotate(-137deg);
@@ -215,16 +215,16 @@
 #line-0-5-web {
     left: 510px;
     top: 460px;
-    height: 158px;
+    height: 188px;
 }
 
 #line-0-6-web {
-    left: 318px;
+    left: 234px;
     top: 516px;
     -ms-transform: rotate(-47deg);
     -webkit-transform: rotate(-47deg);
     transform: rotate(-47deg);
-    width: 185px;
+    width: 255px;
 }
 
 #line-0-7-web {
@@ -234,9 +234,9 @@
 }
 
 #line-0-8-web {
-    left: 313px;
-    top: 275px;
-    width: 166px;
+    left: 248px;
+    top: 253px;
+    width: 239px;
     -ms-transform: rotate(-137deg);
     -webkit-transform: rotate(-137deg);
     transform: rotate(-137deg);
@@ -249,7 +249,7 @@
 
 #box-0-2-web {
     top: 241px;
-    left: 574px;
+    left: 599px;
 }
 
 #box-0-3-web {
@@ -259,17 +259,17 @@
 
 #box-0-4-web {
     top: 485px;
-    left: 567px;
+    left: 599px;
 }
 
 #box-0-5-web {
-    top: 251px;
+    top: 547px;
     lefT: 451px;
 }
 
 #box-0-6-web {
     top: 485px;
-    left: 329px;
+    left: 300px;
 }
 
 #box-0-7-web {
@@ -279,7 +279,7 @@
 
 #box-0-8-web {
     top: 241px;
-    left: 327px;
+    left: 300px;
 }
 
 /* Line CSS */
