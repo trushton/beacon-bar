@@ -106,6 +106,174 @@
     left: 781px;
 }
 
+/* Images for web */
+
+.person-0-img-web {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 309px;
+    left: 437px;
+}
+
+.person-1-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 50px;
+    left: 462px;
+}
+
+.person-2-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 137px;
+    left: 667px;
+}
+
+.person-3-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 334px;
+    left: 824px;
+}
+
+.person-4-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 553px;
+    left: 670px;
+}
+
+.person-5-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 618px;
+    left: 462px;
+}
+
+.person-6-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 553px;
+    left: 250px;
+}
+
+.person-7-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 334px;
+    left: 100px;
+}
+
+.person-8-img-web {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    top: 137px;
+    left: 250px;
+}
+
+/* Line CSS - Web */
+
+#line-0-1-web {
+    left: 510px;
+    top: 149px;
+    height: 161px;
+}
+
+#line-0-2-web {
+    left: 553px;
+    top: 289px;
+    width: 164px;
+    -ms-transform: rotate(-47deg);
+    -webkit-transform: rotate(-47deg);
+    transform: rotate(-47deg);
+}
+
+#line-0-3-web {
+    left: 587px;
+    top: 386px;
+    width: 237px;
+}
+
+#line-0-4-web {
+    left: 540px;
+    top: 498px;
+    width: 177px;
+    -ms-transform: rotate(-137deg);
+    -webkit-transform: rotate(-137deg);
+    transform: rotate(-137deg);
+}
+
+#line-0-5-web {
+    left: 510px;
+    top: 460px;
+    height: 158px;
+}
+
+#line-0-6-web {
+    left: 318px;
+    top: 516px;
+    -ms-transform: rotate(-47deg);
+    -webkit-transform: rotate(-47deg);
+    transform: rotate(-47deg);
+    width: 185px;
+}
+
+#line-0-7-web {
+    left: 200px;
+    top: 388px;
+    width: 237px;
+}
+
+#line-0-8-web {
+    left: 313px;
+    top: 275px;
+    width: 166px;
+    -ms-transform: rotate(-137deg);
+    -webkit-transform: rotate(-137deg);
+    transform: rotate(-137deg);
+}
+
+#box-0-1-web {
+
+}
+
+#box-0-2-web {
+
+}
+
+#box-0-3-web {
+
+}
+
+#box-0-4-web {
+
+}
+
+#box-0-5-web {
+
+}
+
+#box-0-6-web {
+
+}
+
+#box-0-7-web {
+
+}
+
+#box-0-8-web {
+
+}
+
 /* Line CSS */
 
 .connector {

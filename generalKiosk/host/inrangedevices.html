@@ -26,8 +26,17 @@
             {{#each people}}
             <div class="col-xs-1 col-xs-push-1">
                       <span class='img-spacer'>
-                          <img class="img-circle person-{{@index}}-img" src="{{photo}}" alt="{{name}}" />
+                          <img class="img-circle person-{{@index}}-img-web" src="{{photo}}" alt="{{name}}" />
                       </span>
+            </div>
+            {{/each}}
+
+            {{#each commonalities}}
+            <div class="connector" id="line-{{person1}}-{{person2}}-web" />
+            <div class="connector-box-hidden" id="box-{{person1}}-{{person2}}-web">
+              <div class="connector-box-text">
+                {{ principleLike }}
+              </div>
             </div>
             {{/each}}
         </div>
