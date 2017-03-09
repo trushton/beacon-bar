@@ -27,7 +27,7 @@
 
             <div class="row">
                 <!-- left col -->
-                <div class="col-xs-6">
+                <div class="col-xs-6" id="menu">
 
                     <section class="menu-section">
                         <div class="menu-section-head">
@@ -111,7 +111,10 @@
                 </div>
 
                 <!-- right col -->
-                <div class="col-xs-6" data-guest-social></div>
+                <div class="col-xs-6" data-near-social></div>
+
+                 <!--whole bottom section-->
+                <div class="col-xs-12" data-far-social></div>
             </div>
         </div>
     </main>
@@ -151,15 +154,34 @@
                 </div>
                 <div class="highlight-body">
                     <h2 class="highlight-title">
-                        Welcome to the Bar, {{guestName}}. You've been here {{visitCount}} times. <br>
-                        Have a {{drinkPref}}!
+                        Welcome to the Bar, {{guestName}}.<br>You've been here {{visitCount}} times. <br>
+                        Have a {{recommendedDrink.name}}!
                     </h2>
                 </div>
             </div>
         </div>
     </script>
 
-    <script id="guest-social-template" type="text/x-handlebars-template">
+    <script id="far-social-template" type="text/x-handlebars-template">
+        <div>
+            <h3 class="social-far-header">
+                {{#if header}}
+                {{header}}{{name}}!
+                {{/if}}
+            </h3>
+            <ul class="social-friends-list">
+                {{#each people}}
+                <li>
+                    <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
+                    <p>{{this.name}}</p>
+
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </script>
+
+    <script id="near-social-template" type="text/x-handlebars-template">
         <div>
             <h3 class="social-greeting">
                 {{#if friendNames}}
@@ -174,12 +196,12 @@
                 {{/if}}
                 {{#if friend2_img}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{friend_img2}}" alt="bob">
+                    <img class="img-circle friend-avatar" src="{{friend2_img}}" alt="bob">
                 </li>
                 {{/if}}
                 {{#if friend3_img}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{friend_img3}}" alt="bob">
+                    <img class="img-circle friend-avatar" src="{{friend3_img}}" alt="bob">
                 </li>
                 {{/if}}
             </ul>

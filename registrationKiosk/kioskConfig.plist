@@ -5,9 +5,9 @@
 	<key>configUrl</key>
 	<string>https://beacon-bar-file-server.herokuapp.com/registrationKiosk</string>
 	<key>configShortName</key>
-	<string>sxsw-registration</string>
+	<string>SXSW Registration Kiosk</string>
 	<key>configFullName</key>
-	<string>SXSW Beacon Bar Registration Kiosk</string>
+	<string>SXSW Registration Kiosk</string>
 	<key>configDescription</key>
 	<string>This is the registration kiosk for the SXSW VIP lounge</string>
 	<key>newaerEnable</key>
@@ -50,6 +50,7 @@
 		<string>Page1.png</string>
 		<string>completedRegistration.html</string>
 		<string>completedRegistration.js</string>
+		<string>completedRegistration.css</string>
 		<string>drink_pref.html</string>
 		<string>drink_pref.js</string>
 		<string>drink_pref_styles.css</string>
@@ -75,7 +76,7 @@
 	</array>
 	<key>clientFiles</key>
 	<array>
-		<string>background.png</string>
+		<string>newicon_blue.png</string>
 		<string>config.html</string>
 		<string>newaer.js</string>
 		<string>jquery.min.js</string>

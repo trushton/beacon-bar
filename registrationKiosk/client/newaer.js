@@ -3,8 +3,8 @@ $(function () {
     $('#saveButton').click(function() {
         console.log("Clicked save button");
         var configObject = { };
-        configObject.name = $('#name').val();
-        configObject.recordLocator = $('#recordLocator').val();
+        configObject.name = $("#name").val();
+        configObject.recordLocator = $("#recordLocator").val();
         saveConfig(configObject);
     });
 });

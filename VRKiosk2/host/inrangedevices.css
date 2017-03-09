@@ -25,49 +25,63 @@
 }
 
 #triangle{
-    position: absolute;
-    bottom: 100%;
+    position: relative;
+    bottom: 12em;
+    width: 8rem;
+    height: 4rem;
 }
 
+
 .menu-section {
-    margin-bottom: 20px;
+    margin-bottom: 0.825rem;
 }
 
 .menu-section-head {
-    margin-bottom: 20px;
+    margin-bottom: 0.62rem;
 }
 
 .menu-item {
-    margin-bottom: 20px;
+    margin-bottom: 0.62rem;
 }
 
 .menu-item-title {
     display: block;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 0.31rem;
 }
 
 .queue-greeting {
-    font-size: 40px;
+    font-size: 2.5rem;
     font-weight: 500;
-    margin-left: 10%;
-    margin-top: -5%;
-    margin-bottom: 1%;
+    margin-left: 3em;
+    margin-top: -4rem;
+    margin-bottom: 1rem;
 }
 
 .queue-list {
     list-style: none;
-    margin: 0;
-    padding: 0;
-    margin-left:10%;
+    text-align: center;
 }
 
 .queue-list li {
-    display: inline-block;
-    margin-right: 40px;
-    width:25%;
-    background-color: #2b2b2b;
+    display: inline-flex;
+    width: 33%;
+    background-color: rgba(203, 203, 203, 0.5);
     text-align: center;
+    padding: 0.5rem;
+}
+
+.queue-list h3{
+    margin-top: 3rem;
+}
+
+.queue-list:first-child li{
+    background-color: #1c94c4;
+}
+
+#position{
+    margin-top: 3rem;
+    margin-right: 1rem;
 }
 
 .queue-secondary-list {
@@ -75,42 +89,61 @@
     margin: 2%;
     margin-top:10%;
     padding: 0;
-    background-color: #2b2b2b;
+    width: 100%;
+    text-align: left;
 }
 
 .queue-secondary-list li {
     display: -webkit-box;
-    margin-right: 40px;
-    width:25%;
-    background-color: #2b2b2b;
-    text-align: center;
+    margin-right: 2.5rem;
+    margin-top: 1rem;
+    width: 30rem;
 }
 
-.queue-secondary-list h3,
-.queue-secondary-list h4{
+
+.queue-secondary-list h5{
     margin:auto;
+    margin-top: 3rem;
+}
+
+.queue-secondary-list th,
+.queue-secondary-list p{
+    margin: auto;
+}
+
+.queue-secondary-list p{
+    margin-left:0 !important;
+    margin-right:0 !important;
+}
+
+.queue-secondary-list p{
+    margin-top: 1rem;
 }
 
 .friend-avatar {
     display: block;
     height: 130px;
     width: 130px;
-    margin: auto;
+}
+
+.queue-avatar {
+    height: 75px;
+    width: 75px;
 }
 
 .spotlight-image {
     display: block;
-    height: 300px;
-    width: 300px;
+    height: 15em;
+    width: 15em;
     margin: auto;
-    margin-top:6%;
-
+    margin-top: 3em;
 }
 
 .spotlight-greeting {
-    font-size: 60px;
+    font-size: 2em;
     font-weight: 300;
-    margin-left: 15%;
+    margin: auto;
+    text-align: center;
 }
 
 .spotlight-social {
@@ -119,7 +152,35 @@
     margin-left: 15%;
 }
 
-.list-header{
-    margin-bottom: 5%;
-    background-color: transparent;
+.list-header th{
+    margin:0;
+    padding: 5px;
+}
+
+.queue-secondary-list td{
+    padding: 5px;
+}
+
+
+
+.queue-secondary-list tbody tr{
+    background-color: rgba(203, 203, 203, 0.5);
+}
+
+.queue-secondary-list tbody tr:nth-child(even){
+    background-color: rgba(30, 30, 30, 0.5);
+}
+
+
+#removeFromQueue{
+    width: 10rem;
+    height: 2rem;
+    border: 2px solid #FFFFFF;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 1.25rem;
+    background: crimson;
+    position: relative;
+    text-align: center;
+    margin: auto;
+    margin-top:1em;
 }

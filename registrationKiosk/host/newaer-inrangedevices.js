@@ -91,13 +91,19 @@ function NAUpdate(devicesPresent)
                     document.getElementById('returnVisit').style.display = 'block';
 
 
+                    var visitCountString = '';
+                    if(user.child('visitCount').val() == 1 ){
+                        visitCountString = 'You\'ve been here 1 time!';
+                    } else {
+                        visitCountString = 'You\'ve been here ' + user.child('visitCount').val() + ' times!';
+                    }
                     $("#returnVisit").html(
                         "<img id='userImage' src='" + user.child('picture').val() + "'>" +
                         "<div id='returnBanner'>" +
-                            "<p>Welcome back to the VIP lounge " + user.child('username').val() + "!</p>" +
-                            "<p>You've been here " + (user.child('visitCount').val() + 1) + " times.</p>" +
+                            "<p>Welcome back to the VIP lounge, <br>" + user.child('username').val() + "!</p>" +
+                            "<p>" + visitCountString + "</p>" +
                             "<div id='deleteAccount'>" +
-                                "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</button>" +
+                                "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</a>" +
                             "</div>" +
                             "<div id='refreshAccount'>" +
                                 "<a href='#' style='color: white' onclick='login()'>Refresh account</a>" +
@@ -149,6 +155,25 @@ function parseId(data){
 function updateDevice(device)
 {
     console.log("Updating device: "+device.deviceId);
+    if(devices == null) devices = Object;
+    if(typeof device.data === 'undefined' || typeof device.data.name === 'undefined') {
+        device.data.name = device.name;
+    }
+    if(typeof device.data === 'undefined') {
+        device.data.recordLocator = "";
+    } else {
+        if(typeof device.data.recordLocator === 'undefined') {
+            if (typeof device.data.major === 'undefined' && typeof device.data.minor === 'undefined') {
+                device.data.recordLocator = "";
+            } else {
+                device.data.recordLocator = device.data.major + ":" + device.data.minor;
+            }
+        } else {
+            var locatorParts = device.data.recordLocator.split(':');
+            device.data.major = locatorParts[0];
+            device.data.minor = locatorParts[1];
+        }
+    }
     devices[device.deviceId] = device;
 }
 
@@ -172,8 +197,13 @@ function addDevice(device)
             } else {
                 device.data.recordLocator = device.data.major + ":" + device.data.minor;
             }
+        } else {
+            var locatorParts = device.data.recordLocator.split(':');
+            device.data.major = locatorParts[0];
+            device.data.minor = locatorParts[1];
         }
     }
+
     devices[device.deviceId] = device;
 }
 

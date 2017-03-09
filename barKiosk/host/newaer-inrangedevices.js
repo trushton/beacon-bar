@@ -4,6 +4,65 @@ var deviceArray = [];
 var selectedRowId = false;
 var guestRotationTime = 0;
 var highDeviceId;
+var nearThreshold = -70;
+var near = false;
+var visitTimeSeperation = 120;
+var prevBadge;
+var drinkRecommendation;
+
+var drinks = {
+    "vodka": {
+        "Walmart Blue": {
+            "name": "Walmart Blue",
+            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"]
+        },
+        "Moscow Mule": {
+            "name": "Moscow Mule",
+            "ingredients": ["Vodka", "Gingerbeer", "Lime"]
+        },
+        "Texas Sipper": {
+            "name": "Texas Sipper",
+            "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"]
+        }
+    },
+    "whiskey": {
+        "Walmart Yellow": {
+            "name": "Walmart Yellow",
+            "ingredients": ["Whiskey", "Sweet N Sour"],
+            "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
+        },
+        "Texas Tea": {
+            "name": "Texas Tea",
+            "ingredients": ["Whiskey", "Sweet Tea", "Pomegranate Juice"]
+        }
+    },
+    "beer": {
+        "Shiner": {
+            "name": "Shiner",
+            "type": "dark option"
+        },
+        "Fireman's 4": {
+            "name": "Fireman's 4",
+            "type": "light option"
+        }
+    },
+    "red wine": {
+        "Pinot Noir": {
+            "name": "Pinot Noir",
+            "type": "Mark West"
+        },
+        "Merlot": {
+            "name": "Merlot",
+            "type": "Mark West"
+        }
+    },
+    "white wine": {
+        "Chenin Blanc": {
+            "name": "Chenin Blanc",
+            "type": "Llano Estacado"
+        }
+    }
+};
 
 $(function () {
     console.log("jquery start");
@@ -43,6 +102,7 @@ function NAUpdate(devicesPresent)
 //    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
 
+    console.log('calling it');
     // Update
     for (var key in devices) {
         if(devicesPresent.hasOwnProperty(key)) {
@@ -63,18 +123,27 @@ function NAUpdate(devicesPresent)
 
     // Find strongest
     highRssi = -100;
-    if((Date.now() - 10000) > guestRotationTime){
-      for (var key in devices) {
-          if(devices[key].rssi > highRssi) {
-              highRssi = devices[key].rssi;
-              highDeviceId = key;
-              guestRotationTime = Date.now();
-          }
-      }
-    }
+    if((Date.now() - 3000) > guestRotationTime){
+        for (var key in devices) {
+            if(devices[key].rssi > highRssi) {
+                highRssi = devices[key].rssi;
+                highDeviceId = key;
+            }
+        }
 
-    if(highDeviceId != "") {
-        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+        //check this later!!!!
+        displayGuest();
+        guestRotationTime = Date.now();
+
+        if(highDeviceId != ""){
+            localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+        }
+
+        if(devices[highDeviceId].rssi > nearThreshold) {
+            near = true;
+        } else {
+            near = false;
+        }
     }
 
 }
@@ -99,9 +168,18 @@ function updateDevice(device)
     devices[device.deviceId] = device;
 
     deviceDbRecord.once('value').then(function(currentRecord){
-        deviceDbRecord.update({
-            barTime: (currentRecord.child('barTime').val() + 1)
-        });
+        if(currentRecord.child('username').val()){
+            deviceDbRecord.update({
+                barTime: (currentRecord.child('barTime').val() + 1)
+            });
+        }
+
+        if(device.rssi > nearThreshold && currentRecord.child('lastSeenBar').val() < (Date.now() - (visitTimeSeperation * 1000))){
+            deviceDbRecord.update({
+                barCount: (currentRecord.child('barCount').val() + 1),
+                lastSeenBar: Date.now()
+            });
+        }
     });
 }
 
@@ -135,9 +213,6 @@ function addDevice(device)
 }
 
 
-(function(){
-    displayGuest();
-})();
 
 
 function displayGuest(){
@@ -154,30 +229,21 @@ function displayGuest(){
             var guestSource = $('#guest-template').html();
             var guestTemplate = Handlebars.compile(guestSource);
 
+            if(prevBadge !== badgeId){
+                drinkRecommendation = recommendDrink(user.child('drink_pref').val());
+                prevBadge = badgeId;
+            }
+
             htmlz = guestTemplate({
                 guestName: user.child('firstName').val(),
                 guestImage: user.child('picture').val(),
                 visitCount: user.child('barCount').val(),
-                drinkPref: user.child('drink_pref').val()
+                recommendedDrink: drinkRecommendation
             });
 
-            var socialSource = $('#guest-social-template').html();
-            var socialTemplate = Handlebars.compile(socialSource);
-            checkForFriends(badgeId).then(function(friendsAtBar){
-                getFriendData(friendsAtBar).then(function(friendData){
-                    var names = [];
-                    for(var friend of friendData){
-                        names.push(friend.name);
-                    }
-                    socialHtml = socialTemplate({
-                        friendNames: names.join(),
-                        friend1_img: checkForPicture(friendData, 0),
-                        friend2_img: checkForPicture(friendData, 1),
-                        friend3_img: checkForPicture(friendData, 2)
-                    });
-                    $('[data-guest-social]').html(socialHtml);
-                });
-            });
+            if(near){ fillNearSocial(badgeId); }
+            else { fillFarSocial(); }
+
         }
         else {
             var source = $('#not-found-template').html();
@@ -188,10 +254,112 @@ function displayGuest(){
 
     });
 
-    setTimeout(function(){
-        displayGuest();
-    }, 10000);
 }
+
+function flatten(arr) {
+    const flat = [].concat(...arr);
+    return flat.some(Array.isArray) ? flatten(flat) : flat;
+}
+
+
+function filterForSharedLike(likes){
+    for(var like in likes){
+        likes[like] = Array.from(new Set(likes[like]));
+        if(likes[like].length < 2) { delete likes[like]; }
+    }
+    return likes;
+}
+
+
+function getSocialHeader(type){
+    switch(type){
+        case 'like':
+            return 'These people like ';
+            break;
+        case 'hometown':
+            return 'These people come from the hometown of ';
+            break;
+        case 'drink_pref':
+            return 'These people all enjoy ';
+            break;
+    }
+}
+
+
+function chooseFrom(type, data){
+    var keys = Object.keys(data);
+    var chosenKey = keys[keys.length * Math.random() <<0];
+
+    return {
+        header: getSocialHeader(type),
+        name: chosenKey,
+        people: data[chosenKey]
+    };
+}
+
+function fillFarSocial(){
+    var socialSource = $('#far-social-template').html();
+    var socialTemplate = Handlebars.compile(socialSource);
+    var socialHtml;
+
+    var likesArray = [];
+    var likesObj = {};
+    firebase.database().ref('users/').once('value').then(function(users){
+        users.forEach(function(user){
+            if(user.val()['likes']){
+                likesArray.push(user.val()['likes'].map(function(like){ return {name: like['name'], person: {picture: user.val()['picture'], name: user.val()['username']}}}));
+            }
+        });
+
+        likesArray = flatten(likesArray);
+        likesArray.forEach(function(like){
+            if(!likesObj[like.name]){
+                likesObj[like.name] = [];
+            }
+            likesObj[like.name].push(like.person);
+        });
+
+
+        var sharedLikes = filterForSharedLike(likesObj);
+        var displayedProperty = chooseFrom('like', sharedLikes);
+
+
+        socialHtml = socialTemplate({
+            header: displayedProperty['header'],
+            name: displayedProperty['name'],
+            people: displayedProperty['people'],
+        });
+
+
+        document.getElementById('menu').style.display = 'none';
+        $('[data-near-social]').empty();
+        $('[data-far-social]').html(socialHtml);
+    })
+}
+
+
+function fillNearSocial(badgeId){
+    var socialSource = $('#near-social-template').html();
+    var socialTemplate = Handlebars.compile(socialSource);
+
+    checkForFriends(badgeId).then(function(friendData){
+        var names = [];
+        for(var friend of friendData){
+            names.push(friend.name);
+        }
+        socialHtml = socialTemplate({
+            friendNames: names.join(),
+            friend1_img: checkForPicture(friendData, 0),
+            friend2_img: checkForPicture(friendData, 1),
+            friend3_img: checkForPicture(friendData, 2)
+        });
+
+        document.getElementById('menu').style.display = 'block';
+        $('[data-far-social]').empty();
+        $('[data-near-social]').html(socialHtml);
+    });
+}
+
 
 function checkForPicture(data, index){
     if(data[index]){
@@ -200,40 +368,32 @@ function checkForPicture(data, index){
 }
 
 
-function checkForFriends(badgeId){
-    var friends = firebase.database().ref('friends/' + badgeId);
-    var peopleInBar = [];
+function checkForFriends(badgeId) {
     var friendsAtBar = [];
+    var friendData = [];
+    return firebase.database().ref('friends/' + badgeId).once('value').then(function (friends) {
+        return firebase.database().ref('users').once('value').then(function (barGuests) {
+            friends.forEach(function (friend) {
+                if (barGuests.hasChild(friend.val())) {
+                    friendsAtBar.push(friend.val());
+                }
+            });
 
-    for (var key in devices) {
-        if(devices[key].data.recordLocator){
-            peopleInBar.push(parseId(devices[key].data));
-        }
-    }
-
-    return friends.once('value').then(function(friendsList){
-        friendsList.forEach(function(friend){
-            if(peopleInBar.includes(friend.val().toString())){
-                friendsAtBar.push(friend.val().toString());
+            for (var friend of friendsAtBar) {
+                var friendObj = barGuests.child(friend);
+                friendData.push({
+                    name: friendObj.child('firstName').val(),
+                    picture: friendObj.child('picture').val()
+                });
             }
+            return friendData;
+
+
         });
-        return friendsAtBar;
     });
 }
 
-
-function getFriendData(friends){
-    var usersRef = firebase.database().ref('users/');
-    var friendData =[];
-
-    return usersRef.once('value').then(function(users){
-       for(var friend of friends){
-           var friendObj = users.child(friend);
-           friendData.push({name: friendObj.child('firstName').val(),
-                            picture: friendObj.child('picture').val()});
-       }
-       return friendData;
-    });
-
+function recommendDrink(preference) {
+    var keys = Object.keys(drinks[preference]);
+    return drinks[preference][keys[keys.length * Math.random() << 0]];
 }
-

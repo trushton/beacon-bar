@@ -66,10 +66,19 @@
         </h3>
         <ul class="queue-list">
             {{#each guests}}
+            {{#if @first}}
+            <li style="background-color: #1c94c4">
+            {{else}}
             <li>
+            {{/if}}
+                <h1 id="position"> {{counter @index}} </h1>
                 <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
-                <h3>{{this.name}}</h3>
-                <h3>In queue for {{this.waitTime}}</h3>
+                <div>
+                    <h3 style='margin-left: 1rem'>{{this.name}}</h3>
+                    {{#if @first}}
+                    <p style="margin-bottom:0px">Waited: {{this.waitTime}}</p>
+                    {{/if}}
+                </div>
             </li>
             {{/each}}
         </ul>
@@ -82,8 +91,13 @@
         <img class="img-circle spotlight-image" src="{{spotlight.picture}}">
         {{/if}}
         <h3 class="spotlight-greeting">
-            You are {{spotlight.position}} in line!
+            {{spotlight.position}}
         </h3>
+        {{#if spotlight.removeButton}}
+        <div id='removeFromQueue'>
+            <a href='#' style='color: white' onclick='leaveQueue()'>Leave Queue</a>
+        </div>
+        {{/if}}
         <ul class="social-list">
             <h3 class="spotlight-social">
                 {{#if socialConnector}}
@@ -101,30 +115,41 @@
 </script>
 
 <script id="remaining-queued-guests" type="text/x-handlebars-template">
-    <div>
-        <ul class="queue-secondary-list">
-            {{#if guests}}
-            <li class="list-header">
-                <h3></h3>
-                <h3>Name</h3>
-                <h3>Wait time</h3>
-                <h3>Position</h3>
-            </li>
-            {{/if}}
-            {{#each guests}}
-            <li>
-                <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
-                <h4>{{this.name}}</h4>
-                <h4>{{this.waitTime}}</h4>
-                <h4>{{this.position}}</h4>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
+    <table class="queue-secondary-list">
+        {{#if guests}}
+        <thead  class="list-header">
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Wait</th>
+                <th class="position">Pos</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {{#each guests}}
+        <tr>
+            <td >
+                <img class="img-circle queue-avatar" src="{{this.picture}}" alt="bob">
+            </td>
+            <td>{{this.name}}
+                {{#if this.location}}
+                <br>{{this.location}}
+                {{/if}}
+            </td>
+            <td>{{this.waitTime}}</td>
+            <td>{{this.position}}</td>
+        </tr>
+        {{/each}}
+
+        </tbody>
+        {{/if}}
+    </table>
 </script>
 
 <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
 <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+<script src="responsive-scaling.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
 <script>

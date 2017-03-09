@@ -158,6 +158,16 @@
             return val;
         }
 
+        function processLikes(likes){
+            var processedLikes = [];
+
+            likes.map(function(like){
+                processedLikes.push({name: like['name'], id: like['id']});
+            });
+
+            return processedLikes;
+        }
+
 
         function createUser(token, data, badgeId){
             var likes = [], location = '', cover = '', hometown = '';
@@ -165,6 +175,8 @@
             if(data.location){ location = data.location.name;}
             if(data.hometown){ hometown = data.hometown.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
+
+            likes = processLikes(likes);
 
             firebase.database().ref('users/'+ badgeId).update({
                 facebookId: data.id,
@@ -176,7 +188,7 @@
                 hometown: hometown,
                 picture: data.picture.data.url.toString(),
                 cover: cover,
-                visitCount: 0,
+                visitCount: 1,
                 barCount: 0,
                 foodCount: 0,
                 vrCount: 0,
