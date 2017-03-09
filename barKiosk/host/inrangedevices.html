@@ -172,7 +172,9 @@
             <ul class="social-friends-list">
                 {{#each people}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{this}}" alt="bob">
+                    <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
+                    <p>{{this.name}}</p>
+
                 </li>
                 {{/each}}
             </ul>

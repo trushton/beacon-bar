@@ -131,13 +131,17 @@ function NAUpdate(devicesPresent)
             }
         }
 
-        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+        //check this later!!!!
         displayGuest();
         guestRotationTime = Date.now();
 
-        if(highDeviceId != "" && devices[highDeviceId].rssi > nearThreshold) {
+        if(highDeviceId != ""){
+            localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
+        }
+
+        if(devices[highDeviceId].rssi > nearThreshold) {
             near = true;
-         } else {
+        } else {
             near = false;
         }
     }
@@ -303,7 +307,7 @@ function fillFarSocial(){
     firebase.database().ref('users/').once('value').then(function(users){
         users.forEach(function(user){
             if(user.val()['likes']){
-                likesArray.push(user.val()['likes'].map(function(like){ return {name: like['name'], person: user.val()['picture']}}));
+                likesArray.push(user.val()['likes'].map(function(like){ return {name: like['name'], person: {picture: user.val()['picture'], name: user.val()['username']}}}));
             }
         });
 
@@ -330,7 +334,7 @@ function fillFarSocial(){
         document.getElementById('menu').style.display = 'none';
         $('[data-near-social]').empty();
         $('[data-far-social]').html(socialHtml);
-    });
+    })
 }
 
 
@@ -338,23 +342,21 @@ function fillNearSocial(badgeId){
     var socialSource = $('#near-social-template').html();
     var socialTemplate = Handlebars.compile(socialSource);
 
-    checkForFriends(badgeId).then(function(friendsAtBar){
-        getFriendData(friendsAtBar).then(function(friendData){
-            var names = [];
-            for(var friend of friendData){
-                names.push(friend.name);
-            }
-            socialHtml = socialTemplate({
-                friendNames: names.join(),
-                friend1_img: checkForPicture(friendData, 0),
-                friend2_img: checkForPicture(friendData, 1),
-                friend3_img: checkForPicture(friendData, 2)
-            });
-
-            document.getElementById('menu').style.display = 'block';
-            $('[data-far-social]').empty();
-            $('[data-near-social]').html(socialHtml);
+    checkForFriends(badgeId).then(function(friendData){
+        var names = [];
+        for(var friend of friendData){
+            names.push(friend.name);
+        }
+        socialHtml = socialTemplate({
+            friendNames: names.join(),
+            friend1_img: checkForPicture(friendData, 0),
+            friend2_img: checkForPicture(friendData, 1),
+            friend3_img: checkForPicture(friendData, 2)
         });
+
+        document.getElementById('menu').style.display = 'block';
+        $('[data-far-social]').empty();
+        $('[data-near-social]').html(socialHtml);
     });
 }
 
@@ -366,43 +368,30 @@ function checkForPicture(data, index){
 }
 
 
-function checkForFriends(badgeId){
-    var friends = firebase.database().ref('friends/' + badgeId);
-    var peopleInBar = [];
+function checkForFriends(badgeId) {
     var friendsAtBar = [];
+    var friendData = [];
+    return firebase.database().ref('friends/' + badgeId).once('value').then(function (friends) {
+        return firebase.database().ref('users').once('value').then(function (barGuests) {
+            friends.forEach(function (friend) {
+                if (barGuests.hasChild(friend.val())) {
+                    friendsAtBar.push(friend.val());
+                }
+            });
 
-    for (var key in devices) {
-        if(devices[key].data.recordLocator){
-            peopleInBar.push(parseId(devices[key].data));
-        }
-    }
-
-    return friends.once('value').then(function(friendsList){
-        friendsList.forEach(function(friend){
-            if(peopleInBar.includes(friend.val().toString())){
-                friendsAtBar.push(friend.val().toString());
+            for (var friend of friendsAtBar) {
+                var friendObj = barGuests.child(friend);
+                friendData.push({
+                    name: friendObj.child('firstName').val(),
+                    picture: friendObj.child('picture').val()
+                });
             }
+            return friendData;
+
+
         });
-        return friendsAtBar;
     });
 }
-
-
-function getFriendData(friends){
-    var usersRef = firebase.database().ref('users/');
-    var friendData =[];
-
-    return usersRef.once('value').then(function(users){
-       for(var friend of friends){
-           var friendObj = users.child(friend);
-           friendData.push({name: friendObj.child('firstName').val(),
-                            picture: friendObj.child('picture').val()});
-       }
-       return friendData;
-    });
-
-}
-
 
 function recommendDrink(preference) {
     var keys = Object.keys(drinks[preference]);
