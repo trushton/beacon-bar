@@ -1,0 +1,138 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BeaconBar</title>
+    <link rel="stylesheet" href="bootstrap-grid.css" type="text/css" />
+    <link rel="stylesheet" href="jquery-ui.min.css" type="text/css" />
+    <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" />
+    <link rel="stylesheet" href="common.css" type="text/css" />
+    <link rel="stylesheet" href="inrangedevices.css" type="text/css" />
+</head>
+<body>
+
+    <main role="main">
+        <div class="container">
+            <div id="social-graph" />
+            <div id="social-web" />
+        </div>
+    </main>
+
+    <!-- TEMPLATES -->
+
+    <!-- You'll need to create new image, line, and box classes indexed the same way except you only
+         needs pairs of 0 and n -->
+    <script id="social-web-template" type="text/x-handlebars-template">
+        <div class="container-fluid">
+            {{#each people}}
+            <div class="col-xs-1 col-xs-push-1">
+                      <span class='img-spacer'>
+                          <img class="img-circle person-{{@index}}-img-web" src="{{photo}}" alt="{{name}}" />
+                      </span>
+            </div>
+            {{/each}}
+
+            {{#each commonalities}}
+            <div class="{{ lineClass }}" id="line-{{person1}}-{{person2}}-web" />
+            <div class="{{ lineClass }}-box" id="box-{{person1}}-{{person2}}-web">
+              <div class="connector-box-text">
+                {{ principleLike }}
+              </div>
+            </div>
+            {{/each}}
+        </div>
+    </script>
+
+    <script id="social-graph-template" type="text/x-handlebars-template">
+        <header class="bar-header" role="header">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="page-title">Vip Spark Lounge</div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="container-fluid">
+            {{#each people}}
+                <div class="col-xs-1 col-xs-push-1">
+                  <span class='img-spacer'>
+                      <img class="img-circle person-{{@index}}-img" src="{{photo}}" alt="{{name}}" />
+                  </span>
+                </div>
+            {{/each}}
+        </div>
+
+        {{#each commonalities}}
+            <div class="{{ lineClass }}" id="line-{{person1}}-{{person2}}"/>
+            <div class="{{ lineClass }}-box" id="box-{{person1}}-{{person2}}">
+                <div class="connector-box-text">
+                    {{ principleLike }}
+                </div>
+            </div>
+        {{/each}}
+        <footer class="bar-footer">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="footer-text">
+                At the capital factory powered by:
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="bar-footer-logos">
+                    <div class="logo">
+                      <img src="walmart.png" alt="walmart">
+                    </div>
+                    <div class="logo">
+                      <img src="capitalfactory.png" alt="capitalfactory">
+                    </div>
+                    <div class="logo">
+                      <img src="bluvision.png" alt="bluvision">
+                    </div>
+                    <div class="logo">
+                      <img src="newaer.png" alt="newaer">
+                    </div>
+                    <div class="logo">
+                      <img src="originate.png" alt="originate">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </footer>
+    </script>
+
+    <script id="not-found-template" type="text/x-handlebars-template">
+        <div class="col-xs-11 col-xs-push-1">
+            <div class="highlight">
+                <div class="highlight-body">
+                    <h2 class="highlight-title">
+                        I'm sorry, I don't recognize you. Perhaps you need to sign up at the registration kiosk?
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script src="jquery.min.js" type="text/javascript" language="javascript"></script>
+    <script src="jquery-ui.min.js" type="text/javascript" language="javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
+            authDomain: "beaconbar-e8384.firebaseapp.com",
+            databaseURL: "https://beaconbar-e8384.firebaseio.com",
+            storageBucket: "beaconbar-e8384.appspot.com",
+            messagingSenderId: "9892124037"
+        };
+        firebase.initializeApp(config);
+        firebase.auth().signInWithEmailAndPassword('thomas.rushton@originate.com', 'testpass');
+    </script>
+    <script src="newaer-inrangedevices.js" type="text/javascript" language="javascript"></script>
+
+</body>
+</html>
+
