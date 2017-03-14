@@ -1,7 +1,7 @@
 var devices = null;
 var selectedRowId = false;
 var updatePeriodInSeconds = 3;
-var nearRangeRssi = -70;
+var nearRangeRssi = -80;
 var timeToEnterQueue = 5;
 var prevUpdate = 0;
 
@@ -280,10 +280,57 @@ function getSpotlightInfo(){
 }
 
 function getSocialInfo(){
-    console.log('stub');
+    firebase.database().ref('users/').once('value').then(function(usersData){
+        var completedGuests = [];
+        usersData.forEach(function(user){
+            if(user.child('vrCount').val() > 0){
+                completedGuests.push(user.val());
+            }
+        });
+
+        var guestToDisplay = randomize(completedGuests, 1);
+
+        var socialSource = $('#guest-completed').html();
+        var socialTemplate = Handlebars.compile(socialSource);
+
+        console.log(guestToDisplay);
+        var socialHtml = socialTemplate({
+           guest: {picture: guestToDisplay[0]['picture'], name: guestToDisplay[0]['username']}
+        });
+
+        $('[data-guest-spotlight]').html(socialHtml);
+
+
+
+    });
+}
+
+
+function randomize(array, n) {
+    var final = [];
+    array = array.filter(function(elem, index, self) {
+        return index == self.indexOf(elem);
+    }).sort(function() { return 0.5 - Math.random() });
+
+    var len = array.length,
+        n = n > len ? len : n;
+
+    for(var i = 0; i < n; i ++)
+    {
+        final[i] = array[i];
+    }
+
+    return final;
 }
 
 
 Handlebars.registerHelper("counter", function (index){
     return index + 1;
+});
+
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+    if(v1 < v2) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
 });

@@ -29,21 +29,16 @@
         <div class="col-xs-6" data-queue></div>
     </div>
 </main>
-
 <footer class="bar-footer">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-
                 <div class="bar-footer-logos">
                     <div class="logo">
                         <img src="walmart.png" alt="walmart">
                     </div>
                     <div class="logo">
                         <img src="capitalfactory.png" alt="capitalfactory">
-                    </div>
-                    <div class="logo">
-                        <img src="bluvision.png" alt="bluvision">
                     </div>
                     <div class="logo">
                         <img src="newaer.png" alt="newaer">
@@ -98,19 +93,19 @@
             <a href='#' style='color: white' onclick='leaveQueue()'>Leave Queue</a>
         </div>
         {{/if}}
-        <ul class="social-list">
-            <h3 class="spotlight-social">
-                {{#if socialConnector}}
-                You are all {{socialConnector}}
-                {{/if}}
-            </h3>
 
-            {{#each socialConnection}}
-            <li>
-                <img class="img-circle friend-avatar" src="{{socialConnection.picture}}" alt="bob">
-            </li>
-            {{/each}}
-        </ul>
+    </div>
+</script>
+
+<script id="guest-completed" type="text/x-handlebars-template">
+    <div>
+        {{#if guest}}
+        <img class="img-circle spotlight-image" src="{{guest.picture}}">
+        <h3 class="spotlight-greeting">
+            {{guest.name}} has completed the VR Experience!
+        </h3>
+        {{/if}}
+
     </div>
 </script>
 
@@ -128,6 +123,7 @@
 
         <tbody>
         {{#each guests}}
+        {{#ifCond @index 4}}
         <tr>
             <td >
                 <img class="img-circle queue-avatar" src="{{this.picture}}" alt="bob">
@@ -140,8 +136,8 @@
             <td>{{this.waitTime}}</td>
             <td>{{this.position}}</td>
         </tr>
+        {{/ifCond}}
         {{/each}}
-
         </tbody>
         {{/if}}
     </table>

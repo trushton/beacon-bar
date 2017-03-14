@@ -40,15 +40,18 @@
 
 /** global */
 
+
 body {
     background: url('mainBackground.png') top center no-repeat fixed;
+    background-color: #000000;
     -webkit-background-size: cover;
     background-size: cover;
     color: #FFFFFF;
     font-family: 'Akzidenz Grotesk BQ', Arial, sans-serif;
     font-size: 1em; /* 1em = 16px by default */
     overflow: hidden; /* scrolling doesn't work in app currently */
-    margin: 6.875em 0 6.25em; /* adjust to size of header and footer */
+    padding: 6.875em 0 6.25em; /* adjust to size of header and footer */
+    border-bottom: 2px solid black;
 }
 
 h1,
@@ -99,7 +102,7 @@ h4 {
     display: -webkit-flex;
     display: flex;
     flex-wrap: nowrap;
-    height: 6.25em;
+    height: 7.25em;
     text-align: center;
 }
 
@@ -134,7 +137,7 @@ h4 {
 .highlight-media-main-left {
     position: absolute;
     left: -4.68em;
-    top: -1.25em;
+    top: -2em;
 }
 
 .highlight-media-main-left ~ .highlight-body {

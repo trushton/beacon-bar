@@ -5,11 +5,11 @@
 	<key>configUrl</key>
 	<string>https://beacon-bar-file-server.herokuapp.com/generalKiosk</string>
 	<key>configShortName</key>
-	<string>sxsw-bar</string>
+	<string>sxsw-general</string>
 	<key>configFullName</key>
-	<string>SXSW Beacon Bar Kiosk</string>
+	<string>SXSW VIP Lounge General Kiosk</string>
 	<key>configDescription</key>
-	<string>This is the bar kiosk for the SXSW VIP lounge</string>
+	<string>This is the general kiosk for the SXSW VIP lounge</string>
 	<key>newaerEnable</key>
 	<true/>
 	<key>beaconEnable</key>
@@ -26,8 +26,6 @@
 		<string>nodevices.html</string>
 		<key>inRangePage</key>
 		<string>inrangedevices.html</string>
-		<key>immediatePage</key>
-		<string>immediatedevice.html</string>
 	</dict>
 	<key>clientPages</key>
 	<dict>
@@ -44,8 +42,6 @@
 		<string>akzidenzgrotesk_super_italic.otf</string>
     	<string>common.css</string>
 		<string>bootstrap-grid.css</string>
-		<string>immediatedevice.html</string>
-   		<string>immediatedevice.css</string>
 		<string>inrangedevices.html</string>
 		<string>inrangedevices.css</string>
 		<string>nodevices.html</string>
@@ -55,7 +51,6 @@
 		<string>jquery.min.js</string>
 		<string>jquery-ui.min.js</string>
 		<string>jquery-ui.min.css</string>
-		<string>newaer-immediatedevice.js</string>
 		<string>newaer-inrangedevices.js</string>
 		<string>newaer-nodevices.js</string>
 		<string>styles.css</string>

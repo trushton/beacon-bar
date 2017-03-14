@@ -12,22 +12,22 @@ var drinkRecommendation;
 
 var drinks = {
     "vodka": {
-        "Walmart Blue": {
-            "name": "Walmart Blue",
-            "ingredients": ["Vodka", "Lemonade", "Blue Cuacao"]
+        "Ladybird Lemonade": {
+            "name": "Ladybird Lemonade",
+            "ingredients": ["Vodka", "Lemonade", "Blue Curacao"]
         },
         "Moscow Mule": {
             "name": "Moscow Mule",
-            "ingredients": ["Vodka", "Gingerbeer", "Lime"]
+            "ingredients": ["Vodka", "Ginger beer", "Lime"]
         },
         "Texas Sipper": {
             "name": "Texas Sipper",
-            "ingredients": ["Vodka", "St. Germaine", "Grapefruit Juice", "Mint", "Topo Chico"]
+            "ingredients": ["Vodka", "Elderflower", "Grapefruit Juice", "Mint", "Topo Chico"]
         }
     },
     "whiskey": {
-        "Walmart Yellow": {
-            "name": "Walmart Yellow",
+        "The Spark": {
+            "name": "The Spark",
             "ingredients": ["Whiskey", "Sweet N Sour"],
             "fact": "TX Blended Whiskey is made over in Fort Worth, TX"
         },
@@ -53,7 +53,7 @@ var drinks = {
         },
         "Merlot": {
             "name": "Merlot",
-            "type": "Mark West"
+            "type": "Llano Estacado, TX"
         }
     },
     "white wine": {
@@ -97,8 +97,7 @@ function parse_query_string(string)
     return b;
 }
 
-function NAUpdate(devicesPresent)
-{
+function NAUpdate(devicesPresent) {
 //    console.log("Update called with devicesPresent: "+devicesPresent);
     unescape(devicesPresent);
 
@@ -123,27 +122,31 @@ function NAUpdate(devicesPresent)
 
     // Find strongest
     highRssi = -100;
-    if((Date.now() - 3000) > guestRotationTime){
-        for (var key in devices) {
-            if(devices[key].rssi > highRssi) {
-                highRssi = devices[key].rssi;
-                highDeviceId = key;
-            }
+    for (var key in devices) {
+        if(devices[key].rssi > highRssi) {
+            highRssi = devices[key].rssi;
+            highDeviceId = key;
         }
 
-        //check this later!!!!
-        displayGuest();
-        guestRotationTime = Date.now();
+    }
 
-        if(highDeviceId != ""){
-            localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
-        }
 
+    if(highDeviceId != ""){
+        localStorage.setItem("currentDevice", parseId(devices[highDeviceId].data));
         if(devices[highDeviceId].rssi > nearThreshold) {
             near = true;
         } else {
             near = false;
         }
+    }
+
+    if((Date.now() - 3000) > guestRotationTime){
+        firebase.database().ref('users/').once('value').then(function(user){
+            if(user.hasChild(localStorage.currentDevice) && user.child(localStorage.currentDevice).hasChild('username')){
+                guestRotationTime = Date.now();
+                displayGuest();
+            }
+        });
     }
 
 }
@@ -162,30 +165,47 @@ function parseId(data){
     }
 }
 
-function updateDevice(device)
-{
+function updateDevice(device) {
     var deviceDbRecord = firebase.database().ref('users/'+ parseId(device.data));
     devices[device.deviceId] = device;
 
     deviceDbRecord.once('value').then(function(currentRecord){
+
         if(currentRecord.child('username').val()){
             deviceDbRecord.update({
-                barTime: (currentRecord.child('barTime').val() + 1)
+                //barTime: (currentRecord.child('barTime').val() + 1)
+
+                barTime: Date.now() - currentRecord.child('barEntered').val()
             });
+
+            if(device.rssi > nearThreshold && currentRecord.child('lastSeenBar').val() < (Date.now() - (visitTimeSeperation * 1000))){//((Date.now() - (visitTimeSeperation * 1000) - currentRecord.child('lastSeenBar').val()) > 0) ){
+                deviceDbRecord.update({
+                    barCount: (currentRecord.child('barCount').val() + 1),
+                    lastSeenBar: Date.now()
+                });
+            }
         }
 
-        if(device.rssi > nearThreshold && currentRecord.child('lastSeenBar').val() < (Date.now() - (visitTimeSeperation * 1000))){
-            deviceDbRecord.update({
-                barCount: (currentRecord.child('barCount').val() + 1),
-                lastSeenBar: Date.now()
-            });
-        }
+
     });
 }
 
 function removeDevice(device)
 {
 //    console.log("Removing device: "+device.deviceId);
+
+    if(device.data){
+        var badge = parseId(device.data);
+        firebase.database().ref('users/' + badge).once('value').then(function(user){
+            if(badge && user.hasChild('username')){
+                firebase.database().ref('users/'+badge).update({
+                    barEntered: null
+                })
+            }
+        });
+
+    }
+
     delete devices[device.deviceId];
 }
 
@@ -206,6 +226,18 @@ function addDevice(device)
                 device.data.recordLocator = device.data.major + ":" + device.data.minor;
             }
         }
+    }
+
+    if(device.data){
+        var badge = parseId(device.data);
+        firebase.database().ref('users/' + badge).once('value').then(function(userRef){
+            if(badge && userRef.hasChild('username')){
+                firebase.database().ref('users/' + badge).update({
+                    barEntered: Date.now()
+                })
+            }
+        });
+
     }
 
     devices[device.deviceId] = device;
@@ -242,7 +274,13 @@ function displayGuest(){
             });
 
             if(near){ fillNearSocial(badgeId); }
-            else { fillFarSocial(); }
+            else {
+
+                var funcs = randomize([0,1,2,3,4,5,6 ,7, 8],2);
+                fillFarSocial(0, funcs[0]);
+                fillFarSocial(1, funcs[1]);
+                //fillFarSocial(2, funcs[2]);
+            }
 
         }
         else {
@@ -273,98 +311,278 @@ function filterForSharedLike(likes){
 
 function getSocialHeader(type){
     switch(type){
-        case 'like':
-            return 'These people like ';
+        case 'location':
+            return 'This person also lives in ';
+            break;
+        case 'matchingDrinks':
+            return 'This person has also tried the ';
             break;
         case 'hometown':
-            return 'These people come from the hometown of ';
+            return 'This person comes from your hometown of ';
             break;
         case 'drink_pref':
-            return 'These people all enjoy ';
+            return 'This person also enjoys ';
+            break;
+        case 'generic':
+            return 'This person has visited the VIP Lounge'
+    }
+}
+
+
+function chooseFrom(data){
+    if(data){
+        var keys = Object.keys(data);
+        return data[keys[keys.length * Math.random() <<0]];
+    }
+
+}
+
+
+function getUserWasJustAt(){
+    return firebase.database().ref('users/').once('value').then(function(guests){
+        var guest = chooseFrom(guests.val());
+        var places = [];
+        if(guest['lastSeenBar'] > Date.now() - 30000){
+            places.push('This person was just seen at the bar');
+        }
+        if(guest['generalAreaEntered'] !== null) {
+            places.push('This person is in the lounge now');
+        }
+        if(guest['vrCount'] > 0){
+            places.push('This person has completed the VR Experience');
+        }
+
+        places.push('This person was here ' + getTimeSince(guest['lastSeen']) + ' ago');
+
+
+        return {fact: places[Math.floor(Math.random()*places.length-1)], person: guest};
+
+
+    });
+}
+
+
+function runRandomSocial(func){
+
+    switch(func){
+        case 0:
+            return getUserWasJustAt();//getUsersWithSharedFriend();
+            break;
+        case 1:
+            return getUsersWithShared('hometown');
+            break;
+        case 2:
+            return getUsersWithShared('hometown');
+            break;
+        case 3:
+            return getUsersWithShared('location');
+            break;
+        case 4:
+            return checkForFriends(localStorage.currentDevice).then(function(friendData){
+                var data = {};
+                var num = Math.floor(Math.random()*friendData.length);
+                data['type'] = 'friend';
+
+                data['person'] = friendData[0]['picture'];
+                data['header'] = 'Your friend ' + friendData[num]['name'] + ' is here';
+                data['name'] = friendData[num]['name'];
+                return data;
+            });
+            break;
+        case 5:
+            return checkForFriends(localStorage.currentDevice).then(function(friendData){
+                var data = {};
+                var num = Math.floor(Math.random()*friendData.length);
+                data['type'] = 'friend';
+
+                data['person'] = friendData[0]['picture'];
+                data['header'] = 'Your friend ' + friendData[num]['name'] + ' is here';
+                data['name'] = friendData[num]['name'];
+                return data;
+            });
+            break;
+        case 6:
+            return checkForFriends(localStorage.currentDevice).then(function(friendData){
+                var data = {};
+                var num = Math.floor(Math.random()*friendData.length);
+                data['type'] = 'friend';
+
+                data['person'] = friendData[0]['picture'];
+                data['header'] = 'Your friend ' + friendData[num]['name'] + ' is here';
+                data['name'] = friendData[num]['name'];
+                return data;
+            });
+            break;
+        case 7:
+            return getUserWasJustAt();
+            break;
+        case 8:
+            return getUsersWithShared('drink_pref');
             break;
     }
 }
 
 
-function chooseFrom(type, data){
-    var keys = Object.keys(data);
-    var chosenKey = keys[keys.length * Math.random() <<0];
-
-    return {
-        header: getSocialHeader(type),
-        name: chosenKey,
-        people: data[chosenKey]
-    };
-}
-
-function fillFarSocial(){
+function fillFarSocial(index, func){
     var socialSource = $('#far-social-template').html();
     var socialTemplate = Handlebars.compile(socialSource);
-    var socialHtml;
+    var socialHtml = null;
 
-    var likesArray = [];
-    var likesObj = {};
-    firebase.database().ref('users/').once('value').then(function(users){
-        users.forEach(function(user){
-            if(user.val()['likes']){
-                likesArray.push(user.val()['likes'].map(function(like){ return {name: like['name'], person: {picture: user.val()['picture'], name: user.val()['username']}}}));
+    runRandomSocial(func).then(function(data){
+        if(data && data['fact']){
+            socialHtml = socialTemplate({
+                header: data['fact'],
+                people: {name: data['person']['username'], picture: data['person']['picture']}
+            });
+        } else if(data){
+            var user = chooseFrom(data['data']);
+            var type, person, header;
+
+            if(data['type'] === 'matchingDrinks' && data['data'][1]) {
+                type = data['data'][1]['prevDrink'];
+                person = {picture: data['data'][1]['person']['picture'], name: data['data'][1]['person']['username']};
+                header = getSocialHeader('matchingDrinks');
+
+                socialHtml = socialTemplate({
+                    header: header,
+                    name: type,
+                    people: person
+                });
+            } else if( data['type'] === 'drink_pref' || data['type'] === 'location' || data['type'] === 'hometown' || data['type'] === 'prevDrink'){
+                if(user && (user[data['type']] !== undefined && user[data['type']] !== '')) {
+                    type = user[data['type']];
+                    person = {picture: user['picture'], name: user['username']};
+                    header = getSocialHeader(data['type']);
+
+                    socialHtml = socialTemplate({
+                        header: header,
+                        name: type,
+                        people: person
+                    });
+                }
+            } else if (data['type'] === 'friend'){
+                socialHtml = socialTemplate({
+                    header: data['header'],
+                    people: {picture: data['person'], name: data['name']}
+                });
             }
-        });
 
-        likesArray = flatten(likesArray);
-        likesArray.forEach(function(like){
-            if(!likesObj[like.name]){
-                likesObj[like.name] = [];
-            }
-            likesObj[like.name].push(like.person);
-        });
+        }
+
+        if(socialHtml === null ||socialHtml['header'] === "" ){
+            firebase.database().ref('users/').once('value').then(function(guests){
+                var guest = chooseFrom(guests.val());
+                socialHtml = socialTemplate({
+                    header: getSocialHeader('generic'),
+                    people: {picture: guest['picture'], name: guest['username']}
+                });
+
+                document.getElementById('menu').style.display = 'none';
+                $('[data-near-social]').hide();
+                $('[data-far-social' + index +']').show();
+                $('[data-far-social' + index +']').html(socialHtml);
+            });
+        } else {
+            document.getElementById('menu').style.display = 'none';
+            $('[data-near-social]').hide();
+            $('[data-far-social' + index +']').show();
+            $('[data-far-social' + index +']').html(socialHtml);
+        }
 
 
-        var sharedLikes = filterForSharedLike(likesObj);
-        var displayedProperty = chooseFrom('like', sharedLikes);
+    });
 
 
-        socialHtml = socialTemplate({
-            header: displayedProperty['header'],
-            name: displayedProperty['name'],
-            people: displayedProperty['people'],
-        });
+    // var likesArray = [];
+    // var likesObj = {};
+    // firebase.database().ref('users/').once('value').then(function(users){
+    //     users.forEach(function(user){
+    //         if(user.val()['likes']){
+    //             likesArray.push(user.val()['likes'].map(function(like){ return {id: like['id'], data: {likeName: like['name'], picture: user.val()['picture'], name: user.val()['username']}}}));
+    //         }
+    //     });
+    //
+    //     likesArray = flatten(likesArray);
+    //     likesArray.forEach(function(like){
+    //         if(!likesObj[like.id]){
+    //             likesObj[like.id] = [];
+    //         }
+    //         likesObj[like.id].push(like.data);
+    //     });
 
 
-        document.getElementById('menu').style.display = 'none';
-        $('[data-near-social]').empty();
-        $('[data-far-social]').html(socialHtml);
-    })
+    //     var sharedLikes = filterForSharedLike(likesObj);
+    //     var displayedProperty = chooseFrom('like', sharedLikes);
+    //
+    //     socialHtml = socialTemplate({
+    //         header: displayedProperty['header'],
+    //         name: displayedProperty['name'],
+    //         people: displayedProperty['people'],
+    //     });
+    //
+    //
+    //     document.getElementById('menu').style.display = 'none';
+    //     $('[data-near-social]').hide();
+    //     $('[data-far-social]').show();
+    //     $('[data-far-social]').html(socialHtml);
+    //
+    // })
 }
+function randomize(array, n) {
+    var final = [];
+    array = array.filter(function(elem, index, self) {
+        return index == self.indexOf(elem);
+    }).sort(function() { return 0.5 - Math.random() });
 
+    var len = array.length,
+        n = n > len ? len : n;
+
+    for(var i = 0; i < n; i ++)
+    {
+        final[i] = array[i];
+    }
+
+    return final;
+}
 
 function fillNearSocial(badgeId){
     var socialSource = $('#near-social-template').html();
     var socialTemplate = Handlebars.compile(socialSource);
 
     checkForFriends(badgeId).then(function(friendData){
-        var names = [];
-        for(var friend of friendData){
-            names.push(friend.name);
+        if(friendData.length  < 3) {
+          var fillAmount = 3 - friendData.length;
+          var remaining = [];
+          firebase.database().ref('users/').once('value').then(function(users){
+              users.forEach(function(user){
+                 remaining.push(user.val());
+              });
+
+              friendData.concat(randomize(remaining, fillAmount));
+
+              socialHtml = socialTemplate({
+                friends: friendData
+              });
+              document.getElementById('menu').style.display = 'block';
+              $('[data-far-social0]').hide();
+              $('[data-far-social1]').hide();
+             // $('[data-far-social2]').hide();
+              $('[data-near-social]').show();
+              $('[data-near-social]').html(socialHtml);
+          });
+
+        } else {
+          socialHtml = socialTemplate({
+            friends: friendData
+          });
+          document.getElementById('menu').style.display = 'block';
+          $('[data-far-social0]').hide();
+          $('[data-far-social1]').hide();
+          //$('[data-far-social2]').hide();
+          $('[data-near-social]').show();
+          $('[data-near-social]').html(socialHtml);
         }
-        socialHtml = socialTemplate({
-            friendNames: names.join(),
-            friend1_img: checkForPicture(friendData, 0),
-            friend2_img: checkForPicture(friendData, 1),
-            friend3_img: checkForPicture(friendData, 2)
-        });
-
-        document.getElementById('menu').style.display = 'block';
-        $('[data-far-social]').empty();
-        $('[data-near-social]').html(socialHtml);
     });
-}
-
-
-function checkForPicture(data, index){
-    if(data[index]){
-        return data[index].picture
-    }
 }
 
 
@@ -374,7 +592,7 @@ function checkForFriends(badgeId) {
     return firebase.database().ref('friends/' + badgeId).once('value').then(function (friends) {
         return firebase.database().ref('users').once('value').then(function (barGuests) {
             friends.forEach(function (friend) {
-                if (barGuests.hasChild(friend.val())) {
+                if (barGuests.hasChild(friend.val()) && barGuests.child(friend.val()).val()['barEntered']) {
                     friendsAtBar.push(friend.val());
                 }
             });
@@ -387,8 +605,6 @@ function checkForFriends(badgeId) {
                 });
             }
             return friendData;
-
-
         });
     });
 }
@@ -397,3 +613,106 @@ function recommendDrink(preference) {
     var keys = Object.keys(drinks[preference]);
     return drinks[preference][keys[keys.length * Math.random() << 0]];
 }
+
+function getUsersWithSharedDrinkHistory(){
+    var matchingDrinks = [];
+    var users = firebase.database().ref('users/');
+
+    return users.once('value').then(function(registeredUsers){
+        var userDrinks = registeredUsers.child(localStorage.currentDevice).val()['drinks'];
+        var keys = Object.keys(userDrinks);
+        var drinkData = [];
+        for(var drink in userDrinks){
+            drinkData.push(userDrinks[drink]['name']);
+        }
+
+        for(var user in registeredUsers.val()){
+            if(registeredUsers.val()[user]['drinks'] && user !== localStorage.currentDevice){
+                var otherDrinkData = [];
+                for(var drink in registeredUsers.val()[user]['drinks']){
+                    otherDrinkData.push(registeredUsers.val()[user]['drinks'][drink]['name']);
+                }
+
+                matchingDrinks = otherDrinkData.map(function(drink){
+                    if(drinkData.includes(drink)){
+                        return {prevDrink: drink, person: registeredUsers.child(user).val()};
+                    }
+                });
+            }
+        }
+
+        return {type: 'matchingDrinks', data: matchingDrinks};
+    });
+}
+
+
+function getUsersWithSharedFriend(){
+    var matchingFriends = [];
+    var friendsRef = firebase.database().ref('friends/');
+
+    return friendsRef.once('value').then(function(friendsLists) {
+        return firebase.database().ref('users/').once('value').then(function(users){
+            var userFriends = friendsLists.child(localStorage.currentDevice).val();
+            var keys = Object.keys(userFriends);
+            var friendBadges = [];
+
+            keys.map(function(friend){
+                friendBadges.push(userFriends[friend]);
+            });
+
+            console.log(friendBadges);
+//
+            friendBadges.map(function(friend){
+                var facebookId = users.child(friend).child('facebookId').val();
+                var others = [];
+
+                var otherFriends = friendsLists.child(friend).val();
+                var otherKeys = Object.keys(otherFriends);
+                otherKeys.map(function(person){
+                    others.push(otherFriends[person]);
+                });
+
+                matchingFriends = others.map(function(mutualFriend){
+                    if(friendBadges.includes(mutualFriend)){
+                        return {friend: users.child(friend).val(), mutualFriend: users.child(mutualFriend).val()};
+                    }
+                });
+
+                return {type: 'mutualFriends', data: Array.from(new Set(matchingFriends))};
+            });
+        });
+
+    });
+}
+
+function getUsersWithShared(property){
+    var peopleWithProperty = [];
+    var users = firebase.database().ref('users/');
+
+    return users.once('value').then(function(registeredUsers){
+        var userVal = registeredUsers.child(localStorage.currentDevice).child(property).val();
+
+        for(var user in registeredUsers.val()){
+            if(registeredUsers.val()[user][property] === userVal && user !== localStorage.currentDevice){
+                peopleWithProperty.push( registeredUsers.val()[user] );
+            }
+        }
+
+        return {type: property, data: peopleWithProperty};
+    });
+}
+
+
+function getTimeSince(time) {
+    var timeDiff = new Date(Date.now() - time);
+    return timeDiff.getUTCHours() * 60 + timeDiff.getUTCMinutes() + " mins";
+}
+
+
+
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+    if(v1 < v2) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+});

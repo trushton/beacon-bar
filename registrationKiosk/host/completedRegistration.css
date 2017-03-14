@@ -8,7 +8,7 @@
     color: #FFFFFF;
     position: absolute;
     left: 441px;
-    top: 92px;
+    top: 3rem;
 }
 
 #thankYouBanner{
@@ -16,7 +16,7 @@
     height: 234px;
     background-color: #139DD8;
     position: absolute;
-    top:25%;
+    top: 8rem;
     left:10%;
 }
 
@@ -39,7 +39,7 @@
     height: 300px;
     border-radius: 50%;
     position: fixed;
-    top: 20%;
+    top: 6rem;
     left: 3%;
 }
 
@@ -57,10 +57,10 @@
 
 #social{
     width: 700px;
-    height: 190px;
+    height: 7rem;
     background-color: #139DD8;
     position: fixed;
-    top: 58%;
+    top: 23rem;
     right: 4%;
     text-align: center;
     border: 2px solid #FFFFFF;

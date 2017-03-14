@@ -13,9 +13,10 @@
     <main role="main">
         <div id="near" style="display: none">
             <div id="device">
-                <div id='immediateBanner'><p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
+                <div id='immediateBanner'><p class='noStyle'>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p></div>
                 <button id="register" onclick="login()">Register your badge with Facebook</button>
                 <div id="dataProtection"><p>We don't save the login data, we just tie your beacon ID to Facebook Connect for an app-free-experience!</p></div>
+                <p id="alternative"></p>
             </div>
 
             <div id="returnVisit"></div>
@@ -29,6 +30,7 @@
             </div>
             <div id='subtext'>
                 <p>Attach your Facebook ID to find friends inside, meet new ones & speed up the bar line!</p>
+
             </div>
         </div>
     </main>
@@ -37,16 +39,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-
                     <div class="bar-footer-logos">
                         <div class="logo">
                             <img src="walmart.png" alt="walmart">
                         </div>
                         <div class="logo">
                             <img src="capitalfactory.png" alt="capitalfactory">
-                        </div>
-                        <div class="logo">
-                            <img src="bluvision.png" alt="bluvision">
                         </div>
                         <div class="logo">
                             <img src="newaer.png" alt="newaer">
@@ -60,8 +58,15 @@
         </div>
     </footer>
 
+    <script src="https://apis.google.com/js/client:plusone.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
     <script>
+
+
+
+
+
+
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyCvDt__-j-koRzjvYOtlXmMjcjHrX9SPho",
@@ -75,6 +80,32 @@
     </script>
 
     <script>
+        function start(){
+
+            gapi.client.init({
+                'apiKey': 'AIzaSyBSAtDU5qrO_nLhi0jkgZ2yVOQawWuGmwg'
+            }).then(function(){
+                gapi.client.load('urlshortener', 'v1').then(function(){
+                    var deviceId = localStorage.currentDevice;
+                    var longUrl = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_hometown,user_location,user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref_mobile.html%3FdeviceId=" +deviceId;
+                    var request = gapi.client.urlshortener.url.insert({
+                        'resource': {
+                            'longUrl': longUrl
+                        }
+                    });
+                    request.execute(function(response){
+                        if(response.id != null){
+                            var shorter = response.id.replace(/(^\w+:|^)\/\//, '');
+                            $('#alternative').html("<h3 class='noStyle'>To sign in on your mobile device:</h3><h1 class='noStyle'>" + shorter + "</h1>");
+                        }
+                    });
+                });
+            });
+        }
+
+        gapi.load('client', start);
+
+
         function login() {
             var deviceId = localStorage.currentDevice;
             window.location = "https://www.facebook.com/v2.8/dialog/oauth?client_id=988112061288748&response_type=token&scope=user_hometown,user_location,user_likes,user_friends&redirect_uri=http://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/drink_pref.html%3FdeviceId=" + deviceId;

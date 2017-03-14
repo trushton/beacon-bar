@@ -41,6 +41,7 @@
 /** global */
 
 body {
+    height: 1012px;
     background: url('mainBackground.png') top center no-repeat fixed;
     -webkit-background-size: cover;
     background-size: cover;

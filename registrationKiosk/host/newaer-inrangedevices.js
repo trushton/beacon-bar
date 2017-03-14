@@ -81,7 +81,7 @@ function NAUpdate(devicesPresent)
 
             var ref = firebase.database().ref('users/');
             ref.once('value').then(function(snapshot){
-                if(snapshot.hasChild(badge) && snapshot.child(badge).hasChild('username')) {
+                if(snapshot.hasChild(badge) && snapshot.child(badge).hasChild('username') && highRssi > -70) {
                     var user = snapshot.child(badge);
 
 
@@ -106,7 +106,7 @@ function NAUpdate(devicesPresent)
                                 "<a href='#' style='color: white' onclick='removeAccount()'>Delete account</a>" +
                             "</div>" +
                             "<div id='refreshAccount'>" +
-                                "<a href='#' style='color: white' onclick='login()'>Refresh account</a>" +
+                                "<a href='#' style='color: white' onclick='login()'>Reassign account</a>" +
                             "</div>" +
 
                         "</div>"

@@ -62,50 +62,115 @@
     position: fixed;
     width: 150px;
     height: 150px;
-    top: 111px;
-    left: 89px;
+    top: 91px;
+    left: 79px;
+    z-index: 1;
+}
+
+.person-0-name {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 230px;
+    left: 79px;
+    text-align: center;
+    z-index: 3;
 }
 
 .person-1-img {
     position: fixed;
     width: 150px;
     height: 150px;
-    top: 162px;
-    left: 848px;
+    top: 142px;
+    left: 818px;
+    z-index: 1;
+}
+
+.person-1-name {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 280px;
+    left: 818px;
+    text-align: center;
+    z-index: 3;
 }
 
 .person-2-img {
     position: fixed;
     width: 150px;
     height: 150px;
-    top: 406px;
-    left: 37px;
+    top: 386px;
+    left: 27px;
+    z-index: 1;
+}
+
+.person-2-name {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 526px;
+    left: 27px;
+    text-align: center;
+    z-index: 3;
 }
 
 .person-3-img {
     position: fixed;
     width: 150px;
     height: 150px;
-    top: 251px;
-    left: 471px;
+    top: 231px;
+    left: 461px;
+    z-index: 1;
+}
+
+.person-3-name {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 371px;
+    left: 461px;
+    text-align: center;
+    z-index: 3;
 }
 
 .person-4-img {
     position: fixed;
     width: 150px;
     height: 150px;
-    top: 510px;
-    left: 362px;
+    top: 480px;
+    left: 352px;
+    z-index: 1;
+}
+
+.person-4-name {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 620px;
+    left: 352px;
+    text-align: center;
+    z-index: 3;
 }
 
 .person-5-img {
     position: fixed;
     width: 150px;
     height: 150px;
-    top: 500px;
-    left: 781px;
+    top: 480px;
+    left: 771px;
+    z-index: 1;
 }
 
+.person-5-name {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    top: 620px;
+    left: 771px;
+    text-align: center;
+    z-index: 3;
+}
 /* Images for web */
 
 .person-0-img-web {
@@ -114,6 +179,7 @@
     height: 150px;
     top: 309px;
     left: 437px;
+    z-index: 1;
 }
 
 .person-1-img-web {
@@ -122,6 +188,7 @@
     height: 100px;
     top: 16px;
     left: 462px;
+    z-index: 1;
 }
 
 .person-2-img-web {
@@ -130,6 +197,7 @@
     height: 100px;
     top: 87px;
     left: 713px;
+    z-index: 1;
 }
 
 .person-3-img-web {
@@ -138,6 +206,7 @@
     height: 100px;
     top: 334px;
     left: 824px;
+    z-index: 1;
 }
 
 .person-4-img-web {
@@ -146,6 +215,7 @@
     height: 100px;
     top: 602px;
     left: 730px;
+    z-index: 1;
 }
 
 .person-5-img-web {
@@ -154,6 +224,7 @@
     height: 100px;
     top: 648px;
     left: 462px;
+    z-index: 1;
 }
 
 .person-6-img-web {
@@ -162,6 +233,7 @@
     height: 100px;
     top: 602px;
     left: 193px;
+    z-index: 1;
 }
 
 .person-7-img-web {
@@ -170,6 +242,7 @@
     height: 100px;
     top: 334px;
     left: 100px;
+    z-index: 1;
 }
 
 .person-8-img-web {
@@ -178,6 +251,7 @@
     height: 100px;
     top: 87px;
     left: 197px;
+    z-index: 1;
 }
 
 /* Line CSS - Web */
@@ -259,7 +333,7 @@
 
 #box-0-4-web {
     top: 485px;
-    left: 599px;
+    left: 899px;
 }
 
 #box-0-5-web {
@@ -321,8 +395,8 @@
 
 #line-0-1 {
     width: 627px;
-    left: 236px;
-    top: 175px;
+    left: 226px;
+    top: 155px;
     -ms-transform: rotate(3deg);
     -webkit-transform: rotate(3deg);
     transform: rotate(3deg);
@@ -330,8 +404,8 @@
 
 #line-0-2 {
     width: 149px;
-    left: 63px;
-    top: 332px;
+    left: 53px;
+    top: 312px;
     -ms-transform: rotate(-78deg);
     -webkit-transform: rotate(-78deg);
     transform: rotate(-78deg);
@@ -339,8 +413,8 @@
 
 #line-0-3 {
     width: 263px;
-    left: 227px;
-    top: 248px;
+    left: 217px;
+    top: 228px;
     -ms-transform: rotate(13deg);
     -webkit-transform: rotate(13deg);
     transform: rotate(13deg);
@@ -348,8 +422,8 @@
 
 #line-0-4 {
     width: 332px;
-    left: 137px;
-    top: 382px;
+    left: 127px;
+    top: 362px;
     -ms-transform: rotate(55deg);
     -webkit-transform: rotate(55deg);
     transform: rotate(55deg);
@@ -357,8 +431,8 @@
 
 #line-1-3 {
     width: 235px;
-    left: 619px;
-    top: 281px;
+    left: 609px;
+    top: 261px;
     -ms-transform: rotate(-11deg);
     -webkit-transform: rotate(-11deg);
     transform: rotate(-11deg);
@@ -366,8 +440,8 @@
 
 #line-1-5 {
     width: 196px;
-    left: 799px;
-    top: 405px;
+    left: 789px;
+    top: 385px;
     -ms-transform: rotate(-77deg);
     -webkit-transform: rotate(-77deg);
     transform: rotate(-77deg);
@@ -375,8 +449,8 @@
 
 #line-2-4 {
     width: 198px;
-    left: 173px;
-    top: 541px;
+    left: 163px;
+    top: 521px;
     -ms-transform: rotate(25deg);
     -webkit-transform: rotate(25deg);
     transform: rotate(25deg);
@@ -384,8 +458,8 @@
 
 #line-3-4 {
     width: 130px;
-    left: 427px;
-    top: 453px;
+    left: 417px;
+    top: 433px;
     -ms-transform: rotate(-68deg);
     -webkit-transform: rotate(-68deg);
     transform: rotate(-68deg);
@@ -393,8 +467,8 @@
 
 #line-3-5 {
     width: 247px;
-    left: 571px;
-    top: 456px;
+    left: 561px;
+    top: 436px;
     -ms-transform: rotate(38deg);
     -webkit-transform: rotate(38deg);
     transform: rotate(38deg);
@@ -402,59 +476,59 @@
 
 #line-4-5 {
     width: 269px;
-    left: 512px;
-    top: 574px;
+    left: 502px;
+    top: 554px;
     -ms-transform: rotate(175deg);
     -webkit-transform: rotate(175deg);
     transform: rotate(175deg);
 }
 
 #box-0-1 {
-    top: 150px;
-    left: 520px;
+    top: 130px;
+    left: 510px;
 }
 
 #box-0-2 {
-    top: 307px;
-    left: 76px;
+    top: 287px;
+    left: 66px;
 }
 
 #box-0-3 {
-    top: 219px;
-    left: 299px;
+    top: 199px;
+    left: 289px;
 }
 
 #box-0-4 {
-    top: 363px;
-    left: 240px;
+    top: 343px;
+    left: 230px;
 }
 
 #box-1-3 {
-    top: 250px;
-    left: 670px;
+    top: 230px;
+    left: 660px;
 }
 
 #box-1-5 {
-    top: 378px;
-    left: 834px;
+    top: 358px;
+    left: 824px;
 }
 
 #box-2-4 {
-    top: 520px;
-    left: 200px;
+    top: 500px;
+    left: 190px;
 }
 
 #box-3-4 {
-    top: 418px;
-    left: 426px;
+    top: 425px;
+    left: 416px;
 }
 
 #box-3-5 {
-    top: 420px;
-    left: 648px;
+    top: 400px;
+    left: 638px;
 }
 
 #box-4-5 {
-    top: 555px;
-    left: 588px;
+    top: 535px;
+    left: 578px;
 }

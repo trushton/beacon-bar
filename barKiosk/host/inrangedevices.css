@@ -1,5 +1,13 @@
+body{
+    height:1012px;
+}
+
+main{
+    margin-top: -3rem;
+}
+
 .menu-section {
-    font-size: .8125em;
+    font-size: 1.20rem;
 }
 
 .menu-section-head {
@@ -16,9 +24,14 @@
     margin-bottom: .31rem;
 }
 
+.people-name {
+    font-size: 1.20em;
+}
+
 .social-greeting {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 500;
+    margin-bottom: 0.25rem
 }
 
 .social-far-header {
@@ -59,6 +72,16 @@
     margin-top:0;
 
 }
+
+.bottom-fix-40 {
+    padding-top: 40px;
+}
+
+.bottom-fix-35 {
+    padding-top: 35px;
+}
+
+
 
 #recommendation{
     display:inline-block;
@@ -125,4 +148,8 @@
 #triangle{
     position: absolute;
     bottom: 100%;
+}
+
+#logo-center{
+    text-align: center;
 }

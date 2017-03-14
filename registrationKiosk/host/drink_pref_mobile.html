@@ -7,38 +7,44 @@
     <link rel="stylesheet" href="jquery.dataTables.min.css" type="text/css" />
     <link rel="stylesheet" href="common.css" type="text/css" />
     <link rel="stylesheet" href="inrangedevices.css" type="text/css" />
-    <link rel="stylesheet" href="drink_pref_styles.css" type="text/css" />
+    <link rel="stylesheet" href="drink_pref_mobile_styles.css" type="text/css" />
 </head>
 
 <body>
     <main role="main">
         <p id="question">What is your libation of choice?</p>
     <table id="options" class="drinks-table">
-        <td>
-            <input type="radio" id="drink-1" name="drink" value="vodka">
-            <label for="drink-1">Vodka</label>
-        </td>
+        <tr style="width: 100%">
+            <td>
+                <input type="radio" id="drink-1" name="drink" value="vodka">
+                <label for="drink-1">Vodka</label>
+            </td>
+        </tr>
 
+        <tr>
         <td>
             <input type="radio" id="drink-2" name="drink" value="whiskey">
             <label for="drink-2">Whiskey</label>
         </td>
-
+        </tr>
+        <tr>
         <td>
             <input type="radio" id="drink-3" name="drink" value="beer">
             <label for="drink-3">Beer</label>
         </td>
-
+        </tr>
+        <tr>
         <td>
             <input type="radio" id="drink-4" name="drink" value="red wine">
             <label for="drink-4">Red Wine</label>
         </td>
-
+        </tr>
+        <tr>
         <td>
             <input type="radio" id="drink-5" name="drink" value="white wine">
             <label for="drink-5">White Wine</label>
         </td>
-
+        </tr>
         <!--<td><input class="drink" name="drink" type="button" value="vodka" onclick="finishRegistration(value)"></td>
         <td><input class="drink" name="drink" type="button" value="whiskey" onclick="finishRegistration(value)"></td>
         <td><input class="drink" name="drink" type="button" value="beer" onclick="finishRegistration(value)"></td>
@@ -60,9 +66,6 @@
                         </div>
                         <div class="logo">
                             <img src="capitalfactory.png" alt="capitalfactory">
-                        </div>
-                        <div class="logo">
-                            <img src="bluvision.png" alt="bluvision">
                         </div>
                         <div class="logo">
                             <img src="newaer.png" alt="newaer">
@@ -103,7 +106,7 @@
             firebase.database().ref('users/'+ badge).update({
                 drink_pref: drink_pref.toLowerCase()
             }).then(function(){
-                window.location = "https://www.facebook.com/logout.php?&access_token=" + tokenResults[2] + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistration.html%3Fbadge=" + badge;
+                window.location = "https://www.facebook.com/logout.php?&access_token=" + tokenResults[2] + "&next=https://beacon-bar-file-server.herokuapp.com/registrationKiosk/host/completedRegistrationMobile.html%3Fbadge=" + badge;
             });
         }
 
@@ -175,10 +178,6 @@
             if(data.location){ location = data.location.name;}
             if(data.hometown){ hometown = data.hometown.name;}
             if(data.cover){ cover = data.cover.source.toString(); }
-            if(data.picture.data.url.toString() === "https://scontent.xx.fbcdn.net/v/t1.0-1/s200x200/10354686_10150004552801856_220367501106153455_n.jpg?oh=1e16b977fbf259fc86e4acd08030af2b&oe=59613650"){
-                // THIS IS A HACK TO IGNORE USERS WITH DEFAULT IMAGE URL
-                return;
-            }
 
             likes = processLikes(likes);
 

@@ -1,0 +1,80 @@
+/* Custom radios */
+
+input[type="radio"] {
+    display: none;
+}
+
+/* default radio aspect */
+input[type="radio"] + label {
+    border: 2px solid #fff;
+    display: inline-block;
+    color: #fff;
+    padding: 5px 10px;
+    width: 93%;
+    text-align: center;
+    height: 100px;
+    font-size: 4rem;
+
+}
+
+/* selected radio aspect */
+input[type="radio"]:checked + label {
+    background-color: #139DD8;
+    border-color: #139DD8;
+}
+
+.drinks-table {
+    margin: 0 auto;
+}
+
+.drinks-table td {
+    padding: 10px;
+}
+
+#question {
+    width: 100%;
+    height: 53px;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 45px;
+    font-style: italic;
+    line-height: 53px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 130px;
+    text-align: center;
+    margin: auto;
+}
+
+#options{
+    position: fixed;
+    top: 200px;
+    width: 100%;
+    margin-left: 3%;
+}
+
+.drink {
+    width: 190px;
+    height: 60px;
+    border: 2px solid #FFFFFF;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 20px;
+    font-style: italic;
+    line-height: 24px;
+    color: #FFFFFF;
+    background: rgba(19, 157, 216, 0);
+}
+
+#next{
+    width: 200px;
+    background-color: #139DD8;
+    position: fixed;
+    float: right;
+    font-family: "Akzidenz Grotesk BQ";
+    font-size: 2rem;
+    font-style: italic;
+    line-height: 60px;
+    color: #FFFFFF;
+    text-align: center;
+    bottom: 15%;
+    right: 3%;
+}

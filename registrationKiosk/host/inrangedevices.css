@@ -181,3 +181,13 @@
     font-size: large;
     display: inline
 }
+#alternative{
+    margin-top: 10rem;
+    text-align: center;
+    width:100%;
+    
+}
+
+.noStyle{
+    font-style: normal;
+}

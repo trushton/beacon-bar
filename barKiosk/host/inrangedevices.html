@@ -27,9 +27,9 @@
 
             <div class="row">
                 <!-- left col -->
-                <div class="col-xs-6" id="menu">
+                <div class="col-xs-8" id="menu">
 
-                    <section class="menu-section">
+                    <section class="menu-section col-xs-6">
                         <div class="menu-section-head">
                             <span class="bar-label">Beer</span>
                         </div>
@@ -50,7 +50,7 @@
                         </div>
                     </section>
 
-                    <section class="menu-section">
+                    <section class="menu-section col-xs-6">
                         <div class="menu-section-head">
                             <span class="bar-label">Wine</span>
                         </div>
@@ -70,39 +70,39 @@
                         </div>
                     </section>
 
-                    <section class="menu-section">
+                    <section class="menu-section col-xs-12">
                         <div class="menu-section-head">
                             <span class="bar-label">Cocktails</span>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">The Spark</div>
+                                    TX Blended Whiskey, Sweet N Sour
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
                                 <div class="menu-item">
                                     <div class="menu-item-title">Moscow Mule</div>
-                                    Tito's Vodka, Gingerbeer, and Lime
+                                    Tito's Vodka, Ginger Beer, and Lime
                                 </div>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
+                                <div class="menu-item">
+                                    <div class="menu-item-title">Ladybird Lemonade</div>
+                                    Tito's Vodka, Lemonade, and Blue Curacao
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
                                 <div class="menu-item">
                                     <div class="menu-item-title">Texas Sipper</div>
-                                    Tito's Vodka, St. Germaine, Grapefruit Juice, Mint, and Topo Chico
+                                    Tito's Vodka, Elderflower, Grapefruit Juice, Mint, and Topo Chico
                                 </div>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-xs-4">
                                 <div class="menu-item">
                                     <div class="menu-item-title">Texas Tea</div>
                                     TX Blended Whiskey, Sweet Tea, and Pomegranate Juice
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Walmart Blue</div>
-                                    Tito's Vodka, Lemonade, and Blue Cuacao
-                                </div>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="menu-item">
-                                    <div class="menu-item-title">Walmart Yellow</div>
-                                    TX Blended Whiskey, Sweet N Sour
                                 </div>
                             </div>
                         </div>
@@ -111,28 +111,48 @@
                 </div>
 
                 <!-- right col -->
-                <div class="col-xs-6" data-near-social></div>
+                <div class="col-xs-4" data-near-social></div>
 
                  <!--whole bottom section-->
-                <div class="col-xs-12" data-far-social></div>
+                <div class="col-xs-6" data-far-social0></div>
+                <div class="col-xs-6" data-far-social1></div>
+                <!--<div class="col-xs-4" data-far-social2></div>-->
             </div>
         </div>
     </main>
+
+    <!--<footer class="bar-footer">-->
+        <!--<div class="container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-xs-12">-->
+
+                      <!--<div style="text-align: center" class="logo col-xs-3 bottom-fix-35">-->
+                          <!--<img src="walmart.png" alt="walmart">-->
+                      <!--</div>-->
+                      <!--<div style="text-align: center" class="logo col-xs-3">-->
+                          <!--<img src="capitalfactory.png" alt="capitalfactory">-->
+                      <!--</div>-->
+                      <!--<div style="text-align: center" class="logo col-xs-3 bottom-fix-35">-->
+                          <!--<img src="newaer.png" alt="newaer">-->
+                      <!--</div>-->
+                      <!--<div style="text-align: center" class="logo col-xs-3 bottom-fix-40">-->
+                          <!--<img src="originate.png" alt="originate">-->
+                      <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</footer>-->
 
     <footer class="bar-footer">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-
                     <div class="bar-footer-logos">
                         <div class="logo">
                             <img src="walmart.png" alt="walmart">
                         </div>
                         <div class="logo">
                             <img src="capitalfactory.png" alt="capitalfactory">
-                        </div>
-                        <div class="logo">
-                            <img src="bluvision.png" alt="bluvision">
                         </div>
                         <div class="logo">
                             <img src="newaer.png" alt="newaer">
@@ -154,8 +174,8 @@
                 </div>
                 <div class="highlight-body">
                     <h2 class="highlight-title">
-                        Welcome to the Bar, {{guestName}}.<br>You've been here {{visitCount}} times. <br>
-                        Have a {{recommendedDrink.name}}!
+                        Welcome to the Bar, {{guestName}}.<br>
+                        We recommend {{recommendedDrink.name}}!
                     </h2>
                 </div>
             </div>
@@ -170,41 +190,36 @@
                 {{/if}}
             </h3>
             <ul class="social-friends-list">
-                {{#each people}}
+                {{#if people}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
-                    <p>{{this.name}}</p>
-
+                    {{#if people.picture}}
+                    <img class="img-circle friend-avatar" src="{{people.picture}}" alt="bob">
+                    {{/if}}
+                    <p style="font-weight:500" class="people-name">{{people.name}}</p>
                 </li>
-                {{/each}}
+                {{/if}}
             </ul>
         </div>
     </script>
 
     <script id="near-social-template" type="text/x-handlebars-template">
         <div>
+
+            {{#if friends}}
             <h3 class="social-greeting">
-                {{#if friendNames}}
-                Happy to see you and {{friendNames}} having a drink together!
-                {{/if}}
+                Happy to see you and your friends having a drink together!
             </h3>
             <ul class="social-friends-list">
-                {{#if friend1_img}}
+                {{#each friends}}
+                {{#ifCond @index 3}}
                 <li>
-                    <img class="img-circle friend-avatar" src="{{friend1_img}}" alt="bob">
+                    <img class="img-circle friend-avatar" src="{{this.picture}}" alt="bob">
+                    <p class="people-name">{{this.name}}</p>
                 </li>
-                {{/if}}
-                {{#if friend2_img}}
-                <li>
-                    <img class="img-circle friend-avatar" src="{{friend2_img}}" alt="bob">
-                </li>
-                {{/if}}
-                {{#if friend3_img}}
-                <li>
-                    <img class="img-circle friend-avatar" src="{{friend3_img}}" alt="bob">
-                </li>
-                {{/if}}
+                {{/ifCond}}
+                {{/each}}
             </ul>
+            {{/if}}
         </div>
     </script>
 

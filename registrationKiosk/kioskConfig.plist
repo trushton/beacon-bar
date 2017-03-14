@@ -49,9 +49,12 @@
 		<string>mainBackground.png</string>
 		<string>Page1.png</string>
 		<string>completedRegistration.html</string>
+		<string>completedRegistrationMobile.html</string>
 		<string>completedRegistration.js</string>
 		<string>completedRegistration.css</string>
 		<string>drink_pref.html</string>
+		<string>drink_pref_mobile.html</string>
+		<string>drink_pref_mobile_styles.css</string>
 		<string>drink_pref.js</string>
 		<string>drink_pref_styles.css</string>
 		<string>inrangedevices.html</string>
